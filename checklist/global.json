@@ -1,0 +1,205 @@
+[
+  {
+    "stt": 1,
+    "code": "OTG-INFO-001",
+    "task": "Conduct Search Engine Discovery and Reconnaissance for Information Leakage",
+    "detail": "Sử dụng Google Dorking để tìm thông tin rò rỉ về ứng dụng.\r\nCách test:\r\n1. Tìm kiếm trên Google với operators: site:target.com filetype:pdf, site:target.com inurl:admin\r\n2. Tìm kiếm trên Shodan, Censys, ZoomEye cho target IP/domain.\r\n3. Tìm kiếm trên GitHub, GitLab cho source code, API keys, credentials.\r\n4. Tìm kiếm Pastebin, Dark Web cho dữ liệu rò rỉ.\r\n5. Kiểm tra Google Cache cho các trang đã xóa.\r\n6. Sử dụng GHDB (Google Hacking Database) cho các query mẫu.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 2,
+    "code": "OTG-INFO-002",
+    "task": "Fingerprint Web Server",
+    "detail": "Xác định web server và version.\r\nCách test:\r\n1. Kiểm tra HTTP response headers: Server, X-Powered-By, X-AspNet-Version\r\n2. Sử dụng netcat/curl để gửi request sai và phân tích response.\r\n3. Sử dụng tool fingerprint: httprint, WhatWeb, Wappalyzer, BuiltWith.\r\n4. Phân biệt: Apache (Server header pattern), Nginx, IIS, Tomcat.\r\n5. Kiểm tra response page 404 error page khác nhau giữa các server.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 3,
+    "code": "OTG-INFO-003",
+    "task": "Review Webserver Metafiles for Information Leakage",
+    "detail": "Kiểm tra robots.txt, sitemap.xml, security.txt, crossdomain.xml for thông tin nhạy cảm.\r\nCách test:\r\n1. Truy cập /robots.txt → xem có Disallow paths chứa admin, config, backup không?.\r\n2. Truy cập /sitemap.xml → xem có URL nhạy cảm không.\r\n3. Kiểm tra /security.txt (thông tin liên hệ bảo mật theo RFC 9116).\r\n4. Kiểm tra /crossdomain.xml, /clientaccesspolicy.xml (Flash/Silverlight policy).\r\n5. Kiểm tra /humans.txt, /ads.txt.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 4,
+    "code": "OTG-INFO-004",
+    "task": "Enumerate Applications on Webserver",
+    "detail": "Khám phá các ứng dụng/subdomain đang chạy trên cùng server.\r\nCách test:\r\n1. Brute force subdomain: subdomains-top1million-5000.txt.\r\n2. Brute force directory: common web app paths (/wp-admin, /joomla, /api).\r\n3. Kiểm tra virtual host routing: gửi Host header khác nhau.\r\n4. Sử dụng DNS enumeration: dnsrecon, dnsenum.\r\n5. Kiểm tra SSL certificate SAN/CN fields cho domain khác.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 5,
+    "code": "OTG-INFO-005",
+    "task": "Review Webpage Comments and Metadata for Information Leakage",
+    "detail": "Kiểm tra nội dung trang web cho thông tin nhạy cảm rò rỉ.\r\nCách test:\r\n1. Xem HTML comments: <!-- TODO: fix security hole -->\r\n2. Kiểm tra JavaScript files: tìm API keys, internal URLs, credentials.\r\n3. Kiểm tra hidden fields trong form: <input type=\"hidden\" value=\"secret\">\r\n4. Xem source code: tìm email, số điện thoại, internal IP, version strings.\r\n5. Kiểm tra error pages: có lộ path, connection string, version không?.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 6,
+    "code": "OTG-INFO-006",
+    "task": "Identify application entry points",
+    "detail": "Xác định tất cả entry point của ứng dụng.\r\nCách test:\r\n1. Crawl toàn bộ ứng dụng để tìm tất cả URL endpoints.\r\n2. Ghi lại tất cả tham số: GET, POST, Cookie, Header.\r\n3. Xác định HTTP methods được sử dụng cho mỗi endpoint.\r\n4. Phân tích API endpoints: REST, SOAP, GraphQL.\r\n5. Kiểm tra file upload endpoints, WebSocket connections.\r\n6. Ghi lại Content-Type được chấp nhận (JSON, XML, form-data).",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 7,
+    "code": "OTG-INFO-007",
+    "task": "Map execution paths through application",
+    "detail": "Vẽ luồng thực thi của ứng dụng (multi-step processes).\r\nCách test:\r\n1. Xác định các luồng: login, register, forgot password, checkout, transfer.\r\n2. Map từng bước trong mỗi workflow (request → response → next request).\r\n3. Xác định state management giữa các bước (CSRF token, session, nonce).\r\n4. Kiểm tra có thể skip bước nào không (forced browsing).\r\n5. Ghi lại tất cả hidden parameters giữa các bước.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 8,
+    "code": "OTG-INFO-008",
+    "task": "Fingerprint Web Application Framework",
+    "detail": "Xác định web framework và version.\r\nCách test:\r\n1. Phân tích cookie: ASP.NET_SessionId, PHPSESSID, JSESSIONID, rails_session.\r\n2. Phân tích URL patterns: .jsp, .aspx, .php, .do, .action.\r\n3. Kiểm tra response headers: X-Powered-By, X-Runtime, X-Framework.\r\n4. Kiểm tra default file paths: /WEB-INF/web.xml, /wp-content/, /assets/.\r\n5. Sử dụng WhatWeb, Wappalyzer, BuiltWith.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 9,
+    "code": "OTG-INFO-009",
+    "task": "Fingerprint Web Application",
+    "detail": "Xác định ứng dụng cụ thể (CMS, framework, thư viện).\r\nCách test:\r\n1. Kiểm tra unique paths: /_cpanel, /phpmyadmin, /administrator.\r\n2. Kiểm tra unique file: /license.txt, /readme.html (WordPress).\r\n3. Kiểm tra version trong JS/CSS paths: /assets/v1.2.3/app.js.\r\n4. Kiểm tra response headers có version không.\r\n5. Sử dụng tool fingerprint CMS: CMSeek, WPScan, JoomScan.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 10,
+    "code": "OTG-INFO-010",
+    "task": "Map Application Architecture",
+    "detail": "Vẽ kiến trúc tổng thể của ứng dụng.\r\nCách test:\r\n1. Xác định load balancer / reverse proxy (cookies, headers).\r\n2. Kiểm tra CDN: Cloudflare, Akamai, Fastly (response headers).\r\n3. Xác định database type: từ error messages, SQL injection.\r\n4. Xác định server-side includes, SSI, ESI.\r\n5. Xác định third-party services: payment gateway, email, analytics.\r\n6. Kiểm tra internal IP disclosure qua headers: X-Forwarded-For, X-Real-IP.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 11,
+    "code": "OTG-CONFIG-001",
+    "task": "Test Network Infrastructure Configuration",
+    "detail": "Kiểm tra cấu hình mạng.\r\nCách test:\r\n1. Port scan: Nmap scan tất cả ports (1-65535).\r\n2. Xác định service trên mỗi port open.\r\n3. Kiểm tra firewall rules: có thể bypass qua alternate ports không?\r\n4. Kiểm tra IPS/IDS có phát hiện scan không.\r\n5. Kiểm tra các service không cần thiết: FTP, Telnet, SNMP, SMTP.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 12,
+    "code": "OTG-CONFIG-002",
+    "task": "Test Application Platform Configuration",
+    "detail": "Kiểm tra cấu hình platform.\r\nCách test:\r\n1. Kiểm tra default / common paths: /manager/html (Tomcat), /admin (JBoss).\r\n2. Kiểm tra không có default credentials.\r\n3. Kiểm tra PHP ini settings: expose_php, display_errors.\r\n4. Kiểm tra ASP.NET config: customErrors mode, tracing enabled.\r\n5. Kiểm tra .htaccess / web.config có lộ thông tin không.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 13,
+    "code": "OTG-CONFIG-003",
+    "task": "Test File Extensions Handling for Sensitive Information",
+    "detail": "Kiểm tra xử lý extension file.\r\nCách test:\r\n1. Thử access /file.nonexistent, /file.asp, /file.aspx, /file.jsp\r\n2. Kiểm tra backup files: /file.bak, /file.old, /file.save, /file~\r\n3. Thử access source code: /file.php~, /file.php.bak, /file.php.swp\r\n4. Kiểm tra directory listing: /images/, /css/, /js/\r\n5. Thử extension không được xử lý: /config.xml, /config.json, /config.yaml",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 14,
+    "code": "OTG-CONFIG-004",
+    "task": "Review Old, Backup and Unreferenced Files for Sensitive Information",
+    "detail": "Tìm file backup, source code cũ, file không tham chiếu.\r\nCách test:\r\n1. Brute force common backup names: backup.zip, backup.tar.gz, app.rar\r\n2. Kiểm tra source control: /.git/config, /.svn/entries, /CVS/Root\r\n3. Kiểm tra IDE files: /.idea/workspace.xml, /.vs/ProjectSettings.json\r\n4. Kiểm tra logs: /error.log, /access.log, /debug.log\r\n5. Kiểm tra temp files: /temp/, /tmp/, /uploads/~temp\r\n6. Nếu tìm thấy .git → có thể dump toàn bộ source code (GitHack, GitTools).",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 15,
+    "code": "OTG-CONFIG-005",
+    "task": "Enumerate Infrastructure and Application Admin Interfaces",
+    "detail": "Tìm giao diện quản trị.\r\nCách test:\r\n1. Brute force admin paths: /admin, /administrator, /backend, /cp, /manage\r\n2. Kiểm tra port khác nhau: :8080, :8443, :9090 (admin port).\r\n3. Kiểm tra subdomain: admin.target.com, cpanel.target.com\r\n4. Kiểm tra có IP whitelist không? Có thể bypass qua X-Forwarded-For không?\r\n5. Kiểm tra có 2FA trên admin login không?",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 16,
+    "code": "OTG-CONFIG-006",
+    "task": "Test HTTP Methods",
+    "detail": "Kiểm tra HTTP method được cho phép.\r\nCách test:\r\n1. Gửi OPTIONS request đến mỗi endpoint → xem Allow header.\r\n2. Thử TRACE method: curl -X TRACE → XST (Cross-Site Tracing) attack.\r\n3. Thử PUT method: có thể upload file tùy ý không?\r\n4. Thử DELETE method: có thể xóa resource tùy ý không?\r\n5. Thử PATCH, CONNECT, PROPFIND (WebDAV).\r\n6. Nếu PUT được phép → thử upload shell và get RCE.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 17,
+    "code": "OTG-CONFIG-007",
+    "task": "Test HTTP Strict Transport Security",
+    "detail": "Kiểm tra HSTS implementation.\r\nCách test:\r\n1. Kiểm tra HTTP response có Strict-Transport-Security header không?\r\n2. max-age có đủ lớn (>= 31536000 = 1 năm) không?\r\n3. includeSubDomains có được thiết lập không?\r\n4. Có preload không? Kiểm tra tại hstspreload.org.\r\n5. Kiểm tra HTTP (non-TLS) → HTTPS redirect có đúng không?\r\n6. Nếu không có HSTS → MITM attack có thể downgrade HTTPS → HTTP.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 18,
+    "code": "OTG-CONFIG-008",
+    "task": "Test RIA Cross Domain Policy",
+    "detail": "Kiểm tra Flash/Silverlight cross-domain policy.\r\nCách test:\r\n1. Truy cập /crossdomain.xml → kiểm tra allow-access-from domain.\r\n2. Nếu <allow-access-from domain=\"*\"/> → cho phép tất cả domain.\r\n3. Truy cập /clientaccesspolicy.xml (Silverlight).\r\n4. Nếu policy quá rộng → attacker có thể đánh cắp dữ liệu qua Flash.\r\n5. Kiểm tra có policy cho subdomain không.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 19,
+    "code": "OTG-CONFIG-009",
+    "task": "Test File Permission",
+    "detail": "Kiểm tra permission của file và directory.\r\nCách test:\r\n1. Thử access trực tiếp file: /WEB-INF/web.xml, /app.config, /config.php\r\n2. Kiểm tra directory listing trên các thư mục nhạy cảm.\r\n3. Kiểm tra file có thể download không được phép.\r\n4. Thử path traversal: /images/../../../etc/passwd\r\n5. Kiểm tra world-readable configuration files.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 20,
+    "code": "OTG-CONFIG-010",
+    "task": "Test for Subdomain Takeover",
+    "detail": "Kiểm tra khả năng takeover subdomain.\r\nCách test:\r\n1. Kiểm tra CNAME records trỏ đến external services (AWS, GitHub, Heroku).\r\n2. Nếu service không còn active, đăng ký service với domain đó.\r\n3. Kiểm tra common patterns: /cname, A record trỏ đến IP cũ.\r\n4. Sử dụng tool: subjack, SubOver, nuclei.\r\n5. Kiểm tra các service: S3, CloudFront, Azure CDN, GitHub Pages, Heroku.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 21,
+    "code": "OTG-CONFIG-011",
+    "task": "Test Cloud Storage",
+    "detail": "Kiểm tra cloud storage misconfiguration.\r\nCách test:\r\n1. Brute force S3 bucket names: target, target-backup, target-dev, target-assets\r\n2. Kiểm tra bucket listing có enabled không?\r\n3. Kiểm tra bucket policies có cho public access không?\r\n4. Kiểm tra GCS buckets: storage.googleapis.com/target\r\n5. Kiểm tra Azure Blob: target.blob.core.windows.net\r\n6. Kiểm tra DigitalOcean Spaces, Firebase Storage.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 69,
+    "code": "OTG-ERR-001",
+    "task": "Analysis of Error Codes",
+    "detail": "Kiểm tra xử lý lỗi có lộ thông tin không.\r\nCách test:\r\n1. Gửi request sai format: malformed JSON, XML, URL encoding.\r\n2. Gửi data type sai: string vào số, null vào required field.\r\n3. Gửi ID không tồn tại, negative number, very large number.\r\n4. Kiểm tra HTTP method sai: DELETE vào GET-only endpoint.\r\n5. Kiểm tra error message có lộ: SQL query, file path, IP internal, version.\r\n6. Kiểm tra có generic error pages tùy chỉnh không (thay vì default server error).\r\n7. Viết script fuzzing để trigger tất cả các loại lỗi.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 70,
+    "code": "OTG-ERR-002",
+    "task": "Analysis of Stack Traces",
+    "detail": "Kiểm tra stack trace trong error response.\r\nCách test:\r\n1. Gửi request gây crash: divide by zero, null pointer exception.\r\n2. Gửi request với unexpected data type.\r\n3. Kiểm tra response có stack trace không.\r\n4. Stack trace thường lộ: internal paths, framework version, library names.\r\n5. Kiểm tra ở production: customErrors=Off (ASP.NET) hoặc display_errors=On (PHP).\r\n6. Kiểm tra debug mode còn bật không: ?debug=true, ?dev=true.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 71,
+    "code": "OTG-CRYPST-001",
+    "task": "Testing for Weak Transport Layer Security",
+    "detail": "Kiểm tra TLS cấu hình có yếu không.\r\nCách test:\r\n1. TLS version: còn TLS 1.0/1.1? (cần 1.2+ tối thiểu).\r\n2. Cipher suites: có RC4, DES, 3DES, CAMELLIA? (weak ciphers).\r\n3. Có hỗ trợ TLS 1.3 không? (khuyến nghị).\r\n4. Có forward secrecy (ECDHE) không?\r\n5. Certificate có hợp lệ không? (không expired, đúng CN/SAN).\r\n6. Certificate chain có đầy đủ không? (trusted CA).\r\n7. Kiểm tra SSL/TLS bằng testssl.sh, SSL Labs.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 72,
+    "code": "OTG-CRYPST-002",
+    "task": "Testing for Padding Oracle",
+    "detail": "Kiểm tra Padding Oracle attack.\r\nCách test:\r\n1. Xác định encrypted data trong cookie, parameter, hidden field.\r\n2. Thay đổi từng byte ciphertext, kiểm tra response.\r\n3. Nếu error message khác nhau giữa padding valid và invalid → Padding Oracle.\r\n4. Sử dụng tool: padbuster, Burp Padding Oracle Scanner.\r\n5. Có thể decrypt dữ liệu và forge valid ciphertext.\r\n6. CVE-2013-2566: Microsoft .NET Padding Oracle (MS10-070).",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 73,
+    "code": "OTG-CRYPST-003",
+    "task": "Testing for Sensitive Info via Unencrypted Channels",
+    "detail": "Kiểm tra thông tin nhạy cảm gửi qua kênh không mã hóa.\r\nCách test:\r\n1. Kiểm tra tất cả traffic có qua HTTPS không.\r\n2. HTTP → HTTPS redirect có an toàn không? (có HSTS không).\r\n3. Kiểm tra HTTP trên sensitive pages: login, payment, profile.\r\n4. Kiểm tra WebSocket có qua WSS (WebSocket Secure) không?\r\n5. Kiểm tra API endpoints cho mobile app có HTTPS không.\r\n6. Sử dụng wireshark hoặc Burp để verify tất cả traffic được mã hóa.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 74,
+    "code": "OTG-CRYPST-004",
+    "task": "Testing for Weak Encryption",
+    "detail": "Kiểm tra thuật toán mã hóa yếu.\r\nCách test:\r\n1. Phân tích encryption schema tự xây dựng (homegrown crypto).\r\n2. Kiểm tra có sử dụng MD5, SHA-1 cho password không? (cần bcrypt, argon2).\r\n3. Kiểm tra có sử dụng ECB mode không? (lộ pattern trong encrypted data).\r\n4. Kiểm tra IV có cố định không? (cần random IV mỗi lần encrypt).\r\n5. Kiểm tra cookie/token có được mã hóa đúng không.\r\n6. Kiểm tra random number generator có an toàn không.\r\n7. Kiểm tra có sử dụng weak PRNG: Math.random() thay vì SecureRandom.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 132,
+    "code": "INFO-MB-01",
+    "task": "Kiểm tra tuân thủ quy hoạch kiến trúc ứng dụng đáp ứng tiêu chuẩn ATTT",
+    "detail": "Kiểm tra việc hệ thống có 2 site người dùng và quản trị đã được tách site riêng biệt chưa…\r\nTheo thông tin MB đã ban hành",
+    "reference": "Tách biệt service fontend và backend giữa site quản trị nghiệp vụ/quản trị vận hành hệ thống và site nghiệp vụ thường\r\n\\\\data.mbbank.com.vn\\KHỐI CÔNG NGHỆ THÔNG TIN\\TAI LIEU CHUNG KHOI CNTT\\10. Tai lieu chat luong Khoi CNTT\\4. Thong bao\\1053.TB-CNTT_Tieu chuan ATTT ung dung"
+  },
+  {
+    "stt": 133,
+    "code": "INFO-MB-02",
+    "task": "Kiểm tra điều kiện tích hợp và dữ liệu chia sẻ với đối tác",
+    "detail": "Theo tiêu chuẩn MB",
+    "reference": "Bộ tiêu chuẩn an ninh tích hợp miniapp lên Marketplace [MB] Tài liệu hướng dẫn mã hóa payload_Server to Server"
+  }
+]

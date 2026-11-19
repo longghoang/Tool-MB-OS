@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Pentest Checklist</title>
+  <style>
+    :root {
+      --bg: #020617;
+      --panel: rgba(15, 23, 42, 0.84);
+      --panel-strong: rgba(15, 23, 42, 0.96);
+      --border: rgba(148, 163, 184, 0.18);
+      --text: #e5edf7;
+      --muted: #94a3b8;
+      --blue: #38bdf8;
+      --blue-2: #2563eb;
+      --green: #22c55e;
+      --green-2: #15803d;
+      --red: #ef4444;
+      --red-2: #b91c1c;
+      --orange: #f59e0b;
+      --slate: #334155;
+      --slate-2: #64748b;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.46);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 32px;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 8%, rgba(56, 189, 248, 0.18), transparent 28%),
+        radial-gradient(circle at 90% 12%, rgba(34, 197, 94, 0.12), transparent 30%),
+        linear-gradient(180deg, #020617 0%, #010409 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, black, transparent 88%);
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero,
+    .preset-panel,
+    .table-shell {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .hero {
+      margin-bottom: 24px;
+      padding: 28px;
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at top right, rgba(56, 189, 248, 0.16), transparent 34%),
+        linear-gradient(180deg, rgba(15, 23, 42, 0.94), rgba(2, 6, 23, 0.82));
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.08);
+      color: #bae6fd;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    h1 {
+      margin: 14px 0 10px;
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 920px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .preset-panel {
+      margin-bottom: 24px;
+      padding: 22px;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at top right, rgba(56, 189, 248, 0.12), transparent 32%),
+        linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.8));
+    }
+
+    .preset-panel h2 {
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+
+    .preset-panel p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .preset-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    button {
+      min-height: 44px;
+      padding: 11px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.18s ease, filter 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+    }
+
+    button:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .preset-btn {
+      min-width: 190px;
+      background: linear-gradient(135deg, var(--blue-2), var(--blue));
+      box-shadow: 0 16px 38px rgba(56, 189, 248, 0.2);
+    }
+
+    .preset-btn[data-preset="login"] {
+      background: linear-gradient(135deg, #0891b2, #3b82f6);
+    }
+
+    .preset-btn[data-preset="default"] {
+      background: linear-gradient(135deg, var(--slate), var(--slate-2));
+      box-shadow: 0 16px 38px rgba(15, 23, 42, 0.32);
+    }
+
+    .section-title {
+      margin: 26px 0 0;
+      padding: 16px 20px;
+      border: 1px solid var(--border);
+      border-bottom: 0;
+      border-radius: 22px 22px 0 0;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.92));
+      color: #dbeafe;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .table-shell {
+      margin-bottom: 24px;
+      overflow: hidden;
+      border-radius: 0 0 22px 22px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+
+    th,
+    td {
+      padding: 13px 14px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.11);
+      font-size: 14px;
+      vertical-align: middle;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 3;
+      background: var(--panel-strong);
+      color: #bae6fd;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      box-shadow: inset 0 -1px 0 rgba(148, 163, 184, 0.14);
+    }
+
+    td {
+      background: rgba(2, 6, 23, 0.32);
+      color: #dbeafe;
+      line-height: 1.55;
+    }
+
+    tbody tr:nth-child(even) td {
+      background: rgba(15, 23, 42, 0.38);
+    }
+
+    tbody tr:hover td {
+      background: rgba(30, 41, 59, 0.68);
+    }
+
+    td:first-child,
+    th:first-child {
+      width: 60px;
+      text-align: center;
+      color: #93c5fd;
+      font-weight: 900;
+    }
+
+    td:nth-child(2) {
+      min-width: 156px;
+      color: #fed7aa;
+      font-family: "Courier New", monospace;
+      font-weight: 900;
+    }
+
+    td:nth-child(3) {
+      min-width: 420px;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .pass-all {
+      cursor: pointer;
+    }
+
+    .pass-label,
+    .bulk {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+    }
+
+    .pass-label {
+      padding: 5px 11px;
+      color: #86efac;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.28);
+      font-weight: 900;
+    }
+
+    .bulk {
+      margin-top: 6px;
+      padding: 5px 9px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .bulk:hover {
+      color: #fff;
+      border-color: rgba(56, 189, 248, 0.48);
+      background: rgba(56, 189, 248, 0.12);
+    }
+
+    input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 34px;
+      height: 34px;
+      margin: 0;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 0.92));
+      cursor: pointer;
+      position: relative;
+      transition: 0.18s ease;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.04),
+        0 8px 20px rgba(0, 0, 0, 0.22);
+    }
+
+    input[type="checkbox"]:hover {
+      transform: translateY(-1px);
+      border-color: rgba(56, 189, 248, 0.55);
+      box-shadow:
+        0 0 0 4px rgba(56, 189, 248, 0.08),
+        0 10px 24px rgba(0, 0, 0, 0.32);
+    }
+
+    input[type="checkbox"]:checked::after {
+      content: "✓";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 20px;
+      font-weight: 1000;
+    }
+
+    td:nth-child(4) input[type="checkbox"]:checked {
+      border-color: rgba(34, 197, 94, 0.68);
+      background: linear-gradient(135deg, #16a34a, #22c55e);
+      box-shadow: 0 0 26px rgba(34, 197, 94, 0.32);
+    }
+
+    td:nth-child(5) input[type="checkbox"]:checked {
+      border-color: rgba(239, 68, 68, 0.68);
+      background: linear-gradient(135deg, var(--red-2), var(--red));
+      box-shadow: 0 0 26px rgba(239, 68, 68, 0.3);
+    }
+
+    td:nth-child(6) input[type="checkbox"]:checked {
+      border-color: rgba(245, 158, 11, 0.72);
+      background: linear-gradient(135deg, #d97706, var(--orange));
+      box-shadow: 0 0 26px rgba(245, 158, 11, 0.28);
+    }
+
+    td:nth-child(6) input[type="checkbox"]:checked::after {
+      content: "–";
+      font-size: 24px;
+    }
+
+    .action-bar {
+      position: sticky;
+      bottom: 86px;
+      z-index: 1400;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      width: max-content;
+      max-width: 100%;
+      margin: 8px 0 0 auto;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(2, 6, 23, 0.88);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.42);
+      backdrop-filter: blur(18px);
+    }
+
+    #backAnalyze {
+      background: rgba(30, 41, 59, 0.92);
+      color: #dbeafe;
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.28);
+    }
+
+    #copyChecklist {
+      background: linear-gradient(135deg, var(--blue-2), var(--blue));
+      box-shadow: 0 16px 38px rgba(56, 189, 248, 0.25);
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(2, 6, 23, 0.7);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.28);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(56, 189, 248, 0.45);
+    }
+
+    @media (max-width: 900px) {
+      body {
+        padding: 18px;
+      }
+
+      .hero,
+      .preset-panel {
+        padding: 18px;
+      }
+
+      .preset-actions,
+      .action-bar {
+        flex-direction: column;
+      }
+
+      .preset-btn,
+      #backAnalyze,
+      #copyChecklist {
+        width: 100%;
+      }
+
+      .action-bar {
+        bottom: 68px;
+        width: 100%;
+      }
+
+      .table-shell {
+        overflow-x: auto;
+      }
+
+      th,
+      td {
+        white-space: nowrap;
+      }
+
+      td:nth-child(3) {
+        min-width: 340px;
+        white-space: normal;
+      }
+    }
+  </style>
+<%- include('partials/workspace-ui') %>
+</head>
+<body>
+  <div class="page">
+    <section class="hero">
+      <div class="eyebrow">AI Pentest Checklist</div>
+      <h1>Copy checklist nhanh cho PYC</h1>
+      <p>
+        Mở thẳng checklist để đánh giá và copy. Bạn có thể dùng preset bên dưới để tự động
+        tick nhanh theo ngữ cảnh PYC có tài chính, có login hoặc mặc định.
+      </p>
+    </section>
+
+    <section class="preset-panel">
+      <h2>Gợi ý checklist</h2>
+      <p>Preset sẽ tự động chọn <strong>Pass</strong> hoặc <strong>Không cần đánh giá</strong> cho toàn bộ bảng.</p>
+      <div class="preset-actions">
+        <button type="button" class="preset-btn" data-preset="finance">PYC có tài chính</button>
+        <button type="button" class="preset-btn" data-preset="login">PYC có Login</button>
+        <button type="button" class="preset-btn" data-preset="default">PYC mặc định</button>
+      </div>
+    </section>
+
+    <% Object.keys(checkedList).forEach(type => { %>
+      <h3 class="section-title"><%= type.toUpperCase() %></h3>
+      <div class="table-shell">
+        <table>
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Code</th>
+              <th>Task</th>
+              <th class="center pass-all" onclick="selectAll('<%= type %>', 'pass')">
+                <span class="pass-label">Pass</span><br>
+                <span class="bulk">Chọn tất cả</span>
+              </th>
+              <th class="center">
+                Fail<br>
+                <span class="bulk" onclick="selectAll('<%= type %>', 'fail')">Chọn tất cả</span>
+              </th>
+              <th class="center">
+                Không cần<br>
+                <span class="bulk" onclick="selectAll('<%= type %>', 'skip')">Chọn tất cả</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% checkedList[type].forEach((item, idx) => { %>
+              <tr
+                data-detail="<%= item.detail || '' %>"
+                data-reference="<%= item.reference || '' %>"
+              >
+                <td><%= idx + 1 %></td>
+                <td>
+                  <div class="code-value"><%= item.code || "-" %></div>
+                </td>
+                <td><%= item.task %></td>
+                <td class="center">
+                  <input type="checkbox" class="pass-<%= type %>" onchange="toggleTriple(this)">
+                </td>
+                <td class="center">
+                  <input type="checkbox" class="fail-<%= type %>" onchange="toggleTriple(this)">
+                </td>
+                <td class="center">
+                  <input type="checkbox" class="skip-<%= type %>" onchange="toggleTriple(this)">
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% }) %>
+
+    <div class="action-bar">
+      <button id="backAnalyze" type="button">← Back</button>
+      <button id="copyChecklist" type="button">📋 Copy FULL checklist</button>
+    </div>
+  </div>
+
+  <script>
+    function toggleTriple(checkbox) {
+      const row = checkbox.closest("tr");
+      row.querySelectorAll("input[type='checkbox']").forEach(input => {
+        if (input !== checkbox) {
+          input.checked = false;
+        }
+      });
+    }
+
+    function selectAll(type, mode) {
+      document.querySelectorAll(`.${mode}-${type}`).forEach(input => {
+        const row = input.closest("tr");
+        const skip = row.querySelector(`.skip-${type}`);
+
+        if (skip && skip.checked && mode !== "skip") {
+          return;
+        }
+
+        input.checked = true;
+        toggleTriple(input);
+      });
+    }
+
+    function showToast(message, type = "success") {
+      const toast = document.createElement("div");
+      toast.textContent = message;
+
+      toast.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -60%) scale(0.9);
+        background: ${type === "error" ? "#e74c3c" : "#2ecc71"};
+        color: #fff;
+        padding: 18px 26px;
+        border-radius: 14px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        z-index: 9999;
+        font-size: 16px;
+        font-weight: 700;
+        opacity: 0;
+        transition: all 0.3s ease;
+      `;
+
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.opacity = "1";
+        toast.style.transform = "translate(-50%, -50%) scale(1)";
+      }, 10);
+
+      setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.transform = "translate(-50%, -40%) scale(0.95)";
+        setTimeout(() => toast.remove(), 300);
+      }, 2400);
+    }
+
+    const FINANCE_PREFIXES = ["PAY-", "TXN-"];
+    const LOGIN_PREFIXES = ["OTG-SESS-", "OTG-AUTHN-", "OTG-AUTHZ-", "OTG-IDENT-", "MFA-"];
+    const FINANCE_CODES = new Set(["DATA-02", "DATA-05", "DATA-06"]);
+    const DEFAULT_PASS_CODES = new Set([
+      "OTG-AUTHZ-001",
+      "OTG-AUTHZ-002",
+      "OTG-AUTHZ-003",
+      "OTG-AUTHZ-004",
+      "TXN-08"
+    ]);
+    const DEFAULT_SKIP_CODES = new Set([
+      "DATA-03"
+    ]);
+
+    const FINANCE_KEYWORDS = [
+      "payment", "transaction", "currency", "refund", "wallet", "loan", "voucher",
+      "coupon", "beneficiary", "aml", "kyc", "cic", "pci", "credit card",
+      "giao dịch", "số tiền", "tiền tệ", "thẻ tín dụng", "khoản vay", "tỷ giá",
+      "cashback", "reward", "otp bypass"
+    ];
+
+    const LOGIN_KEYWORDS = [
+      "login", "session", "password", "credential", "authentication", "authorization",
+      "account", "cookie", "csrf", "mfa", "otp", "user registration",
+      "đăng nhập", "mật khẩu", "xác thực", "ủy quyền", "tài khoản", "phiên"
+    ];
+
+    const AUTO_SKIP_CODES = new Set([
+      "OTG-SESS-001", "OTG-SESS-002", "OTG-SESS-003", "OTG-SESS-004",
+      "OTG-SESS-005", "OTG-SESS-006", "OTG-SESS-007", "OTG-SESS-008",
+      "OTG-SESS-009",
+      "OTG-IDENT-001", "OTG-IDENT-002", "OTG-IDENT-003", "OTG-IDENT-004",
+      "OTG-IDENT-005",
+      "OTG-AUTHN-001", "OTG-AUTHN-002", "OTG-AUTHN-003", "OTG-AUTHN-004",
+      "OTG-AUTHN-005", "OTG-AUTHN-006", "OTG-AUTHN-007", "OTG-AUTHN-008",
+      "OTG-AUTHN-009", "OTG-AUTHN-010",
+      "MFA-MB-01",
+      "OTG-BUSLOGIC-008", "OTG-BUSLOGIC-009",
+      "OTG-CRYPST-004"
+    ]);
+
+    function normalizeText(value) {
+      return (value || "").toLowerCase();
+    }
+
+    function isFinanceRow(code, task) {
+      const normalizedTask = normalizeText(task);
+      return (
+        FINANCE_PREFIXES.some(prefix => code.startsWith(prefix)) ||
+        FINANCE_CODES.has(code) ||
+        FINANCE_KEYWORDS.some(keyword => normalizedTask.includes(keyword))
+      );
+    }
+
+    function isLoginRow(code, task) {
+      const normalizedTask = normalizeText(task);
+      return (
+        LOGIN_PREFIXES.some(prefix => code.startsWith(prefix)) ||
+        LOGIN_KEYWORDS.some(keyword => normalizedTask.includes(keyword))
+      );
+    }
+
+    function setRowStatus(row, status) {
+      const pass = row.querySelector("td:nth-child(4) input");
+      const fail = row.querySelector("td:nth-child(5) input");
+      const skip = row.querySelector("td:nth-child(6) input");
+
+      [pass, fail, skip].forEach(input => {
+        if (input) {
+          input.checked = false;
+        }
+      });
+
+      const target = {
+        pass,
+        fail,
+        skip
+      }[status];
+
+      if (target) {
+        target.checked = true;
+        toggleTriple(target);
+      }
+    }
+
+    function applyPreset(preset) {
+      document.querySelectorAll("tbody tr").forEach(row => {
+        const code = row.querySelector(".code-value")?.innerText.trim() || "";
+        const task = row.querySelector("td:nth-child(3)")?.innerText.trim() || "";
+
+        const finance = isFinanceRow(code, task);
+        const login = isLoginRow(code, task);
+
+        let status = "pass";
+
+        if (preset === "finance" && login) {
+          status = "skip";
+        }
+
+        if (preset === "login" && finance) {
+          status = "skip";
+        }
+
+        if (preset === "default" && (finance || login)) {
+          status = "skip";
+        }
+
+        if (preset === "default" && DEFAULT_PASS_CODES.has(code)) {
+          status = "pass";
+        }
+
+        if (preset === "default" && DEFAULT_SKIP_CODES.has(code)) {
+          status = "skip";
+        }
+
+        setRowStatus(row, status);
+      });
+
+      const labels = {
+        finance: "PYC có tài chính",
+        login: "PYC có Login",
+        default: "PYC mặc định"
+      };
+
+      showToast(`Đã áp dụng preset ${labels[preset]}`);
+    }
+
+    function fallbackCopy(text) {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+
+      try {
+        document.execCommand("copy");
+        showToast("Đã copy checklist");
+      } catch (error) {
+        showToast("Copy thất bại", "error");
+      }
+
+      document.body.removeChild(textarea);
+    }
+
+    function escapeHtml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    document.getElementById("backAnalyze").addEventListener("click", () => {
+      window.location.href = "/home";
+    });
+
+    document.querySelectorAll("[data-preset]").forEach(button => {
+      button.addEventListener("click", () => {
+        applyPreset(button.dataset.preset);
+      });
+    });
+
+    document.getElementById("copyChecklist").addEventListener("click", () => {
+      let html = `
+        <table border="1" cellpadding="6" cellspacing="0"
+          style="border-collapse:collapse;font-family:Arial;font-size:13px">
+          <thead>
+            <tr style="background:#f2f2f2;font-weight:bold">
+              <th>Code</th>
+              <th>Task</th>
+              <th>Mô tả chi tiết cách kiểm tra</th>
+              <th>Tham chiếu chi tiết</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      let plain = "Code | Task | Mô tả chi tiết cách kiểm tra | Tham chiếu chi tiết | Result\n";
+
+      document.querySelectorAll("tbody tr").forEach(row => {
+        const code = row.querySelector(".code-value")?.innerText.trim() || "-";
+        const task = row.querySelector("td:nth-child(3)")?.innerText.trim() || "";
+        const detail = row.dataset.detail?.trim() || "";
+        const reference = row.dataset.reference?.trim() || "";
+        const escapedCode = escapeHtml(code);
+        const escapedTask = escapeHtml(task);
+        const escapedDetail = escapeHtml(detail).replace(/\n/g, "<br>");
+        const escapedReference = escapeHtml(reference).replace(/\n/g, "<br>");
+
+        const pass = row.querySelector("td:nth-child(4) input");
+        const fail = row.querySelector("td:nth-child(5) input");
+        const skip = row.querySelector("td:nth-child(6) input");
+
+        let textResult = "Chưa đánh giá";
+        let htmlResult = `<span style="color:#7f8c8d">Chưa đánh giá</span>`;
+
+        if (pass?.checked) {
+          textResult = "Pass";
+          htmlResult = `<span style="color:#2ecc71;font-weight:bold">Pass</span>`;
+        } else if (fail?.checked) {
+          textResult = "Fail";
+          htmlResult = `<span style="color:#e74c3c;font-weight:bold">Fail</span>`;
+        } else if (skip?.checked) {
+          textResult = "Không cần đánh giá";
+          htmlResult = `<span style="color:#f39c12;font-weight:bold">Không cần đánh giá</span>`;
+        }
+
+        html += `
+          <tr>
+            <td>${escapedCode}</td>
+            <td>${escapedTask}</td>
+            <td>${escapedDetail}</td>
+            <td>${escapedReference}</td>
+            <td>${htmlResult}</td>
+          </tr>
+        `;
+
+        plain += `${code} | ${task} | ${detail.replace(/\n/g, " / ")} | ${reference.replace(/\n/g, " / ")} | ${textResult}\n`;
+      });
+
+      html += "</tbody></table>";
+
+      if (navigator.clipboard && window.isSecureContext && typeof ClipboardItem !== "undefined") {
+        const item = new ClipboardItem({
+          "text/plain": new Blob([plain], { type: "text/plain" }),
+          "text/html": new Blob([html], { type: "text/html" })
+        });
+
+        navigator.clipboard.write([item])
+          .then(() => showToast("Đã copy checklist"))
+          .catch(() => fallbackCopy(plain));
+      } else {
+        fallbackCopy(plain);
+      }
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll("tbody tr").forEach(row => {
+        const code = row.querySelector(".code-value")?.innerText.trim() || "";
+        if (AUTO_SKIP_CODES.has(code)) {
+          setRowStatus(row, "skip");
+        }
+      });
+    });
+  </script>
+</body>
+</html>

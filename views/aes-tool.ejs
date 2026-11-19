@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>MB OS - AES Crypto Tool</title>
+
+    <style>
+        :root {
+            --bg: #020617;
+            --card: rgba(15, 23, 42, 0.78);
+            --border: rgba(148, 163, 184, 0.16);
+            --text: #e5edf7;
+            --muted: #94a3b8;
+            --blue: #38bdf8;
+            --red: #ff4d4f;
+            --green: #22c55e;
+            --purple: #a855f7;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 40px 20px;
+
+            font-family: Inter, sans-serif;
+
+            background:
+                radial-gradient(circle at top left,
+                    rgba(255, 77, 79, 0.15),
+                    transparent 30%),
+
+                radial-gradient(circle at top right,
+                    rgba(56, 189, 248, 0.15),
+                    transparent 30%),
+
+                linear-gradient(180deg,
+                    #020617 0%,
+                    #010409 100%);
+
+            color: var(--text);
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        .container {
+            width: min(1100px, 100%);
+            margin: auto;
+
+            background: var(--card);
+
+            border: 1px solid var(--border);
+
+            border-radius: 28px;
+
+            padding: 30px;
+
+            backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 20px 80px rgba(0,0,0,.45);
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 30px;
+        }
+
+        .title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 58px;
+            height: 58px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(255,77,79,.25),
+                    rgba(56,189,248,.25));
+
+            font-size: 26px;
+
+            border: 1px solid rgba(255,255,255,.1);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 28px;
+            letter-spacing: -.03em;
+        }
+
+        .subtitle {
+            margin-top: 5px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .back-btn {
+            text-decoration: none;
+
+            color: white;
+
+            background:
+                linear-gradient(135deg,
+                    #2563eb,
+                    #38bdf8);
+
+            padding: 12px 18px;
+
+            border-radius: 14px;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: .2s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 10px 25px rgba(56,189,248,.3);
+        }
+
+        .card {
+            background:
+                rgba(15,23,42,.7);
+
+            border: 1px solid var(--border);
+
+            border-radius: 24px;
+
+            padding: 22px;
+        }
+
+        .card h2 {
+            margin-top: 0;
+            margin-bottom: 14px;
+
+            font-size: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 210px;
+
+            resize: vertical;
+
+            border: 1px solid rgba(148,163,184,.15);
+
+            background:
+                rgba(2,6,23,.85);
+
+            color: white;
+
+            border-radius: 18px;
+
+            padding: 16px;
+
+            font-size: 14px;
+            line-height: 1.6;
+
+            outline: none;
+
+            transition: .2s ease;
+        }
+
+        textarea:focus {
+            border-color: rgba(56,189,248,.5);
+
+            box-shadow:
+                0 0 0 4px rgba(56,189,248,.1);
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: none;
+            cursor: pointer;
+
+            padding: 13px 18px;
+
+            border-radius: 14px;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: .2s ease;
+        }
+
+        button:disabled {
+            opacity: .65;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        button:hover:not(:disabled) {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 24px rgba(0,0,0,.28);
+        }
+
+        .decrypt-btn {
+            background:
+                linear-gradient(135deg,
+                    #7c3aed,
+                    #a855f7);
+
+            color: white;
+        }
+
+        .copy-btn {
+            background:
+                linear-gradient(135deg,
+                    #15803d,
+                    #22c55e);
+
+            color: white;
+        }
+
+        .format-btn {
+            background:
+                linear-gradient(135deg,
+                    #334155,
+                    #64748b);
+
+            color: white;
+        }
+
+        .burp-tabs {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .burp-tab {
+            padding: 7px 12px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(56,189,248,.12);
+
+            border: 1px solid rgba(56,189,248,.22);
+
+            color: #bae6fd;
+
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .burp-chip {
+            padding: 7px 12px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(148,163,184,.08);
+
+            border: 1px solid rgba(148,163,184,.14);
+
+            color: var(--muted);
+
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .editor-shell {
+            border-top: 1px solid rgba(255,255,255,.04);
+        }
+
+        .editor-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+
+            padding: 10px 14px;
+
+            background:
+                rgba(15,23,42,.78);
+
+            border-bottom: 1px solid rgba(148,163,184,.12);
+        }
+
+        .editor-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            color: #cbd5e1;
+
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+
+            border-radius: 999px;
+
+            background: var(--green);
+
+            box-shadow:
+                0 0 14px rgba(34,197,94,.8);
+        }
+
+        .editor-frame {
+            display: grid;
+            grid-template-columns: 52px 1fr;
+
+            background:
+                #0b1020;
+        }
+
+        .line-numbers {
+            padding: 14px 10px;
+
+            background:
+                #070b16;
+
+            border-right: 1px solid rgba(148,163,184,.14);
+
+            color: #64748b;
+
+            font-family:
+                ui-monospace,
+                SFMono-Regular,
+                Menlo,
+                Monaco,
+                Consolas,
+                "Liberation Mono",
+                monospace;
+
+            font-size: 13px;
+            line-height: 1.55;
+
+            text-align: right;
+
+            user-select: none;
+
+            overflow: hidden;
+        }
+
+        .body-editor {
+            width: 100%;
+
+            border: none;
+            border-radius: 0;
+
+            background:
+                #0b1020;
+
+            color: #dbeafe;
+
+            padding: 14px 16px;
+
+            font-family:
+                ui-monospace,
+                SFMono-Regular,
+                Menlo,
+                Monaco,
+                Consolas,
+                "Liberation Mono",
+                monospace;
+
+            font-size: 13px;
+            line-height: 1.55;
+
+            tab-size: 4;
+
+            white-space: pre;
+            overflow: auto;
+
+            outline: none;
+
+            caret-color: #38bdf8;
+        }
+
+        .body-editor:focus {
+            border: none;
+            box-shadow: none;
+        }
+
+        .editor-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+
+            padding: 9px 14px;
+
+            background:
+                #070b16;
+
+            border-top: 1px solid rgba(148,163,184,.12);
+
+            color: #94a3b8;
+
+            font-family:
+                ui-monospace,
+                SFMono-Regular,
+                Menlo,
+                Monaco,
+                Consolas,
+                "Liberation Mono",
+                monospace;
+
+            font-size: 12px;
+        }
+
+        .hint {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .error {
+            margin-top: 24px;
+
+            background:
+                rgba(127,29,29,.28);
+
+            border: 1px solid rgba(255,77,79,.3);
+
+            color: #fecaca;
+
+            padding: 18px;
+
+            border-radius: 18px;
+        }
+
+        .toast-wrap {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            z-index: 9999;
+
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+
+            pointer-events: none;
+        }
+
+        .toast {
+            min-width: 280px;
+            max-width: 420px;
+
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+
+            padding: 14px 16px;
+
+            border-radius: 18px;
+
+            background:
+                rgba(15,23,42,.94);
+
+            border: 1px solid rgba(148,163,184,.18);
+
+            box-shadow:
+                0 18px 45px rgba(0,0,0,.45);
+
+            backdrop-filter: blur(18px);
+
+            color: #e5edf7;
+
+            animation:
+                toastIn .28s ease forwards;
+        }
+
+        .toast.success {
+            border-color:
+                rgba(34,197,94,.35);
+        }
+
+        .toast.error-toast {
+            border-color:
+                rgba(255,77,79,.38);
+        }
+
+        .toast-icon {
+            width: 28px;
+            height: 28px;
+
+            display: grid;
+            place-items: center;
+
+            flex: 0 0 28px;
+
+            border-radius: 999px;
+
+            background:
+                rgba(34,197,94,.16);
+
+            color: #86efac;
+
+            font-weight: 900;
+        }
+
+        .toast.error-toast .toast-icon {
+            background:
+                rgba(255,77,79,.16);
+
+            color: #fecaca;
+        }
+
+        .toast-title {
+            font-size: 14px;
+            font-weight: 800;
+            margin-bottom: 3px;
+        }
+
+        .toast-message {
+            color: #94a3b8;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+
+            display: none;
+            align-items: center;
+            justify-content: center;
+
+            padding: 24px;
+
+            background:
+                rgba(2,6,23,.72);
+
+            backdrop-filter: blur(14px);
+
+            animation:
+                modalFadeIn .18s ease forwards;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-box {
+            width: min(1180px, 100%);
+            max-height: calc(100vh - 48px);
+
+            display: flex;
+            flex-direction: column;
+
+            background:
+                rgba(2,6,23,.96);
+
+            border: 1px solid rgba(56,189,248,.22);
+
+            border-radius: 24px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 28px 100px rgba(0,0,0,.7),
+                0 0 0 1px rgba(255,255,255,.04);
+
+            animation:
+                modalPopIn .22s ease forwards;
+        }
+
+        .modal-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+
+            padding: 16px 18px;
+
+            background:
+                linear-gradient(180deg,
+                    rgba(15,23,42,.98),
+                    rgba(2,6,23,.98));
+
+            border-bottom: 1px solid rgba(148,163,184,.14);
+        }
+
+        .modal-title {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .modal-title h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .modal-subtitle {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .modal-close {
+            width: 38px;
+            height: 38px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 12px;
+
+            background:
+                rgba(148,163,184,.1);
+
+            color: #cbd5e1;
+
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .modal-close:hover:not(:disabled) {
+            background:
+                rgba(255,77,79,.16);
+
+            color: #fecaca;
+        }
+
+        .modal-body {
+            overflow: hidden;
+
+            display: flex;
+            flex-direction: column;
+
+            min-height: 0;
+        }
+
+        .modal-box .editor-frame {
+            min-height: 0;
+            height: calc(100vh - 285px);
+            max-height: none;
+        }
+
+        .modal-box .body-editor {
+            min-height: 0;
+            height: calc(100vh - 285px);
+            max-height: none;
+            resize: none;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+
+            padding: 14px 18px;
+
+            background:
+                rgba(15,23,42,.8);
+
+            border-top: 1px solid rgba(148,163,184,.12);
+        }
+
+        .modal-footer .actions {
+            margin-top: 0;
+        }
+
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateY(14px) scale(.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes toastOut {
+            from {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(14px) scale(.98);
+            }
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes modalPopIn {
+            from {
+                opacity: 0;
+                transform: translateY(14px) scale(.985);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @media(max-width: 860px) {
+
+            body {
+                padding: 20px 12px;
+            }
+
+            .container {
+                padding: 20px;
+                border-radius: 22px;
+            }
+
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 18px;
+            }
+
+            .back-btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .editor-toolbar,
+            .editor-status {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .modal-overlay {
+                padding: 12px;
+            }
+
+            .modal-box {
+                max-height: calc(100vh - 24px);
+                border-radius: 20px;
+            }
+
+            .modal-head,
+            .modal-footer {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .modal-box .editor-frame {
+                height: calc(100vh - 335px);
+            }
+
+            .modal-box .body-editor {
+                height: calc(100vh - 335px);
+            }
+
+            .toast-wrap {
+                left: 16px;
+                right: 16px;
+                bottom: 16px;
+            }
+
+            .toast {
+                min-width: unset;
+                max-width: unset;
+                width: 100%;
+            }
+        }
+    </style>
+<%- include('partials/workspace-ui') %>
+</head>
+
+<body>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<div class="container">
+
+    <div class="topbar">
+
+        <div class="title-wrap">
+
+            <div class="logo">
+                🔐
+            </div>
+
+            <div>
+                <h1>MO Crypto Tool</h1>
+
+                <div class="subtitle">
+                    AES CBC Decrypt / Edit / Re-Encrypt for Pentest Workflow
+                </div>
+            </div>
+
+        </div>
+
+        <a href="/home" class="back-btn">
+            ← Back Home
+        </a>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Decrypt</h2>
+
+        <form method="POST" action="/aes/decrypt">
+
+            <textarea
+                name="content"
+                placeholder="Nhập HEX encrypted..."
+                spellcheck="false"
+                autocomplete="off"
+                autocorrect="off"
+                autocapitalize="off"
+            ></textarea>
+
+            <div class="actions">
+                <button
+                    class="decrypt-btn"
+                    type="submit">
+
+                    Decrypt
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+    <% if (result) { %>
+
+        <% const currentMode = typeof mode !== "undefined" ? mode : ""; %>
+
+        <% if (currentMode === "decrypt") { %>
+
+            <div
+                id="decryptModal"
+                class="modal-overlay show"
+                onclick="handleModalBackdropClick(event)">
+
+                <div
+                    class="modal-box"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="decryptModalTitle">
+
+                    <div class="modal-head">
+
+                        <div class="modal-title">
+                            <h3 id="decryptModalTitle">
+                                Decrypted Request Body
+                            </h3>
+
+                            <div class="modal-subtitle">
+                                Edit raw body rồi Copy Encrypt để mã hóa lại
+                            </div>
+                        </div>
+
+                        <div class="burp-tabs">
+                            <span class="burp-tab">Raw</span>
+                            <span class="burp-chip">Body</span>
+                            <span class="burp-chip">Editable</span>
+
+                            <button
+                                class="modal-close"
+                                type="button"
+                                onclick="closeDecryptModal()"
+                                title="Close">
+
+                                ×
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="editor-shell">
+
+                            <div class="editor-toolbar">
+
+                                <div class="editor-label">
+                                    <span class="dot"></span>
+                                    Request body editor
+                                </div>
+
+                                <button
+                                    class="format-btn"
+                                    type="button"
+                                    onclick="prettyJsonBody()">
+
+                                    Pretty JSON
+                                </button>
+
+                            </div>
+
+                            <div class="editor-frame">
+
+                                <div
+                                    id="lineNumbers"
+                                    class="line-numbers">1</div>
+
+                                <textarea
+                                    id="decryptedBody"
+                                    class="body-editor"
+                                    spellcheck="false"
+                                    autocomplete="off"
+                                    autocorrect="off"
+                                    autocapitalize="off"
+                                    wrap="off"><%= result %></textarea>
+
+                            </div>
+
+                            <div class="editor-status">
+
+                                <span id="cursorStatus">
+                                    Ln 1, Col 1
+                                </span>
+
+                                <span id="bodyStatus">
+                                    0 chars
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <div class="hint">
+                            Body sau decrypt mở trực tiếp trong popup để sửa nhanh, không cần kéo xuống page.
+                        </div>
+
+                        <div class="actions">
+                            <button
+                                class="format-btn"
+                                type="button"
+                                onclick="closeDecryptModal()">
+
+                                Close
+                            </button>
+
+                            <button
+                                class="copy-btn"
+                                type="button"
+                                onclick="copyEditedBodyEncrypted(this)">
+
+                                Copy Encrypt
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        <% } else { %>
+
+            <pre
+                id="resultText"
+                style="display:none;"><%= result %></pre>
+
+        <% } %>
+
+    <% } %>
+
+    <% if (error) { %>
+
+        <div class="error">
+            <strong>Error:</strong>
+            <br><br>
+
+            <%= error %>
+        </div>
+
+    <% } %>
+
+</div>
+
+<script>
+
+function showToast(type, title, message) {
+
+    const wrap =
+        document.getElementById("toastWrap");
+
+    const toast =
+        document.createElement("div");
+
+    toast.className =
+        "toast " + (type === "error" ? "error-toast" : "success");
+
+    toast.innerHTML = `
+        <div class="toast-icon">
+            ${type === "error" ? "!" : "✓"}
+        </div>
+
+        <div>
+            <div class="toast-title">
+                ${escapeHtml(title)}
+            </div>
+
+            <div class="toast-message">
+                ${escapeHtml(message)}
+            </div>
+        </div>
+    `;
+
+    wrap.appendChild(toast);
+
+    setTimeout(function () {
+        toast.style.animation =
+            "toastOut .22s ease forwards";
+
+        setTimeout(function () {
+            toast.remove();
+        }, 240);
+    }, 2600);
+}
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+function openDecryptModal() {
+
+    const modal =
+        document.getElementById("decryptModal");
+
+    if (!modal) {
+        return;
+    }
+
+    modal.classList.add("show");
+
+    document.body.classList.add("modal-open");
+
+    setTimeout(function () {
+
+        const bodyEl =
+            document.getElementById("decryptedBody");
+
+        if (bodyEl) {
+            bodyEl.focus();
+        }
+
+    }, 80);
+}
+
+function closeDecryptModal() {
+
+    const modal =
+        document.getElementById("decryptModal");
+
+    if (!modal) {
+        return;
+    }
+
+    modal.classList.remove("show");
+
+    document.body.classList.remove("modal-open");
+}
+
+function handleModalBackdropClick(event) {
+
+    if (event.target.id === "decryptModal") {
+        closeDecryptModal();
+    }
+}
+
+document.addEventListener("keydown", function (event) {
+
+    if (event.key === "Escape") {
+        closeDecryptModal();
+    }
+});
+
+async function writeToClipboard(text) {
+
+    if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return;
+    }
+
+    const temp =
+        document.createElement("textarea");
+
+    temp.value = text;
+    temp.style.position = "fixed";
+    temp.style.left = "-9999px";
+    temp.style.top = "-9999px";
+
+    document.body.appendChild(temp);
+
+    temp.focus();
+    temp.select();
+
+    document.execCommand("copy");
+
+    document.body.removeChild(temp);
+}
+
+async function copyResult() {
+
+    const resultEl =
+        document.getElementById("resultText");
+
+    if (!resultEl) {
+        showToast(
+            "error",
+            "Copy failed",
+            "Không có encrypted result để copy"
+        );
+        return;
+    }
+
+    const text =
+        resultEl.innerText;
+
+    await writeToClipboard(text);
+
+    showToast(
+        "success",
+        "Copied",
+        "Đã copy encrypted result vào clipboard"
+    );
+}
+
+async function copyEditedBodyEncrypted(button) {
+
+    const bodyEl =
+        document.getElementById("decryptedBody");
+
+    if (!bodyEl) {
+        showToast(
+            "error",
+            "Copy Encrypt failed",
+            "Không tìm thấy decrypted body"
+        );
+        return;
+    }
+
+    const editedBody =
+        bodyEl.value;
+
+    const oldText =
+        button.innerText;
+
+    try {
+
+        button.disabled = true;
+        button.innerText = "Encrypting...";
+
+        const response =
+            await fetch("/aes/encrypt", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+                },
+                body: new URLSearchParams({
+                    content: editedBody
+                })
+            });
+
+        if (!response.ok) {
+            throw new Error("Encrypt request failed");
+        }
+
+        const html =
+            await response.text();
+
+        const doc =
+            new DOMParser().parseFromString(html, "text/html");
+
+        const encryptedEl =
+            doc.querySelector("#resultText");
+
+        if (!encryptedEl) {
+            throw new Error("Không lấy được encrypted result từ /aes/encrypt");
+        }
+
+        const encryptedText =
+            encryptedEl.innerText.trim();
+
+        if (!encryptedText) {
+            throw new Error("Encrypted result rỗng");
+        }
+
+        await writeToClipboard(encryptedText);
+
+        showToast(
+            "success",
+            "Copied encrypted body",
+            "Body đã sửa được mã hóa lại và copy vào clipboard"
+        );
+
+    } catch (err) {
+
+        showToast(
+            "error",
+            "Copy Encrypt failed",
+            err.message
+        );
+
+    } finally {
+
+        button.disabled = false;
+        button.innerText = oldText;
+    }
+}
+
+function prettyJsonBody() {
+
+    const bodyEl =
+        document.getElementById("decryptedBody");
+
+    if (!bodyEl) {
+        return;
+    }
+
+    try {
+
+        const parsed =
+            JSON.parse(bodyEl.value);
+
+        bodyEl.value =
+            JSON.stringify(parsed, null, 4);
+
+        updateEditorMeta();
+
+        showToast(
+            "success",
+            "Formatted",
+            "JSON body đã được format 4 spaces"
+        );
+
+    } catch (err) {
+
+        showToast(
+            "error",
+            "Invalid JSON",
+            "Body hiện tại không parse được JSON"
+        );
+    }
+}
+
+function updateLineNumbers() {
+
+    const bodyEl =
+        document.getElementById("decryptedBody");
+
+    const lineNumbers =
+        document.getElementById("lineNumbers");
+
+    if (!bodyEl || !lineNumbers) {
+        return;
+    }
+
+    const totalLines =
+        bodyEl.value.split("\n").length || 1;
+
+    let numbers = "";
+
+    for (let i = 1; i <= totalLines; i++) {
+        numbers += i + "\n";
+    }
+
+    lineNumbers.textContent =
+        numbers;
+}
+
+function updateCursorStatus() {
+
+    const bodyEl =
+        document.getElementById("decryptedBody");
+
+    const cursorStatus =
+        document.getElementById("cursorStatus");
+
+    const bodyStatus =
+        document.getElementById("bodyStatus");
+
+    if (!bodyEl || !cursorStatus || !bodyStatus) {
+        return;
+    }
+
+    const cursor =
+        bodyEl.selectionStart;
+
+    const beforeCursor =
+        bodyEl.value.slice(0, cursor);
+
+    const line =
+        beforeCursor.split("\n").length;
+
+    const col =
+        beforeCursor.length - beforeCursor.lastIndexOf("\n");
+
+    cursorStatus.textContent =
+        "Ln " + line + ", Col " + col;
+
+    bodyStatus.textContent =
+        bodyEl.value.length + " chars";
+}
+
+function updateEditorMeta() {
+
+    updateLineNumbers();
+    updateCursorStatus();
+}
+
+function setupBurpLikeEditor() {
+
+    const bodyEl =
+        document.getElementById("decryptedBody");
+
+    const lineNumbers =
+        document.getElementById("lineNumbers");
+
+    if (!bodyEl || !lineNumbers) {
+        return;
+    }
+
+    bodyEl.addEventListener("input", updateEditorMeta);
+    bodyEl.addEventListener("click", updateCursorStatus);
+    bodyEl.addEventListener("keyup", updateCursorStatus);
+    bodyEl.addEventListener("select", updateCursorStatus);
+
+    bodyEl.addEventListener("scroll", function () {
+        lineNumbers.scrollTop =
+            bodyEl.scrollTop;
+    });
+
+    bodyEl.addEventListener("keydown", function (event) {
+
+        if (event.key !== "Tab") {
+            return;
+        }
+
+        event.preventDefault();
+
+        const start =
+            bodyEl.selectionStart;
+
+        const end =
+            bodyEl.selectionEnd;
+
+        bodyEl.value =
+            bodyEl.value.substring(0, start) +
+            "    " +
+            bodyEl.value.substring(end);
+
+        bodyEl.selectionStart =
+            bodyEl.selectionEnd =
+            start + 4;
+
+        updateEditorMeta();
+    });
+
+    updateEditorMeta();
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    setupBurpLikeEditor();
+    openDecryptModal();
+});
+
+</script>
+
+</body>
+</html>

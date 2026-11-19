@@ -1,0 +1,1201 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+  --bg: #020617;
+  --panel: rgba(15, 23, 42, 0.78);
+  --panel-2: rgba(2, 6, 23, 0.72);
+  --border: rgba(148, 163, 184, 0.18);
+  --border-strong: rgba(56, 189, 248, 0.35);
+  --text: #e5edf7;
+  --muted: #94a3b8;
+  --green: #22c55e;
+  --green-2: #16a34a;
+  --blue: #38bdf8;
+  --blue-2: #2563eb;
+  --red: #ef4444;
+  --red-2: #b91c1c;
+  --orange: #fb923c;
+  --yellow: #facc15;
+  --purple: #a855f7;
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.52);
+  --radius: 22px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(56, 189, 248, 0.18), transparent 28%),
+    radial-gradient(circle at 88% 12%, rgba(168, 85, 247, 0.14), transparent 30%),
+    radial-gradient(circle at 50% 100%, rgba(34, 197, 94, 0.12), transparent 34%),
+    linear-gradient(180deg, #020617 0%, #010409 100%);
+  color: var(--text);
+  padding: 34px;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: linear-gradient(to bottom, black, transparent 86%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+  width: min(1500px, 100%);
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 22px;
+  margin-bottom: 24px;
+}
+
+.hero {
+  max-width: 760px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding: 8px 13px;
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.08);
+  color: #bae6fd;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(34px, 5vw, 58px);
+  line-height: 1;
+  letter-spacing: -0.055em;
+  background: linear-gradient(135deg, #ffffff 0%, #bae6fd 38%, #86efac 72%, #c084fc 100%);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 40px;
+  padding: 9px 15px;
+  background: linear-gradient(135deg, var(--green), var(--green-2));
+  color: white;
+  text-decoration: none;
+  border-radius: 13px;
+  font-size: 14px;
+  font-weight: 800;
+  border: 1px solid rgba(255,255,255,0.08);
+  cursor: pointer;
+  transition: 0.2s ease;
+  box-shadow: 0 14px 30px rgba(34, 197, 94, 0.2);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow: 0 18px 38px rgba(34, 197, 94, 0.28);
+}
+
+.btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, var(--red), var(--red-2));
+  box-shadow: 0 14px 30px rgba(239, 68, 68, 0.18);
+}
+
+.btn-danger:hover {
+  box-shadow: 0 18px 38px rgba(239, 68, 68, 0.28);
+}
+
+.btn-back {
+  background: rgba(30, 41, 59, 0.92);
+  color: #dbeafe;
+  box-shadow: none;
+}
+
+.btn-back:hover {
+  background: rgba(51, 65, 85, 0.96);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
+}
+
+.btn-push {
+  background: linear-gradient(135deg, var(--blue-2), var(--blue));
+  box-shadow: 0 14px 30px rgba(56, 189, 248, 0.18);
+}
+
+.btn-push:hover {
+  box-shadow: 0 18px 38px rgba(56, 189, 248, 0.3);
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.84), rgba(2, 6, 23, 0.68));
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(20px);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--green), var(--purple));
+  opacity: 0.9;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.card-title h3 {
+  margin: 0;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+}
+
+.card-title span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.form-group label {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+input,
+select,
+textarea {
+  background: rgba(2, 6, 23, 0.74);
+  color: var(--text);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  padding: 9px 11px;
+  border-radius: 12px;
+  outline: none;
+  transition: 0.2s ease;
+  font-size: 14px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--border-strong);
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.08);
+}
+
+input[type="date"] {
+  min-width: 160px;
+}
+
+textarea {
+  width: 100%;
+  min-height: 92px;
+  resize: vertical;
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+select {
+  min-height: 40px;
+}
+
+.list-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.list-header {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.13);
+  background: rgba(15, 23, 42, 0.52);
+}
+
+.list-header h3 {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: -0.025em;
+}
+
+.list-header p {
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.week-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  cursor: pointer;
+  padding: 16px 20px;
+  background:
+    linear-gradient(135deg, rgba(15, 23, 42, 0.94), rgba(2, 6, 23, 0.82));
+  border-top: 1px solid rgba(148, 163, 184, 0.12);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+  user-select: none;
+  transition: 0.2s ease;
+  font-weight: 900;
+}
+
+.week-header:hover {
+  background:
+    linear-gradient(135deg, rgba(30, 41, 59, 0.98), rgba(15, 23, 42, 0.9));
+}
+
+.week-header::after {
+  content: "Click để thu gọn / mở rộng";
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.week-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-right: 7px;
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.1);
+  color: #bae6fd;
+}
+
+.hidden {
+  display: none;
+}
+
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  padding: 16px;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  min-width: 1120px;
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+th,
+td {
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+  padding: 10px;
+  vertical-align: middle;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: rgba(15, 23, 42, 0.98);
+  color: #cbd5e1;
+  text-align: left;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.045em;
+}
+
+td {
+  background: rgba(2, 6, 23, 0.42);
+  font-size: 14px;
+}
+
+tr:hover td {
+  background: rgba(15, 23, 42, 0.72);
+}
+
+td input {
+  width: 100%;
+  min-width: 70px;
+}
+
+td input[name="start_date"],
+td input[name="end_date"] {
+  min-width: 95px;
+}
+
+td input[name="supporter"] {
+  min-width: 120px;
+}
+
+td:first-child {
+  min-width: 260px;
+  font-weight: 800;
+  color: #e2e8f0;
+}
+
+td:last-child {
+  white-space: nowrap;
+}
+
+.status-select {
+  min-width: 145px;
+  font-weight: 900;
+}
+
+.status-created {
+  color: #86efac;
+  border-color: rgba(34, 197, 94, 0.45);
+  background: rgba(34, 197, 94, 0.09);
+}
+
+.status-not-created {
+  color: #fca5a5;
+  border-color: rgba(239, 68, 68, 0.45);
+  background: rgba(239, 68, 68, 0.09);
+}
+
+.pyc-number {
+  color: #fed7aa;
+  background: rgba(251, 146, 60, 0.15);
+  border: 1px solid rgba(251, 146, 60, 0.5);
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-weight: 1000;
+  box-shadow: 0 0 18px rgba(251, 146, 60, 0.08);
+}
+
+.assignee-select {
+  min-width: 150px;
+}
+
+hr {
+  display: none;
+}
+
+button.btn {
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+td .btn {
+  min-height: 34px;
+  padding: 7px 11px;
+  border-radius: 11px;
+}
+
+.footer-note {
+  margin-top: 18px;
+  color: #64748b;
+  font-size: 12px;
+  text-align: center;
+  font-family: "Courier New", monospace;
+}
+
+@media (max-width: 1000px) {
+  body {
+    padding: 22px;
+  }
+
+  .header {
+    flex-direction: column;
+  }
+
+  .actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .week-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .week-header::after {
+    content: "";
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 16px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .form-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form-group,
+  input,
+  select,
+  textarea {
+    width: 100%;
+  }
+
+  .card {
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+}
+
+/* ===== XỊN HÓA DROPDOWN ===== */
+select.nice-native {
+  display: none !important;
+}
+
+.nice-select {
+  position: relative;
+  width: 100%;
+  min-width: 150px;
+}
+
+.form-group .nice-select {
+  min-width: 170px;
+}
+
+td .nice-select {
+  min-width: 150px;
+}
+
+.nice-select-btn {
+  width: 100%;
+  min-height: 42px;
+  padding: 9px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  background:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.88));
+  color: #e5edf7;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 800;
+  outline: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.04),
+    0 10px 24px rgba(0,0,0,0.22);
+  transition: 0.2s ease;
+}
+
+.nice-select-btn:hover,
+.nice-select.open .nice-select-btn {
+  border-color: rgba(56, 189, 248, 0.55);
+  box-shadow:
+    0 0 0 4px rgba(56, 189, 248, 0.08),
+    0 14px 32px rgba(0,0,0,0.3);
+}
+
+.nice-select-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nice-caret {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  color: #bae6fd;
+  background: rgba(56, 189, 248, 0.1);
+  transition: 0.2s ease;
+  flex: 0 0 auto;
+}
+
+.nice-select.open .nice-caret {
+  transform: rotate(180deg);
+  background: rgba(56, 189, 248, 0.18);
+}
+
+.nice-status.is-created .nice-select-btn {
+  color: #86efac;
+  border-color: rgba(34, 197, 94, 0.5);
+  background:
+    radial-gradient(circle at top right, rgba(34, 197, 94, 0.18), transparent 42%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.88));
+}
+
+.nice-status.is-not-created .nice-select-btn {
+  color: #fca5a5;
+  border-color: rgba(239, 68, 68, 0.5);
+  background:
+    radial-gradient(circle at top right, rgba(239, 68, 68, 0.18), transparent 42%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.88));
+}
+
+.nice-select.is-empty .nice-select-btn {
+  color: #94a3b8;
+}
+
+.nice-menu-portal {
+  position: fixed;
+  z-index: 999999;
+  padding: 7px;
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background:
+    radial-gradient(circle at top right, rgba(56, 189, 248, 0.12), transparent 40%),
+    rgba(15, 23, 42, 0.96);
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.56),
+    0 0 0 1px rgba(255,255,255,0.035) inset;
+  backdrop-filter: blur(18px);
+  max-height: 270px;
+  overflow-y: auto;
+  animation: niceDrop 0.16s ease both;
+}
+
+.nice-menu-portal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.nice-menu-portal::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.28);
+  border-radius: 999px;
+}
+
+.nice-option {
+  width: 100%;
+  min-height: 38px;
+  padding: 9px 11px;
+  border: 0;
+  border-radius: 11px;
+  background: transparent;
+  color: #dbeafe;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 750;
+  text-align: left;
+  transition: 0.15s ease;
+}
+
+.nice-option:hover {
+  background: rgba(56, 189, 248, 0.13);
+  color: #ffffff;
+}
+
+.nice-option.selected {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.72), rgba(56, 189, 248, 0.36));
+  color: #ffffff;
+}
+
+.nice-option.selected::after {
+  content: "✓";
+  color: #bbf7d0;
+  font-weight: 1000;
+}
+
+.nice-option.is-created-option {
+  color: #86efac;
+}
+
+.nice-option.is-not-created-option {
+  color: #fca5a5;
+}
+
+.nice-option.is-empty-option {
+  color: #94a3b8;
+}
+
+@keyframes niceDrop {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+</style>
+
+<script>
+
+let activeNiceDropdown = null;
+
+function closeNiceDropdown() {
+  if (!activeNiceDropdown) return;
+
+  activeNiceDropdown.wrap.classList.remove("open");
+  activeNiceDropdown.menu.remove();
+
+  window.removeEventListener("scroll", activeNiceDropdown.reposition, true);
+  window.removeEventListener("resize", activeNiceDropdown.reposition);
+
+  activeNiceDropdown = null;
+}
+
+function updateNiceSelectButton(select, wrap, button) {
+  const selected = select.options[select.selectedIndex];
+  const text = selected ? selected.textContent.trim() : "-- Chọn --";
+  const value = selected ? selected.value : "";
+
+  button.querySelector(".nice-select-text").textContent = text || "-- Chọn --";
+
+  wrap.classList.toggle("is-empty", !value);
+  wrap.classList.toggle("is-created", text === "Đã tạo nhóm");
+  wrap.classList.toggle("is-not-created", text === "Chưa tạo nhóm");
+}
+
+function openNiceDropdown(select, wrap, button) {
+  if (activeNiceDropdown && activeNiceDropdown.select === select) {
+    closeNiceDropdown();
+    return;
+  }
+
+  closeNiceDropdown();
+
+  const menu = document.createElement("div");
+  menu.className = "nice-menu-portal";
+
+  Array.from(select.options).forEach((option, index) => {
+    const item = document.createElement("button");
+    item.type = "button";
+    item.className = "nice-option";
+
+    const text = option.textContent.trim();
+    item.textContent = text || "-- Chọn --";
+
+    if (option.selected) item.classList.add("selected");
+    if (!option.value) item.classList.add("is-empty-option");
+    if (text === "Đã tạo nhóm") item.classList.add("is-created-option");
+    if (text === "Chưa tạo nhóm") item.classList.add("is-not-created-option");
+
+    item.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      select.selectedIndex = index;
+      select.value = option.value;
+
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+
+      updateNiceSelectButton(select, wrap, button);
+      closeNiceDropdown();
+    });
+
+    menu.appendChild(item);
+  });
+
+  document.body.appendChild(menu);
+  wrap.classList.add("open");
+
+  function reposition() {
+    const rect = wrap.getBoundingClientRect();
+    const gap = 8;
+    const safe = 12;
+
+    menu.style.minWidth = rect.width + "px";
+    menu.style.width = Math.max(rect.width, 180) + "px";
+
+    let left = rect.left;
+    let top = rect.bottom + gap;
+
+    const menuRect = menu.getBoundingClientRect();
+
+    if (left + menuRect.width > window.innerWidth - safe) {
+      left = window.innerWidth - menuRect.width - safe;
+    }
+
+    if (top + menuRect.height > window.innerHeight - safe) {
+      top = Math.max(safe, rect.top - menuRect.height - gap);
+    }
+
+    menu.style.left = Math.max(safe, left) + "px";
+    menu.style.top = top + "px";
+  }
+
+  requestAnimationFrame(reposition);
+
+  activeNiceDropdown = {
+    select,
+    wrap,
+    menu,
+    reposition
+  };
+
+  window.addEventListener("scroll", reposition, true);
+  window.addEventListener("resize", reposition);
+}
+
+function enhanceSelects() {
+  document.querySelectorAll("select").forEach(select => {
+    if (select.dataset.enhanced === "true") return;
+
+    select.dataset.enhanced = "true";
+    select.classList.add("nice-native");
+
+    const wrap = document.createElement("div");
+    wrap.className = "nice-select";
+
+    if (select.classList.contains("status-select")) {
+      wrap.classList.add("nice-status");
+    }
+
+    if (select.classList.contains("assignee-select")) {
+      wrap.classList.add("nice-assignee");
+    }
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "nice-select-btn";
+    button.innerHTML = `
+      <span class="nice-select-text"></span>
+      <span class="nice-caret">⌄</span>
+    `;
+
+    wrap.appendChild(button);
+    select.insertAdjacentElement("afterend", wrap);
+
+    updateNiceSelectButton(select, wrap, button);
+
+    button.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      openNiceDropdown(select, wrap, button);
+    });
+
+    select.addEventListener("change", function () {
+      updateNiceSelectButton(select, wrap, button);
+    });
+  });
+}
+
+document.addEventListener("click", function (e) {
+  if (!activeNiceDropdown) return;
+
+  if (
+    activeNiceDropdown.menu.contains(e.target) ||
+    activeNiceDropdown.wrap.contains(e.target)
+  ) {
+    return;
+  }
+
+  closeNiceDropdown();
+});
+
+
+const WEEK_STATE_KEY = "manday_week_collapsed_state";
+
+function getWeekState() {
+  try {
+    return JSON.parse(localStorage.getItem(WEEK_STATE_KEY)) || {};
+  } catch (e) {
+    return {};
+  }
+}
+
+function saveWeekState(state) {
+  localStorage.setItem(WEEK_STATE_KEY, JSON.stringify(state));
+}
+
+function updateWeekArrow(header, isHidden) {
+  const arrow = header.querySelector(".week-arrow");
+  if (!arrow) return;
+
+  arrow.textContent = isHidden ? "▶" : "▼";
+}
+
+function toggleWeek(id, weekKey) {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  const header = document.querySelector(
+    `.week-header[data-target="${id}"]`
+  );
+
+  const isHidden = el.classList.toggle("hidden");
+
+  const state = getWeekState();
+
+  if (isHidden) {
+    state[weekKey] = true;
+  } else {
+    delete state[weekKey];
+  }
+
+  saveWeekState(state);
+
+  if (header) {
+    updateWeekArrow(header, isHidden);
+  }
+}
+
+function updateStatusColor(select) {
+  select.classList.remove("status-created", "status-not-created");
+
+  if (select.value === "Đã tạo nhóm") {
+    select.classList.add("status-created");
+  } else {
+    select.classList.add("status-not-created");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const state = getWeekState();
+
+  document.querySelectorAll(".week-header").forEach(header => {
+    const targetId = header.dataset.target;
+    const weekKey = header.dataset.weekKey;
+    const content = document.getElementById(targetId);
+
+    if (!content) return;
+
+    if (state[weekKey]) {
+      content.classList.add("hidden");
+      updateWeekArrow(header, true);
+    } else {
+      content.classList.remove("hidden");
+      updateWeekArrow(header, false);
+    }
+
+    header.addEventListener("click", function () {
+      toggleWeek(targetId, weekKey);
+    });
+  });
+
+  document.querySelectorAll(".status-select").forEach(select => {
+    updateStatusColor(select);
+
+    select.addEventListener("change", function () {
+      updateStatusColor(select);
+    });
+  });
+  enhanceSelects();
+});
+</script>
+
+<%- include('partials/workspace-ui') %>
+</head>
+
+<body>
+<main class="page">
+
+  <section class="header">
+    <div class="hero">
+      <div class="badge">📊 MBOS Manday Control Center</div>
+      <h1>Manday Management</h1>
+      <p class="subtitle">
+        Quản lý tuần, workload, nhân sự thực hiện, trạng thái tạo nhóm và push Telegram trong một dashboard gọn đẹp.
+      </p>
+    </div>
+
+    <div class="actions">
+      <a class="btn btn-back" href="/home">⬅ Back</a>
+      <a class="btn btn-push" href="/manday/push">🚀 Push Telegram</a>
+    </div>
+  </section>
+
+  <section class="dashboard">
+    <div class="card">
+      <div class="card-title">
+        <div>
+          <h3>🗓 Tạo tuần</h3>
+          <span>Thêm khoảng thời gian quản lý manday</span>
+        </div>
+      </div>
+
+      <form method="POST" action="/manday/create-week">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Start</label>
+            <input type="date" name="start_date" required>
+          </div>
+
+          <div class="form-group">
+            <label>End</label>
+            <input type="date" name="end_date" required>
+          </div>
+
+          <div class="form-group">
+            <label>&nbsp;</label>
+            <button class="btn">Tạo</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <div>
+          <h3>➕ Thêm công việc</h3>
+          <span>Paste nội dung task, chọn tuần, trạng thái và nhân sự</span>
+        </div>
+      </div>
+
+      <form method="POST" action="/manday/add">
+        <textarea name="input" rows="3" required placeholder="Nhập nội dung công việc..."></textarea>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Week</label>
+            <select name="week_id">
+              <% data.weeks.forEach(w => { %>
+                <option value="<%= w.week_id %>"><%= w.week_id %></option>
+              <% }) %>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Status</label>
+            <select name="status" class="status-select">
+              <option>Chưa tạo nhóm</option>
+              <option>Đã tạo nhóm</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Nhân sự thực hiện</label>
+            <select name="assignee" class="assignee-select">
+              <option value="">-- Chọn --</option>
+              <option>A Long</option>
+              <option>Hịu Phó Lít</option>
+              <option>Vú Lee</option>
+              <option>Trường 10 sợt</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>&nbsp;</label>
+            <button class="btn">Thêm</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="card list-card">
+    <div class="list-header">
+      <h3>📋 Danh sách</h3>
+      <p>Click vào từng tuần để thu gọn hoặc mở rộng. Trạng thái sẽ tự đổi màu theo lựa chọn.</p>
+    </div>
+
+<% 
+function formatDate(d){ 
+  if(!d) return "";
+  const parts = d.split("-");
+  return parts[2]+"/"+parts[1]+"/"+parts[0].slice(2);
+}
+
+function escapeHtml(str) {
+  return String(str || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function highlightPycName(name) {
+  const escaped = escapeHtml(name);
+
+  return escaped.replace(/(PENTEST_)(\d+)/g, function(match, prefix, number) {
+    return prefix + '<span class="pyc-number">' + number + '</span>';
+  });
+}
+
+const assigneeOptions = [
+  "A Long",
+  "Hịu Phó Lít",
+  "Vú Lee",
+  "Trường 10 sợt"
+];
+%>
+
+<% data.weeks.forEach((w, wi) => { %>
+
+    <div 
+      class="week-header"
+      data-target="week_<%= wi %>"
+      data-week-key="<%= w.week_id %>"
+    >
+      <div>
+        <span class="week-arrow">▼</span>
+        📅 <%= w.week_id %> | Manday: <%= w.total_manday %>
+      </div>
+    </div>
+
+    <div id="week_<%= wi %>">
+      <div class="table-wrap">
+        <table>
+          <tr>
+            <th>Tên</th>
+            <th>API</th>
+            <th>Manday</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Support</th>
+            <th>Nhân sự thực hiện</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+
+<%
+  const sortedItems = w.items
+    .map((item, originalIndex) => ({
+      item,
+      originalIndex
+    }))
+    .sort((a, b) => {
+      const dateA = a.item.end_date || "9999-12-31";
+      const dateB = b.item.end_date || "9999-12-31";
+      return dateA.localeCompare(dateB);
+    });
+%>
+
+<% sortedItems.forEach(({ item: i, originalIndex: ii }) => { %>
+          <tr>
+            <form method="POST" action="/manday/update">
+              <input type="hidden" name="week_id" value="<%= w.week_id %>">
+              <input type="hidden" name="index" value="<%= ii %>">
+
+              <td><%- highlightPycName(i.ten_pyc) %></td>
+
+              <td><input name="tong_api" value="<%= i.tong_api %>" size="3"></td>
+              <td><input name="manday" value="<%= i.manday %>" size="3"></td>
+
+              <td><input name="start_date" value="<%= formatDate(i.start_date) %>"></td>
+              <td><input name="end_date" value="<%= formatDate(i.end_date) %>"></td>
+
+              <td><input name="supporter" value="<%= i.supporter %>"></td>
+
+              <td>
+                <select name="assignee" class="assignee-select">
+                  <option value="">-- Chọn --</option>
+                  <% assigneeOptions.forEach(name => { %>
+                    <option value="<%= name %>" <%= i.assignee === name ? "selected" : "" %>>
+                      <%= name %>
+                    </option>
+                  <% }) %>
+                </select>
+              </td>
+
+              <td>
+                <select name="status" class="status-select">
+                  <option <%= i.status==="Đã tạo nhóm"?"selected":"" %>>Đã tạo nhóm</option>
+                  <option <%= i.status==="Chưa tạo nhóm"?"selected":"" %>>Chưa tạo nhóm</option>
+                </select>
+              </td>
+
+              <td>
+                <button class="btn">💾</button>
+            </form>
+
+                <form method="POST" action="/manday/delete" style="display:inline">
+                  <input type="hidden" name="week_id" value="<%= w.week_id %>">
+                  <input type="hidden" name="index" value="<%= ii %>">
+                  <button class="btn btn-danger">❌</button>
+                </form>
+              </td>
+          </tr>
+<% }) %>
+
+        </table>
+      </div>
+    </div>
+
+<% }) %>
+
+  </section>
+
+  <div class="footer-note">
+    MBOS Internal Tool · Manday Management Dashboard
+  </div>
+
+</main>
+</body>
+</html>

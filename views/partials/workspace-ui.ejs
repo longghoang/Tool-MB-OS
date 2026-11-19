@@ -1,0 +1,6 @@
+<link rel="icon" type="image/svg+xml" href="/workspace/favicon.svg?v=2">
+<% if (typeof workspaceUser !== 'undefined' && workspaceUser) { %>
+<script>window.workspaceSettings = <%- JSON.stringify({ username: workspaceUser.username, role: workspaceUser.role, theme: workspaceTheme, module: workspaceModule, csrf: workspaceCsrf }).replace(/</g, '\\u003c') %>; document.documentElement.dataset.theme = window.workspaceSettings.theme; document.documentElement.dataset.module = window.workspaceSettings.module;</script>
+<link rel="stylesheet" href="/workspace/theme.css">
+<script defer src="/workspace/ui.js"></script>
+<% } %>

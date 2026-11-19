@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tra cứu tên công việc BBXN</title>
+  <style>
+    :root { color-scheme: light; --navy:#172033; --blue:#2563eb; --muted:#64748b; --line:#dbe3ee; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; font-family:Arial,sans-serif; color:var(--navy); background:#f3f6fa; }
+    .shell { width:min(900px,calc(100% - 32px)); margin:48px auto; }
+    .header { margin-bottom:20px; }
+    .header a { color:var(--muted); text-decoration:none; font-size:14px; }
+    h1 { margin:18px 0 8px; font-size:30px; }
+    .lead { margin:0; color:var(--muted); line-height:1.55; }
+    .card { margin-top:22px; padding:26px; background:#fff; border:1px solid var(--line); border-radius:14px; box-shadow:0 12px 32px rgba(23,32,51,.08); }
+    label { display:block; margin-bottom:9px; font-weight:bold; }
+    textarea { display:block; width:100%; min-height:170px; padding:13px 14px; resize:vertical; border:1px solid #b8c6da; border-radius:9px; font:14px/1.55 Consolas,monospace; }
+    textarea:focus { outline:2px solid #bfdbfe; border-color:var(--blue); }
+    .hint { margin:8px 0 18px; color:var(--muted); font-size:13px; line-height:1.5; }
+    .actions { display:flex; gap:10px; flex-wrap:wrap; }
+    button { padding:11px 17px; border:0; border-radius:9px; color:white; background:var(--blue); font-size:14px; font-weight:bold; cursor:pointer; }
+    button:hover { background:#1d4ed8; }
+    button:disabled { cursor:wait; opacity:.65; }
+    button.secondary { color:#1e3a8a; background:#dbeafe; }
+    button.secondary:hover { background:#bfdbfe; }
+    .message { display:none; margin-top:15px; padding:11px 13px; border-radius:8px; font-size:14px; line-height:1.45; }
+    .message.error { display:block; color:#991b1b; background:#fef2f2; border:1px solid #fecaca; }
+    .message.success { display:block; color:#166534; background:#f0fdf4; border:1px solid #bbf7d0; }
+    #results { margin-top:22px; }
+    .result-heading { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:10px; }
+    .result-heading h2 { margin:0; font-size:18px; }
+    .table-wrap { overflow:auto; border:1px solid var(--line); border-radius:9px; }
+    table { width:100%; border-collapse:collapse; font-size:14px; }
+    th,td { padding:10px 12px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
+    th { background:#f8fafc; }
+    tr:last-child td { border-bottom:0; }
+    td.order { width:55px; color:var(--muted); }
+    td.pyc { width:160px; white-space:nowrap; font-weight:bold; }
+    td.missing { color:#b45309; font-style:italic; }
+    @media(max-width:560px) { .shell { margin:24px auto; } .card { padding:18px; } .result-heading { align-items:flex-start; flex-direction:column; } }
+  </style>
+<%- include('partials/workspace-ui') %>
+</head>
+<body>
+  <main class="shell">
+    <header class="header">
+      <a href="/home">← Quay lại trang công cụ</a>
+      <h1>Tra cứu tên công việc BBXN</h1>
+      <p class="lead">Dán danh sách mã PYC theo thứ tự trong Excel. Tool tra cứu và hiển thị tên công việc theo đúng thứ tự để bạn copy vào cột <strong>Nội dung công việc</strong>.</p>
+    </header>
+
+    <section class="card">
+      <form id="lookupForm">
+        <label for="pycList">Danh sách mã PYC</label>
+        <textarea id="pycList" name="pycs" placeholder="PENTEST-20134&#10;PENTEST-20347&#10;PENTEST-20413" required></textarea>
+        <p class="hint">Mỗi dòng một mã; có thể dán trực tiếp một cột từ Excel. Mã trùng vẫn giữ nguyên vị trí. Mã không tra được sẽ để trống tương ứng khi copy.</p>
+        <div class="actions">
+          <button id="lookupButton" type="submit">Tra cứu tên công việc</button>
+          <button id="copyButton" class="secondary" type="button" hidden>Copy all tên công việc</button>
+        </div>
+        <div id="message" class="message" role="status" aria-live="polite"></div>
+      </form>
+
+      <section id="results" hidden>
+        <div class="result-heading"><h2>Kết quả theo thứ tự PYC</h2></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>STT</th><th>Mã JIRA</th><th>Nội dung công việc</th></tr></thead>
+            <tbody id="resultsBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById("lookupForm");
+    const input = document.getElementById("pycList");
+    const lookupButton = document.getElementById("lookupButton");
+    const copyButton = document.getElementById("copyButton");
+    const message = document.getElementById("message");
+    const results = document.getElementById("results");
+    const resultsBody = document.getElementById("resultsBody");
+    let titlesInOrder = [];
+
+    function showMessage(text, kind) {
+      message.textContent = text;
+      message.className = `message ${kind}`;
+    }
+
+    form.addEventListener("submit", async event => {
+      event.preventDefault();
+      lookupButton.disabled = true;
+      lookupButton.textContent = "Đang tra cứu PYC...";
+      copyButton.hidden = true;
+      results.hidden = true;
+      resultsBody.replaceChildren();
+      titlesInOrder = [];
+      message.className = "message";
+
+      try {
+        const response = await fetch("/excel/lookup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({ pycs: input.value }),
+        });
+        const payload = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(payload.error || `Tra cứu thất bại (HTTP ${response.status})`);
+
+        titlesInOrder = payload.items.map(item => item.title || "");
+        for (const item of payload.items) {
+          const row = document.createElement("tr");
+          const orderCell = document.createElement("td");
+          orderCell.className = "order";
+          orderCell.textContent = item.order;
+          const pycCell = document.createElement("td");
+          pycCell.className = "pyc";
+          pycCell.textContent = `PENTEST-${item.pyc}`;
+          const titleCell = document.createElement("td");
+          titleCell.textContent = item.title || "Không lấy được; ô copy sẽ để trống";
+          if (!item.title) titleCell.className = "missing";
+          row.append(orderCell, pycCell, titleCell);
+          resultsBody.appendChild(row);
+        }
+        results.hidden = false;
+        copyButton.hidden = false;
+        showMessage(payload.skipped
+          ? `Tra xong ${payload.items.length} mã: lấy được ${payload.filled}, bỏ trống ${payload.skipped}. Thứ tự dòng được giữ nguyên.`
+          : `Tra xong ${payload.items.length} mã. Thứ tự dòng được giữ nguyên, sẵn sàng copy vào Excel.`, "success");
+      } catch (error) {
+        showMessage(error.message, "error");
+      } finally {
+        lookupButton.disabled = false;
+        lookupButton.textContent = "Tra cứu tên công việc";
+      }
+    });
+
+    copyButton.addEventListener("click", async () => {
+      const text = titlesInOrder.join("\r\n");
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        helper.style.position = "fixed";
+        helper.style.opacity = "0";
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
+      showMessage("Đã copy một cột tên công việc theo đúng thứ tự PYC. Hãy chọn ô đầu tiên trong Excel rồi dán.", "success");
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b1020"><title>Đăng nhập · VNCS Workspace</title>
+  <link rel="icon" type="image/svg+xml" href="/workspace/favicon.svg?v=2">
+  <style>
+    :root{color-scheme:dark;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;overflow:hidden;background:#080d18;color:#f1f5ff}
+    body:before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 18% 15%,#5264e12b,transparent 32%),radial-gradient(circle at 85% 80%,#1cc7bd22,transparent 34%),linear-gradient(140deg,#0b1324,#070a11);pointer-events:none}
+    .grid{position:fixed;inset:0;opacity:.18;background-image:linear-gradient(#ffffff15 1px,transparent 1px),linear-gradient(90deg,#ffffff15 1px,transparent 1px);background-size:52px 52px;mask-image:linear-gradient(#000,transparent)}
+    .layout{position:relative;width:min(970px,calc(100% - 28px));display:grid;grid-template-columns:1.05fr .95fr;border:1px solid #64718b33;border-radius:28px;background:#111928d9;box-shadow:0 35px 110px #0009;overflow:hidden;backdrop-filter:blur(22px);animation:enter .5s cubic-bezier(.2,.7,.2,1)}
+    .intro{padding:55px 48px;background:linear-gradient(145deg,#1c2852,#111b34 60%,#0e2634);display:flex;flex-direction:column;justify-content:space-between;min-height:530px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.04em}.mark{width:42px;height:42px;display:block;border-radius:11px;box-shadow:0 10px 28px #6577ff55}
+    .eyebrow{font-size:11px;font-weight:800;letter-spacing:.2em;color:#97aaff;text-transform:uppercase}.intro h1{font-size:clamp(36px,4vw,55px);line-height:1.06;letter-spacing:-.055em;margin:13px 0}.intro h1 span{color:#77ddd9}.intro p{color:#b7c4da;line-height:1.7;max-width:385px}.foot{color:#8598b6;font-size:12px}
+    .form-area{padding:55px 48px;display:flex;flex-direction:column;justify-content:center}.form-area h2{font-size:26px;letter-spacing:-.035em;margin:0 0 7px}.form-area>p{color:#97a6bf;margin:0 0 30px;line-height:1.5}
+    label{display:block;color:#d2daea;font-size:13px;font-weight:700;margin-bottom:9px}.field{margin-bottom:20px}input{width:100%;border:1px solid #36445e;border-radius:12px;background:#0a111e;color:#fff;padding:14px 15px;font:inherit;outline:0;transition:border-color .2s,box-shadow .2s}input:focus{border-color:#8490ff;box-shadow:0 0 0 4px #6677ff2c}input::placeholder{color:#728098}
+    button{width:100%;padding:14px;border:1px solid #7684ff;border-radius:12px;background:linear-gradient(135deg,#6877f7,#4d5ed8);color:#fff;font:800 14px Inter,system-ui;cursor:pointer;box-shadow:0 14px 30px #5264ec30;transition:transform .2s,box-shadow .2s}button:hover{transform:translateY(-2px);box-shadow:0 18px 35px #5264ec50}
+    .remember{display:flex;align-items:flex-start;gap:10px;margin:-2px 0 22px;cursor:pointer}.remember input{width:17px;height:17px;flex:none;margin:2px 0 0;padding:0;border:0;accent-color:#7280ff}.remember span{color:#d5def0;font-size:13px;font-weight:650}.remember small{display:block;margin-top:3px;color:#8a9ab3;font-size:11px;font-weight:450;line-height:1.45}
+    .error{padding:12px 14px;margin-bottom:20px;border:1px solid #a64154;border-radius:10px;background:#3d1823;color:#ffb4c0;font-size:13px}.hint{color:#73839e;font-size:12px;margin-top:24px;text-align:center}
+    .saved-login{margin-top:11px;background:#182238;border-color:#394962;box-shadow:none}.saved-login:hover{box-shadow:0 8px 24px #0004}[hidden]{display:none!important}
+    @keyframes enter{from{opacity:0;transform:translateY(13px)}to{opacity:1;transform:none}}@media(max-width:760px){.layout{grid-template-columns:1fr}.intro{min-height:0;padding:28px 26px}.intro h1{font-size:35px}.intro p{margin-bottom:0}.foot{display:none}.form-area{padding:35px 26px}}
+    @media(prefers-reduced-motion:reduce){.layout,button{animation:none;transition:none}}
+  </style>
+  <script defer src="/workspace/login.js?v=2"></script>
+</head>
+<body><div class="grid"></div><main class="layout">
+  <section class="intro"><div class="brand"><img class="mark" src="/workspace/favicon.svg?v=2" alt="VNCS"><span>VNCS · MB OS</span></div><div><div class="eyebrow">Secure workspace</div><h1>Chào các tướng sĩ, <span>các tướng sĩ vất vả dồi</span></h1><p>Đăng nhập để truy cập các công cụ đánh giá, quản lý hồ sơ và báo cáo trong workspace nội bộ.</p></div><div class="foot">Security Operations Workspace</div></section>
+  <section class="form-area"><h2>Chào mừng trở lại</h2><p>Vui lòng đăng nhập để tiếp tục công việc.</p>
+    <% if (error) { %><div class="error" role="alert"><%= error %></div><% } %>
+    <form id="login-form" method="post" action="/login" autocomplete="on">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>"><input type="hidden" name="next" value="<%= next %>">
+      <div class="field"><label for="username">Tài khoản</label><input id="username" name="username" autocomplete="username" placeholder="Nhập tài khoản" value="<%= username || '' %>" required autofocus></div>
+      <div class="field"><label for="password">Mật khẩu</label><input id="password" name="password" type="password" autocomplete="current-password" placeholder="Nhập mật khẩu" required></div>
+      <label class="remember"><input type="checkbox" name="remember" value="on" <%= remember ? 'checked' : '' %>><span>Nhớ tài khoản và mật khẩu<small>Lưu trong trình quản lý mật khẩu của trình duyệt; giữ đăng nhập 30 ngày.</small></span></label>
+      <button type="submit">Đăng nhập →</button>
+      <button id="saved-login" class="saved-login" type="button" hidden>Điền tài khoản đã lưu</button>
+    </form><div class="hint">Chỉ dành cho người dùng được cấp quyền.</div>
+  </section>
+</main></body></html>

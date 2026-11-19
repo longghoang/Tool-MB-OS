@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Postman Analysis</title>
+
+  <style>
+    :root {
+      --bg-main: #0d1117;
+      --bg-card: #161b22;
+      --bg-hover: #1f2630;
+      --border: #30363d;
+      --text-main: #c9d1d9;
+      --text-muted: #8b949e;
+      --green: #3fb950;
+      --red: #f85149;
+      --blue: #58a6ff;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: Consolas, monospace;
+    }
+
+    body {
+      margin: 0;
+      padding: 30px;
+      background: linear-gradient(180deg, #0d1117, #010409);
+      color: var(--text-main);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .container {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,.4);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    thead {
+      background: #0b1320;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 10px;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: .5px;
+    }
+
+    tbody tr:hover {
+      background: var(--bg-hover);
+    }
+
+    .method {
+      font-weight: bold;
+    }
+
+    .GET { color: #58a6ff; }
+    .POST { color: #3fb950; }
+    .PUT { color: #d29922; }
+    .DELETE { color: #f85149; }
+
+    .yes {
+      color: var(--green);
+      font-weight: bold;
+    }
+
+    .no {
+      color: var(--red);
+      font-weight: bold;
+    }
+
+    .footer {
+      margin-top: 25px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    button {
+      background: #238636;
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: .2s;
+    }
+
+    button:hover {
+      background: #2ea043;
+    }
+
+    .btn-secondary {
+      background: #21262d;
+      border: 1px solid var(--border);
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background: #30363d;
+    }
+
+    .hint {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+  </style>
+<%- include('partials/workspace-ui') %>
+</head>
+
+<body>
+
+<h2>📌 Kết quả phân tích API từ Postman</h2>
+
+<div class="container">
+  <table>
+    <thead>
+      <tr>
+        <th>STT</th>
+        <th>Name</th>
+        <th>Method</th>
+        <th>URL</th>
+        <th>Auth</th>
+        <th>User Input</th>
+        <th>Upload</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% apis.forEach((api, idx) => { %>
+      <tr>
+        <td><%= idx + 1 %></td>
+        <td><%= api.name %></td>
+        <td class="method <%= api.method %>"><%= api.method %></td>
+        <td style="word-break: break-all;"><%= api.url %></td>
+        <td class="<%= api.hasAuthHeader ? 'yes' : 'no' %>">
+          <%= api.hasAuthHeader ? "✔" : "✘" %>
+        </td>
+        <td class="<%= api.hasUserInput ? 'yes' : 'no' %>">
+          <%= api.hasUserInput ? "✔" : "✘" %>
+        </td>
+        <td class="<%= api.isFileUpload ? 'yes' : 'no' %>">
+          <%= api.isFileUpload ? "✔" : "✘" %>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+
+  <div class="footer">
+    <button class="btn-secondary" onclick="location.href='/ai-checklist'">
+      ⬅ Upload lại Postman
+    </button>
+
+    <form action="/ai-checklist/decision" method="post" style="margin:0;">
+      <button type="submit">➡ Gợi ý Checklist</button>
+    </form>
+  </div>
+
+  <div class="hint">
+    ✔ = Có dấu hiệu rủi ro cần test &nbsp;&nbsp; ✘ = Ít rủi ro / không liên quan
+  </div>
+</div>
+
+</body>
+</html>

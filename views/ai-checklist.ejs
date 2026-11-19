@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Pentest Checklist</title>
+
+  <style>
+    :root {
+      --bg-main: #0d1117;
+      --bg-card: #161b22;
+      --border: #30363d;
+      --text-main: #c9d1d9;
+      --text-muted: #8b949e;
+      --blue: #58a6ff;
+      --green: #3fb950;
+      --red: #f85149;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: Consolas, monospace;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(180deg, #0d1117, #010409);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      width: 520px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 0 25px rgba(0,0,0,.45);
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+
+    p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .upload-box {
+      border: 2px dashed var(--border);
+      border-radius: 10px;
+      padding: 30px;
+      margin-bottom: 20px;
+      transition: .2s;
+    }
+
+    .upload-box:hover {
+      border-color: var(--blue);
+      background: #0b1320;
+    }
+
+    input[type="file"] {
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    button {
+      background: #238636;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: .2s;
+    }
+
+    button:hover {
+      background: #2ea043;
+    }
+
+    .error {
+      margin-top: 15px;
+      color: var(--red);
+      font-size: 13px;
+    }
+
+    .footer {
+      margin-top: 20px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+  </style>
+<%- include('partials/workspace-ui') %>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>🤖 AI Pentest Checklist</h1>
+  <p>Upload Postman Collection để tự động phân tích API và sinh checklist kiểm thử</p>
+
+  <form action="/ai-checklist/analyze" method="post" enctype="multipart/form-data">
+    <div class="upload-box">
+      <input type="file" name="postmanFile" accept=".json" required>
+    </div>
+
+    <button type="submit">📤 Phân tích Postman</button>
+  </form>
+
+  <% if (error) { %>
+    <div class="error">⚠ <%= error %></div>
+  <% } %>
+
+  <div class="footer">
+    AI-assisted Pentest Checklist • Internal Tool
+  </div>
+</div>
+
+</body>
+</html>
