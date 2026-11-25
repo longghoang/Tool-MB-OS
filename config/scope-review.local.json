@@ -1,0 +1,5 @@
+{
+  "aiUrl": "http://localhost:20128/v1/chat/completions",
+  "aiModel": "cx/gpt-6-luna",
+  "aiKey": "sk-e94bf93e6d9d0250-jtwnyl-845a4fc0"
+}

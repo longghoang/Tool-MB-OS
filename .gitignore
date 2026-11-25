@@ -1,11 +1,1 @@
 node_modules/
-config/*.local.json
-data/*.json
-logs/
-runtime-logs/
-reports/
-uploads/
-*.log
-.env
-.env.*
-!.env.example

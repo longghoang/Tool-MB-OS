@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>BÁO CÁO KẾT QUẢ KIỂM TRA, ĐÁNH GIÁ AN TOÀN THÔNG TIN</title>
+  <style>
+    @page { size: A4; margin: 17mm 15mm; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: #111827;
+      font-family: "Times New Roman", Times, serif;
+      font-size: 12.5pt;
+      line-height: 1.45;
+      background: white;
+    }
+    .cover {
+      min-height: 255mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      border: 1.35mm solid #1f4e79;
+      padding: 24mm 18mm;
+      position: relative;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    }
+    .cover:before {
+      content: "";
+      position: absolute;
+      inset: 8mm;
+      border: 0.35mm solid #d9e2ec;
+    }
+    .brand { color: #1f4e79; font-size: 13pt; font-weight: 700; letter-spacing: 1px; }
+    h1, h2, h3 { color: #1f4e79; margin: 18px 0 10px; line-height: 1.25; }
+    h1 { font-size: 20pt; text-transform: uppercase; page-break-after: avoid; }
+    h2 { font-size: 15.5pt; }
+    h3 { font-size: 13.5pt; color: #243b53; }
+    .cover-title { font-size: 25pt; font-weight: 700; color: #1f4e79; text-transform: uppercase; margin: 28mm 0 8mm; }
+    .cover-subtitle { font-size: 18pt; font-weight: 700; color: #243b53; text-transform: uppercase; }
+    .cover-meta { margin-top: 10mm; font-size: 14pt; }
+    .cover-footer { margin-top: 32mm; color: #334155; }
+    .page-break { page-break-before: always; }
+    table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; page-break-inside: avoid; }
+    th, td { border: 1px solid #d9e2ec; padding: 7px 8px; vertical-align: top; }
+    th { background: #1f4e79; color: #fff; text-align: left; }
+    .label { width: 28%; background: #eaf2f8; color: #1f4e79; font-weight: 700; }
+    .summary td { text-align: center; font-weight: 700; font-size: 16pt; }
+    .badge {
+      display: inline-block;
+      min-width: 86px;
+      padding: 4px 7px;
+      border-radius: 5px;
+      color: white;
+      text-align: center;
+      font-weight: 700;
+      font-size: 11pt;
+    }
+    .critical { background: #b91c1c; }
+    .high { background: #ea580c; }
+    .medium { background: #d97706; }
+    .low { background: #15803d; }
+    .info { background: #475569; }
+    article.finding {
+      page-break-inside: avoid;
+      margin: 0 0 18px;
+      padding-top: 2px;
+      border-top: 4px solid #1f4e79;
+    }
+    .finding-title {
+      display: table;
+      width: 100%;
+      margin: 12px 0 10px;
+      border-collapse: collapse;
+      color: #fff;
+      page-break-inside: avoid;
+    }
+    .finding-title > div {
+      display: table-cell;
+      padding: 9px 10px;
+      vertical-align: middle;
+      background: #1f4e79;
+      font-weight: 700;
+    }
+    .finding-title > div:last-child {
+      width: 140px;
+      text-align: center;
+      border-left: 1px solid rgba(255,255,255,0.35);
+    }
+    .finding--critical { border-top-color: #b91c1c; }
+    .finding--high { border-top-color: #ea580c; }
+    .finding--medium { border-top-color: #d97706; }
+    .finding--low { border-top-color: #15803d; }
+    .finding--info { border-top-color: #475569; }
+    .finding--critical .finding-title > div { background: #b91c1c; }
+    .finding--high .finding-title > div { background: #ea580c; }
+    .finding--medium .finding-title > div { background: #d97706; }
+    .finding--low .finding-title > div { background: #15803d; }
+    .finding--info .finding-title > div { background: #475569; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      background: #f8fafc;
+      border: 1px solid #d9e2ec;
+      padding: 10px;
+      margin: 8px 0 16px;
+    }
+    .poc-images {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin: 8px 0 16px;
+    }
+    figure {
+      margin: 0;
+      page-break-inside: avoid;
+      text-align: center;
+    }
+    figure img {
+      max-width: 100%;
+      max-height: 135mm;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      object-fit: contain;
+    }
+    figcaption {
+      margin-top: 5px;
+      color: #64748b;
+      font-size: 10.5pt;
+      font-style: italic;
+    }
+    .toc td:first-child { width: 55px; text-align: center; color: #1f4e79; font-weight: 700; }
+    .muted { color: #64748b; }
+  </style>
+</head>
+<body>
+  <section class="cover">
+    <div class="brand">SECURITY ASSESSMENT REPORT</div>
+    <div class="cover-title">BÁO CÁO KẾT QUẢ</div>
+    <div class="cover-subtitle">KIỂM TRA, ĐÁNH GIÁ AN TOÀN THÔNG TIN</div>
+    <div class="cover-meta">
+      <strong>Đối tượng:</strong> CRM<br>
+      <strong>Khách hàng:</strong> sf
+    </div>
+    <div class="cover-footer">Hà Nội, 2026</div>
+  </section>
+
+  <section class="page-break">
+    <h1>MỤC LỤC</h1>
+    <table class="toc">
+      <tr><td>I</td><td>TỔNG QUAN</td></tr>
+      <tr><td>II</td><td>TỔNG QUAN KẾT QUẢ ĐÁNH GIÁ</td></tr>
+      <tr><td>III</td><td>CHI TIẾT LỖ HỔNG TỒN TẠI</td></tr>
+    </table>
+  </section>
+
+  <section class="page-break">
+    <h1>I. TỔNG QUAN</h1>
+    <h2>1. Thông tin tổng quan</h2>
+    <table>
+      <tr><td class="label">Tên báo cáo</td><td>BÁO CÁO KẾT QUẢ KIỂM TRA, ĐÁNH GIÁ AN TOÀN THÔNG TIN</td></tr>
+      <tr><td class="label">Khách hàng</td><td>sf</td></tr>
+      <tr><td class="label">Đối tượng đánh giá</td><td>CRM</td></tr>
+      <tr><td class="label">Hình thức đánh giá</td><td>Black Box</td></tr>
+      <tr><td class="label">Môi trường</td><td>Production</td></tr>
+      <tr><td class="label">Thời gian thực hiện</td><td></td></tr>
+      <tr><td class="label">Nhân sự thực hiện</td><td>Pentest Team</td></tr>
+      <tr><td class="label">Ngày báo cáo</td><td>2026-06-18</td></tr>
+    </table>
+
+    <h2>2. Mục tiêu đánh giá</h2>
+    <p>Báo cáo ghi nhận kết quả kiểm tra an toàn thông tin cho CRM. Nội dung bao gồm danh sách lỗ hổng, mức độ rủi ro, bằng chứng kỹ thuật và khuyến nghị khắc phục tương ứng.</p>
+
+    <h2>3. Phân loại cấp độ lỗ hổng</h2>
+    <table>
+      <tr><th>Phân loại</th><th>Điểm CVSS v3.1</th><th>Mô tả</th></tr>
+      <tr><td><span class="badge critical">Nghiêm trọng</span></td><td>9.0 - 10.0</td><td>Lỗ hổng có thể gây ảnh hưởng đặc biệt nghiêm trọng tới tính bí mật, toàn vẹn hoặc sẵn sàng của hệ thống.</td></tr>
+      <tr><td><span class="badge high">Cao</span></td><td>7.0 - 8.9</td><td>Lỗ hổng có thể bị khai thác để chiếm quyền, truy cập dữ liệu quan trọng hoặc tác động đáng kể tới hoạt động hệ thống.</td></tr>
+      <tr><td><span class="badge medium">Trung bình</span></td><td>4.0 - 6.9</td><td>Lỗ hổng có mức tác động trung bình, có thể là tiền đề cho chuỗi tấn công phức tạp hơn.</td></tr>
+      <tr><td><span class="badge low">Thấp</span></td><td>0.1 - 3.9</td><td>Lỗ hổng có ảnh hưởng hạn chế, nên được xử lý theo kế hoạch cải thiện an toàn thông tin.</td></tr>
+    </table>
+
+    <h2>4. Phạm vi thực hiện kiểm tra đánh giá</h2>
+    <table>
+      <tr><td class="label">Phương pháp</td><td>Black Box</td></tr>
+      <tr><td class="label">Đối tượng thực hiện</td><td>CRM</td></tr>
+      <tr><td class="label">Thông tin/phạm vi được cung cấp</td><td>Không có dữ liệu</td></tr>
+    </table>
+  </section>
+
+  <section class="page-break">
+    <h1>II. TỔNG QUAN KẾT QUẢ ĐÁNH GIÁ</h1>
+    <p>Sau quá trình đánh giá, kết quả được tổng hợp theo mức độ rủi ro như sau:</p>
+    <table class="summary">
+      <tr>
+        <th>Nghiêm trọng</th><th>Cao</th><th>Trung bình</th><th>Thấp</th><th>Khuyến nghị</th><th>Tổng số</th>
+      </tr>
+      <tr>
+        <td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td>
+      </tr>
+    </table>
+    <h2>Danh sách lỗ hổng</h2>
+    <table>
+      <tr><th>STT</th><th>Tên lỗ hổng</th><th>Mức độ</th><th>CVSS</th><th>Trạng thái</th></tr>
+      <tr>
+        <td>1</td>
+        <td>sdf</td>
+        <td><span class="badge high">Cao</span></td>
+        <td>7.1</td>
+        <td>Đã khắc phục</td>
+      </tr>
+    </table>
+  </section>
+
+  <section class="page-break">
+    <h1>III. CHI TIẾT LỖ HỔNG TỒN TẠI</h1>
+    <article class="finding finding--high">
+      <div class="finding-title">
+        <div>1. sdf</div>
+        <div>Cao<br>CVSS 7.1</div>
+      </div>
+      <table>
+        <tr><td class="label">Mức độ nghiêm trọng</td><td><span class="badge high">Cao</span> 7.1</td></tr>
+        <tr><td class="label">CVSS Vector</td><td>CVSS:3.1/AV:N/AC:H/PR:L/UI:R/S:U/C:H/I:H/A:H</td></tr>
+        <tr><td class="label">Trạng thái</td><td>Đã khắc phục</td></tr>
+        <tr><td class="label">Vị trí ảnh hưởng</td><td>https://ok.vn</td></tr>
+        <tr><td class="label">URL</td><td>https://ok.vn</td></tr>
+      </table>
+      <h3>Mô tả</h3>
+      <p>sdf</p>
+      <h3>Bằng chứng / PoC</h3>
+      <pre>sdfs</pre>
+      <h3>Khuyến nghị</h3>
+      <p>sdf</p>
+    </article>
+  </section>
+</body>
+</html>

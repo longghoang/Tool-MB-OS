@@ -1,0 +1,109 @@
+{
+  "modules": {
+    "scope-review": true,
+    "pending-comment": true,
+    "excel": false,
+    "pentest-report": false,
+    "ai-checklist": true,
+    "pyc-transition": false,
+    "manday": false,
+    "aes": true
+  },
+  "themes": {
+    "admin": "dark",
+    "vncs": "dark",
+    "mb": "dark"
+  },
+  "messages": [
+    {
+      "id": "5ac08523-71cc-4d5d-881f-c115e18e327e",
+      "username": "mb",
+      "senderName": "\"><h1>ok</h1>",
+      "content": "<h1>ok</h1>",
+      "createdAt": "2026-10-07T08:43:52.764Z",
+      "read": false
+    },
+    {
+      "id": "4f4d871a-20dd-4b6f-80fc-3a73e83f2665",
+      "username": "vncs",
+      "senderName": "<h1>Bùi Linh đây</h1>",
+      "content": "<h1>Bùi Linh đây hahahacker</h1>",
+      "createdAt": "2026-10-07T10:33:24.842Z",
+      "read": false
+    },
+    {
+      "id": "f3e09bde-9a14-44de-91d7-e77c762d9187",
+      "username": "vncs",
+      "senderName": "<h1>Bùi Linh đây</h1>",
+      "content": "<h1>Bùi Linh đây</h1>",
+      "createdAt": "2026-10-07T10:34:02.955Z",
+      "read": false
+    },
+    {
+      "id": "ff20ab70-9a72-401b-a7bb-5248a5f3d46e",
+      "username": "mb",
+      "senderName": "Loli",
+      "content": "iu a Nhong =))",
+      "createdAt": "2026-10-12T04:19:24.640Z",
+      "read": false
+    },
+    {
+      "id": "1620dcf8-0ff1-4bd7-b1b7-c085bf3511fb",
+      "username": "vncs",
+      "senderName": "xuân đình siêu payload",
+      "content": "<h1>a</h1>{{7*7}}${7*7}<%= 7*7 %>${{7*7}}#{7*7}*{7*7}{{7*'7'}}",
+      "createdAt": "2026-10-23T08:38:36.018Z",
+      "read": false
+    }
+  ],
+  "rememberTokens": [
+    {
+      "id": "af5ada418be62152ffdaebddca558fe6",
+      "hash": "1dbf667f80f16fdb0535505ac36c7c95ae6eccd373e63ccde8d4000eca63e7b5",
+      "username": "admin",
+      "expiresAt": 1795336642981
+    },
+    {
+      "id": "be83fccfb787ebfe364ebd0a1e50f469",
+      "hash": "fb00270e57fa6a9b82156800f124e474de485f4ae1e3d36b8ebf9ff2ee061754",
+      "username": "mb",
+      "expiresAt": 1795573844282
+    },
+    {
+      "id": "2cde99dbd9fed32a99264111fd47cfe3",
+      "hash": "c9aafc27853a4f926f6d615e77719dfbde9dd891c89e69f227e3229175008850",
+      "username": "vncs",
+      "expiresAt": 1796810998509
+    },
+    {
+      "id": "2fdd7dd52c1f2e9f05ecd5392a3ddecb",
+      "hash": "0e07ab95e5d1cdd90a9faca0bd3cd06e674e14d46a97243b6853d918deb49ffd",
+      "username": "mb",
+      "expiresAt": 1796975734284
+    },
+    {
+      "id": "da3eea47fb26afa1d3722d0a13f6b5c5",
+      "hash": "fe016af7bee3cbd8fd230a5eaab27a54effa0fd5b6a1eac973e1155b86a080d1",
+      "username": "vncs",
+      "expiresAt": 1797130026611
+    },
+    {
+      "id": "771348d97fbbcc18017a27d0718373d2",
+      "hash": "4358c09149a3f067b744524978ef6a9c55eff8b03e21d6f123c3cd8d50fc05c3",
+      "username": "vncs",
+      "expiresAt": 1797563763340
+    },
+    {
+      "id": "d85aa36a651bce524a91e7247746ec35",
+      "hash": "374ec7040081b12042c24fee2dca6729233b76bf7254b69024e029a87b095bdc",
+      "username": "vncs",
+      "expiresAt": 1797662987333
+    },
+    {
+      "id": "e6e2cf5cb6eb879183f46fdec006c222",
+      "hash": "171b99fa474c55959f88a51fdbbae3acfefc653dddd0f876fb3734fc22e8855c",
+      "username": "vncs",
+      "expiresAt": 1797674698821
+    }
+  ]
+}

@@ -1,0 +1,1488 @@
+{
+  "weeks": [
+    {
+      "week_id": "2026-04-20_to_2026-04-24",
+      "start_date": "2026-04-20",
+      "end_date": "2026-04-24",
+      "total_manday": 15,
+      "items": [
+        {
+          "ten_pyc": "PENTEST_16293_VNCS_Không thuộc Nhà máy_ITCMDB_Pentest các tính năng CI Status và fix pentest định kì",
+          "tong_api": 21,
+          "manday": 2.5,
+          "start_date": "2026-04-17",
+          "end_date": "2026-04-21",
+          "supporter": "Ngọc",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_15686_VNCS_Không thuộc Nhà máy_CMV TEAM A_Không thuộc Nhà máy_CMV TEAM A_Pentest thay đổi bộ chứng từ xe theo sản phẩm HTC-Vinfast",
+          "tong_api": 4,
+          "manday": 0.5,
+          "start_date": "2026-04-20",
+          "end_date": "2026-04-20",
+          "supporter": "Linh",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16361_VNCS_SME_SME-TF-BPMCTQT_SME-TF-BPM-PAYROLL US2. Điều chỉnh giao diện phương án Payroll",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-04-20",
+          "end_date": "2026-04-20",
+          "supporter": "Linh",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16362_VNCS_Không thuộc Nhà máy_CMV TEAM B_Cảnh báo SLA tại Hồ sơ đến và Hồ sơ tổng",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-04-20",
+          "end_date": "2026-04-20",
+          "supporter": "QA",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16386_VNCS_Không thuộc Nhà máy_Xét duyệt_Request Pentest: Phát triển luồng Rút/Hủy PA BPM KHDN",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-04-20",
+          "end_date": "2026-04-20",
+          "supporter": "QA",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16440_VNCS_Không thuộc Nhà máy_CMV TEAM B_Pentest Bổ sung tính năng Hết hiệu lực Đường và Đoạn đường không được sử dụng để xây dựng KGC",
+          "tong_api": 6,
+          "manday": 1,
+          "start_date": "2026-04-21",
+          "end_date": "2026-04-21",
+          "supporter": "QA",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16461_VNCS_Không thuộc Nhà máy_Không thuộc Nhà máy_Không thuộc team Agile_Không thuộc team Agile_Bổ sung tính năng xuất dữ liệu theo lô vs Log app/biz và Sao kê",
+          "tong_api": 11,
+          "manday": 1.5,
+          "start_date": "2026-04-21",
+          "end_date": "2026-04-22",
+          "supporter": "QA",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16453_VNCS_CRM KHDN - Xuất excel lead - Bổ sung cụm thông tin lịch sử hoạt động",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-04-23",
+          "end_date": "2026-04-23",
+          "supporter": "QA",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16451_VNCS_CRM KHDN - KPI theo lô, Phân giao theo lô",
+          "tong_api": 7,
+          "manday": 1,
+          "start_date": "2026-04-24",
+          "end_date": "2026-04-24",
+          "supporter": "QA",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16464_VNCS_Pentest chức năng import Dữ liệu/báo cáo và đính kèm file trên Module Tập Đoàn (PL1.6)",
+          "tong_api": 4,
+          "manday": 0.5,
+          "start_date": "2026-04-22",
+          "end_date": "2026-04-22",
+          "supporter": "Ngọc",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16455_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Pentest hệ thống DCMS _ Chức năng Tài khoản thanh toán _ QR và thu hộ",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-04-22",
+          "end_date": "2026-04-22",
+          "supporter": "Ngọc",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16418_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Không thuộc Nhà máy_Không thuộc team Agile_Không thuộc Nhà máy_Phòng Ngân hàng lõi_Pentest Bổ sung API lấy thông tin limit và holiday từ MBTB",
+          "tong_api": 2,
+          "manday": 0.5,
+          "start_date": "2026-04-23",
+          "end_date": "2026-04-24",
+          "supporter": "Linh",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16433_VNCS_MBAMT - Điều chỉnh phê duyệt Leader Cab",
+          "tong_api": 12,
+          "manday": 2,
+          "start_date": "2026-04-23",
+          "end_date": "2026-04-24",
+          "supporter": "Linh",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16302_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Đánh giá pentest Tích hợp Risk service luồng vay qua app để quét kịch bản TD_KHDN.05",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-04-21",
+          "end_date": "2026-04-21",
+          "supporter": "Ngọc",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16498_VNCS_Không thuộc Nhà máy_CMV TEAM A_Không thuộc Nhà máy_CMV TEAM A_Không thuộc Nhà máy_CMV TEAM A_Pentest đánh dấu Channel đầu CMV",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-04-22",
+          "end_date": "2026-04-22",
+          "supporter": "Ngọc",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16472_VNCS_Không thuộc Nhà máy_CRM_KHCN_[CẢI TIẾN MÀN CHI TIẾT: SỬA CÁC LOGIC TÍNH TOÁN + PHÊ DUYỆT VÀ BỔ SUNG BẢNG SP GỢI Ý BÁN",
+          "tong_api": 5,
+          "manday": 1,
+          "start_date": "2026-04-23",
+          "end_date": "2026-04-23",
+          "supporter": "Linh",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16352_VNCS_Pentest API crawl thông tin bố cáo điện tử về đăng ký doanh nghiệp",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-04-23",
+          "end_date": "2026-04-23",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16531_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Pentest hệ thống DCMS _ Quản trị callback",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-04-23",
+          "end_date": "2026-04-24",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        }
+      ]
+    },
+    {
+      "week_id": "2026-04-28_to_2026-04-29",
+      "start_date": "2026-04-28",
+      "end_date": "2026-04-29",
+      "total_manday": 2,
+      "items": [
+        {
+          "ten_pyc": "PENTEST_16305_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Đánh giá pentest kịch bản TDKHCN13, TDKHCN14",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-04-24",
+          "end_date": "2026-04-28",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16487_VNCS_RETAIL_BPM KHCN - Xây dựng luồng giám sát tín dụng",
+          "tong_api": 5,
+          "manday": 1,
+          "start_date": "2026-04-24",
+          "end_date": "2026-04-29",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16548_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Pentest API tích hợp kéo file ghi âm Avaya",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-04-24",
+          "end_date": "2026-04-29",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        }
+      ]
+    },
+    {
+      "week_id": "2026-05-04_to_2026-05-08",
+      "start_date": "2026-05-04",
+      "end_date": "2026-05-08",
+      "total_manday": 15,
+      "items": [
+        {
+          "ten_pyc": "PENTEST_16596_VNCS_Pentest hệ thống DCMS_ Tổng hợp báo cáo cho khối dữ liệu",
+          "tong_api": 2,
+          "manday": 0.5,
+          "start_date": "2026-05-04",
+          "end_date": "2026-05-04",
+          "supporter": "QA",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16608_VNCS_Không thuộc Nhà máy_Pentest Beegen Tín Dụng",
+          "tong_api": 10,
+          "manday": 1.5,
+          "start_date": "2026-05-04",
+          "end_date": "2026-05-05",
+          "supporter": "QA",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16558_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Không thuộc Nhà máy_Không thuộc team Agile_Tổng hợp và xử lý dữ liệu vi phạm hệ thống CMMS",
+          "tong_api": 8,
+          "manday": 1.5,
+          "start_date": "2026-05-04",
+          "end_date": "2026-05-05",
+          "supporter": "QA",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16666_VNCS_Không thuộc Nhà máy_Sài Gòn_Sài Gòn_Pentest chức năng upload hồ sơ nhân sự - module quản lý thông tin cá nhân",
+          "tong_api": 4,
+          "manday": 0.5,
+          "start_date": "2026-05-05",
+          "end_date": "2026-05-05",
+          "supporter": "Ngọc",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16667_VNCS_Không thuộc Nhà máy_Xét duyệt_Luồng phát hành bảo lãnh thanh toán online",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-05-05",
+          "end_date": "2026-05-05",
+          "supporter": "Ngọc",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16609_VNCS_Không thuộc Nhà máy_Pentest ứng dụng Context Understanding Agent",
+          "tong_api": 80,
+          "manday": 6,
+          "start_date": "2026-05-05",
+          "end_date": "2026-05-08",
+          "supporter": "Ngọc",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16628_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_[APP][WEB] Cơ hội bán - Cảnh báo refer bancas theo TT67. Bổ sung thông tin mua HDBH",
+          "tong_api": 2,
+          "manday": 0.5,
+          "start_date": "2026-05-06",
+          "end_date": "2026-05-06",
+          "supporter": "Linh",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16671_VNCS_Không thuộc Nhà máy_MBAMT_Cải tiến + Điều phối nhân sự golive",
+          "tong_api": 20,
+          "manday": 2,
+          "start_date": "2026-05-06",
+          "end_date": "2026-05-07",
+          "supporter": "Ngọc",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16685_VNCS_SME_SME-TF-BPMCTQT_SME_SME-TF-BPMCTQT_SME-TF-BPM-PAYROLL Điều chỉnh rule chia bài & luồng hạch toán GD STP",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-05-05",
+          "end_date": "2026-05-05",
+          "supporter": "Linh",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16696_VNCS_Không thuộc Nhà máy_BPM KHDN chuyển đổi_Không thuộc Nhà máy_BPM KHDN chuyển đổi_Không thuộc Nhà máy_BPM KHDN Luồng kiểm soát định kỳ ver 2",
+          "tong_api": 4,
+          "manday": 0.5,
+          "start_date": "2026-05-05",
+          "end_date": "2026-05-05",
+          "supporter": "Linh",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16664_VNCS_Không thuộc team Agile_[App CBQL - Chiến dịch] Dashboard cơ hội bán",
+          "tong_api": 2,
+          "manday": 0.5,
+          "start_date": "2026-05-07",
+          "end_date": "2026-05-08",
+          "supporter": "Linh",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16614_VNCS_Không thuộc Nhà máy_Xét duyệt_[Upper/CIB]_Phụ lục Phương án cấp tín dụng Xanh",
+          "tong_api": 2,
+          "manday": 0.5,
+          "start_date": "2026-05-04",
+          "end_date": "2026-05-04",
+          "supporter": "QA",
+          "status": "Đã tạo nhóm"
+        }
+      ]
+    },
+    {
+      "week_id": "2026-05-11_to_2026-05-15",
+      "start_date": "2026-05-11",
+      "end_date": "2026-05-15",
+      "total_manday": 18,
+      "items": [
+        {
+          "ten_pyc": "PENTEST_16766_VNCS_Pentest Cải tiến quản lý đào tạo: trạng thái",
+          "tong_api": 2,
+          "manday": 0.5,
+          "start_date": "2026-05-11",
+          "end_date": "2026-05-11",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16762_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Chương trình kiểm toán - Khắc phục chỉnh sửa - Hệ thống Core Kiểm toán nội bộ",
+          "tong_api": 15,
+          "manday": 2,
+          "start_date": "2026-05-11",
+          "end_date": "2026-05-12",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16795_VNCS_Không thuộc Nhà máy_M-office_Phiếu yêu cầu pentest hệ thống MO golive lần 1 tháng 5",
+          "tong_api": 19,
+          "manday": 2.5,
+          "start_date": "2026-05-11",
+          "end_date": "2026-05-12",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16783_VNCS_Không thuộc Nhà máy_CMV TEAM B_Không thuộc Nhà máy_CMV TEAM B_Pentest Bổ sung trường Nhóm khách hàng, ẩn trường Nhóm CĐT và các cải tiến khác",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-05-11",
+          "end_date": "2026-05-11",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16776_VNCS_Không thuộc Nhà máy_CMV TEAM B_Cảnh báo biến động giá",
+          "tong_api": 6,
+          "manday": 1,
+          "start_date": "2026-05-11",
+          "end_date": "2026-05-12",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16800_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Không thuộc Nhà máy_CRM_KHDN_Xây dựng chức năng Phong tỏa - Thu phí - Kí quỹ tiền tạm ứng",
+          "tong_api": 4,
+          "manday": 0.5,
+          "start_date": "2026-05-12",
+          "end_date": "2026-05-12",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16739_VNCS_SME_SME-TF-BPMCTQT_STP đối với giao dịch kênh BIZ và Mục đích giao dịch TTR Trả trước",
+          "tong_api": 4,
+          "manday": 0.5,
+          "start_date": "2026-05-12",
+          "end_date": "2026-05-13",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16790_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Không thuộc Nhà máy_Không thuộc team Agile_Không thuộc Nhà máy_Không thuộc team Agile_Bổ sung UQ CCTG cho KHDN",
+          "tong_api": 6,
+          "manday": 1,
+          "start_date": "2026-05-12",
+          "end_date": "2026-05-13",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16833_VNCS_Không thuộc Nhà máy_Smart Channel A_Định danh hộ kinh doanh",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-05-12",
+          "end_date": "2026-05-12",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16816_VNCS_Không thuộc Nhà máy_Phòng Công nghệ dịch vụ số_Pentest màn hình report trả góp theo dư nợ + theo giao dịch",
+          "tong_api": 4,
+          "manday": 0.5,
+          "start_date": "2026-05-11",
+          "end_date": "2026-05-12",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16845_VNCS_Không thuộc Nhà máy_CMV TEAM B_Pentest Chỉnh sửa luồng Định giá, Tư vấn giá, Xử lý nợ từ AMC sang VACOM",
+          "tong_api": 9,
+          "manday": 1.5,
+          "start_date": "2026-05-12",
+          "end_date": "2026-05-13",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16808_VNCS_Không thuộc Nhà máy_Pentest chức năng Chứng từ không dùng tiền mặt",
+          "tong_api": 4,
+          "manday": 0.5,
+          "start_date": "2026-05-13",
+          "end_date": "2026-05-14",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16781_VNCS_Không thuộc Nhà máy_CRM_KHCN_Pentest tính năng KYC khách hàng Private",
+          "tong_api": 2,
+          "manday": 0.5,
+          "start_date": "2026-05-14",
+          "end_date": "2026-05-14",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16842_VNCS_Không thuộc Nhà máy_Pentest API tích hợp lấy thông tin CTV",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-05-13",
+          "end_date": "2026-05-13",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16811_VNCS_Không thuộc Nhà máy_SmartScan1 - Xử lý hồ sơ tại Sàn, ECM_Không thuộc Nhà máy_ECM_Pentest luồng Junior SmartScan & Data Process & API upload lưu trữ mảng",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-05-13",
+          "end_date": "2026-05-14",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16843_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Danh mục nghĩa vụ tuân thủ - Module nghĩa vụ tuân thủ - Hệ thống Quản lý và giám sát tuân thủ - Khối KTKSNB",
+          "tong_api": 18,
+          "manday": 2.5,
+          "start_date": "2026-05-13",
+          "end_date": "2026-05-14",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16891_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Phiếu yêu cầu pentest hệ thống AdminService golive lần tháng 5",
+          "tong_api": 10,
+          "manday": 1.5,
+          "start_date": "2026-05-13",
+          "end_date": "2026-05-14",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16897_VNCS_Số hóa luồng nhập kho Ấn chỉ",
+          "tong_api": 13,
+          "manday": 0,
+          "start_date": "2026-05-15",
+          "end_date": "2026-05-18",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16989_VNCS_Không thuộc Nhà máy_Monitoring_Pentest các tính năng cải tiến",
+          "tong_api": 23,
+          "manday": 0.5,
+          "start_date": "2026-05-15",
+          "end_date": "2026-05-19",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17056_VNCS_Không thuộc Nhà máy_CMV TEAM B_Cảnh báo biến động giá của tài sản",
+          "tong_api": 9,
+          "manday": 0.5,
+          "start_date": "2026-05-19",
+          "end_date": "2026-05-20",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        }
+      ]
+    },
+    {
+      "week_id": "2026-05-18_to_2026-05-22",
+      "start_date": "2026-05-18",
+      "end_date": "2026-05-22",
+      "total_manday": 18,
+      "items": [
+        {
+          "ten_pyc": "PENTEST_16897_VNCS_Số hóa luồng nhập kho Ấn chỉ",
+          "tong_api": 13,
+          "manday": 0,
+          "start_date": "2026-05-15",
+          "end_date": "2026-05-18",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16989_VNCS_Không thuộc Nhà máy_Monitoring_Pentest các tính năng cải tiến",
+          "tong_api": 23,
+          "manday": 2.5,
+          "start_date": "2026-05-15",
+          "end_date": "2026-05-19",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16956_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Tìm kiếm, cập nhật, xuất excel, đóng phiếu phục vụ RPA",
+          "tong_api": 10,
+          "manday": 1.5,
+          "start_date": "2026-05-15",
+          "end_date": "2026-05-19",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16901_VNCS_MBL - Chức năng SA tool",
+          "tong_api": 42,
+          "manday": 5,
+          "start_date": "2026-05-18",
+          "end_date": "2026-05-22",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16974_VNCS_Không thuộc Nhà máy_CMV TEAM A_Không thuộc Nhà máy_CMV TEAM B_Không thuộc Nhà máy_CMV TEAM A_Pentest tăng dung lượng file upload",
+          "tong_api": 9,
+          "manday": 1.5,
+          "start_date": "2026-05-18",
+          "end_date": "2026-05-19",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17028_VNCS_Không thuộc Nhà máy_CMV TEAM A_Pentest Service getListPAHoanThienTsbd cung cấp cho BPM và Fix lỗi cải tiến nội bộ",
+          "tong_api": 2,
+          "manday": 0.5,
+          "start_date": "2026-05-18",
+          "end_date": "2026-05-18",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17029_VNCS_Không thuộc Nhà máy_CMV TEAM A_Pentest Tự động cập nhật ĐGL định kỳ chuyên gia và điều chỉnh logic cập nhật định giá - TS QTS và MMTB",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-05-18",
+          "end_date": "2026-05-18",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17057_VNCS_RETAIL_ SMART BPM KHCN_QTVH_BPM Thẻ - Bổ sung luồng phát hành thẻ ngoại lệ",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-05-18",
+          "end_date": "2026-05-19",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17051_VNCS_MS NHLK - Pentest phát triển xây dựng chức năng phục vụ lưu ký kết nối VSD KRX",
+          "tong_api": 20,
+          "manday": 2.5,
+          "start_date": "2026-05-19",
+          "end_date": "2026-05-21",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17065_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_[WEB CRM] Quản lý tiềm năng bán - Cải tiến bộ lọc Dashboard danh sách chi tiết",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-05-20",
+          "end_date": "2026-05-20",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17056_VNCS_Không thuộc Nhà máy_CMV TEAM B_Cảnh báo biến động giá của tài sản",
+          "tong_api": 9,
+          "manday": 1,
+          "start_date": "2026-05-19",
+          "end_date": "2026-05-20",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17030_VNCS_Không thuộc Nhà máy_Cải tiến nội bộ các tính năng trên MBTB",
+          "tong_api": 2,
+          "manday": 0.5,
+          "start_date": "2026-05-19",
+          "end_date": "2026-05-19",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17071_VNCS_RETAIL_SMART BPM KHCN_QTPD_Cải tiến quy trình phê duyệt 260515",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-05-19",
+          "end_date": "2026-05-19",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17119_VNCS_Sài Gòn_Pentest chức năng Thiết lập chỉ tiêu - module Ssv-new",
+          "tong_api": 9,
+          "manday": 1,
+          "start_date": "2026-05-21",
+          "end_date": "2026-05-22",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        }
+      ]
+    },
+    {
+      "week_id": "2026-05-25_to_2026-05-29",
+      "start_date": "2026-05-25",
+      "end_date": "2026-05-29",
+      "total_manday": 23,
+      "items": [
+        {
+          "ten_pyc": "PENTEST_17119_VNCS_Sài Gòn_Pentest chức năng Thiết lập chỉ tiêu - module Ssv-new",
+          "tong_api": 9,
+          "manday": 0.5,
+          "start_date": "2026-05-21",
+          "end_date": "2026-05-22",
+          "supporter": "Ngọc",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17150_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Chỉnh sửa các module hệ thống IAS - Hệ thống Core Kiểm toán nội bộ",
+          "tong_api": 8,
+          "manday": 1.5,
+          "start_date": "2026-05-25",
+          "end_date": "2026-05-26",
+          "supporter": "QA",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17155_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Quản lý phê duyệt thông tin vi phạm và đẩy dữ liệu kafka",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-05-25",
+          "end_date": "2026-05-27",
+          "supporter": "Ngọc",
+          "status": "Đã tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17132_VNCS_Luồng thanh lý tài sản Pams 2.0",
+          "tong_api": 49,
+          "manday": 4.5,
+          "start_date": "2026-05-26",
+          "end_date": "2026-05-29",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17137_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Module nghĩa vụ tuân thủ - Hệ thống Quản lý và giám sát tuân thủ - Khối KTKSNB (CMMS)",
+          "tong_api": 114,
+          "manday": 9,
+          "start_date": "2026-05-25",
+          "end_date": "2026-05-29",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_16897_VNCS_Số hóa luồng nhập kho Ấn chỉ",
+          "tong_api": 13,
+          "manday": 2,
+          "start_date": "2026-05-26",
+          "end_date": "2026-05-28",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17201_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Pentest hệ thống DCMS _ Chứng chỉ tiền gửi",
+          "tong_api": 2,
+          "manday": 0.5,
+          "start_date": "2026-05-26",
+          "end_date": "2026-05-27",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17223_VNCS_Không thuộc Nhà máy_CMV TEAM B_Chuyển đổi API dùng cho app khảo sát AMC từ webapp sang ms012-provider",
+          "tong_api": 12,
+          "manday": 2,
+          "start_date": "2026-05-26",
+          "end_date": "2026-05-27",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17235_VNCS_Không thuộc Nhà máy_Không thuộc team Agile- Không thuộc Nhà máy_Không thuộc team Agile_Thực hiện đánh giá PENTEST cho dự án QArs Phase 2 - RELEASE 2",
+          "tong_api": 18,
+          "manday": 2.5,
+          "start_date": "2026-05-27",
+          "end_date": "2026-05-28",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        }
+      ]
+    },
+    {
+      "week_id": "2026-06-01_to_2026-06-05",
+      "start_date": "2026-06-01",
+      "end_date": "2026-06-05",
+      "total_manday": 17.5,
+      "items": [
+        {
+          "ten_pyc": "PENTEST_17262_VNCS_MBL - Chức năng tích hợp Jenkins",
+          "tong_api": 9,
+          "manday": 1.5,
+          "start_date": "2026-06-01",
+          "end_date": "2026-06-02",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17326_VNCS_Không thuộc Nhà máy_CMV TEAM A_Không thuộc Nhà máy_CMV TEAM A_Pentest Tự động cập nhật ĐGL định kỳ chuyên gia và điều chỉnh logic cập nhật định giá - TS PTVT, GTCG, Hàng hóa và Quyền đòi nợ",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-06-01",
+          "end_date": "2026-06-01",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17387_VNCS_Không thuộc Nhà máy_Triển khai tín dụng_BPM KHDN-Điều chỉnh cấu hình lấy danh sách Limit KHOL TBPD v2",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-06-01",
+          "end_date": "2026-06-01",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17325_VNCS_Không thuộc Nhà máy_CMV TEAM B_Chuyển đổi micro service 004, 006",
+          "tong_api": 19,
+          "manday": 2.5,
+          "start_date": "2026-06-01",
+          "end_date": "2026-06-03",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17418_VNCS_MBL - Chức năng cung cấp thông tin logical cho CMDB",
+          "tong_api": 4,
+          "manday": 0.5,
+          "start_date": "2026-06-02",
+          "end_date": "2026-06-04",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17450_VNCS_ITCMDB_Pentest tính năng Discovery Kafka và cải tiến",
+          "tong_api": 27,
+          "manday": 4,
+          "start_date": "2026-06-02",
+          "end_date": "2026-06-05",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17469_VNCS_Cải tiến cấp phát theo yêu cầu của TT vận hành số thẻ",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-06-01",
+          "end_date": "2026-06-03",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17483_VNCS_Không thuộc Nhà máy_MBAMT_Tính năng khảo sát người dùng và cải tiến",
+          "tong_api": 17,
+          "manday": 2,
+          "start_date": "2026-06-04",
+          "end_date": "2026-06-05",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17509_VNCS_SME_SME-TF-BPMCTQT_Chỉnh sửa logic nhận diện khách hàng FDI",
+          "tong_api": 4,
+          "manday": 0.5,
+          "start_date": "2026-06-04",
+          "end_date": "2026-06-04",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17521_VNCS_SME_SME-TF-BPMCTQT_STP KHDN: Giao dịch kênh Quầy + Mục đích giao dịch TTR Trả trước",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-06-04",
+          "end_date": "2026-06-04",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17512_VNCS_SmartChannel – CTNB Mapping mã lỗi từ Ebank và Biz",
+          "tong_api": 9,
+          "manday": 1.5,
+          "start_date": "2026-06-04",
+          "end_date": "2026-06-05",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17235_VNCS_Không thuộc Nhà máy_Không thuộc team Agile- Không thuộc Nhà máy_Không thuộc team Agile_Thực hiện đánh giá PENTEST cho dự án QArs Phase 2 - RELEASE 2",
+          "tong_api": 18,
+          "manday": 0.5,
+          "start_date": "2026-05-27",
+          "end_date": "2026-05-28",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17137_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Module nghĩa vụ tuân thủ - Hệ thống Quản lý và giám sát tuân thủ - Khối KTKSNB (CMMS)",
+          "tong_api": 114,
+          "manday": 0.5,
+          "start_date": "2026-05-25",
+          "end_date": "2026-05-29",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17132_VNCS_Luồng thanh lý tài sản Pams 2.0",
+          "tong_api": 49,
+          "manday": 2,
+          "start_date": "2026-05-26",
+          "end_date": "2026-05-29",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        }
+      ]
+    },
+    {
+      "week_id": "2026-06-08_to_2026-06-12",
+      "start_date": "2026-06-08",
+      "end_date": "2026-06-12",
+      "total_manday": 20,
+      "items": [
+        {
+          "ten_pyc": "PENTEST_17152_VNCS_Sài Gòn_Pentest chức năng Bee Hi - Hỗ trợ người dùng - module cổng tiếp nhận",
+          "tong_api": 11,
+          "manday": 0.5,
+          "start_date": "2026-06-05",
+          "end_date": "2026-06-05",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17450_VNCS_ITCMDB_Pentest tính năng Discovery Kafka và cải tiến",
+          "tong_api": 27,
+          "manday": 0.5,
+          "start_date": "2026-06-02",
+          "end_date": "2026-06-05",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17521_VNCS_SME_SME-TF-BPMCTQT_STP KHDN: Giao dịch kênh Quầy + Mục đích giao dịch TTR Trả trước",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-06-04",
+          "end_date": "2026-06-04",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17631_VNCS_Không thuộc Nhà máy_PAMS2_Pentest Tính năng gửi email cho chức năng up NS KH",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-06-08",
+          "end_date": "2026-06-08",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17417_VNCS_CRM KHDN - Cài đặt lãi suất SCF",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-06-08",
+          "end_date": "2026-06-08",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17522_VNCS_Không thuộc Nhà máy_CMV TEAM B_Không thuộc Nhà máy_CMV TEAM B_Không thuộc Nhà máy_CMV TEAM B_Pentest Chuyển đổi ms chức năng khởi tạo PĐN",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-06-08",
+          "end_date": "2026-06-08",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17586_VNCS_Không thuộc Nhà máy_CMV TEAM B_Chuyển API từ webapp -> ms009",
+          "tong_api": 21,
+          "manday": 2.5,
+          "start_date": "2026-06-08",
+          "end_date": "2026-06-10",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17592_VNCS_[Web] Cơ hội bán - Luồng tạo cơ hội bán từ CRM - Mini App tín dụng",
+          "tong_api": 5,
+          "manday": 1,
+          "start_date": "2026-06-09",
+          "end_date": "2026-06-09",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17594_VNCS_Không thuộc team Agile_[WEB]Luồng thêm KH vào chiến dịch từ gợi ý bán KHCN",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-06-09",
+          "end_date": "2026-06-09",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17615_VNCS_Không thuộc Nhà máy_CMV TEAM A_Không thuộc Nhà máy_CMV TEAM A_Không thuộc Nhà máy_CMV TEAM A_Pentest Điều chỉnh logic vào kho tự động - AT, Chuyên gia, Nhận TSBĐ",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-06-09",
+          "end_date": "2026-06-09",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17665_VNCS_PAMS2_Cải tiến hạch toán dự phòng phần mail, attach hồ sơ và kiểm tra dữ liệu",
+          "tong_api": 5,
+          "manday": 0.5,
+          "start_date": "2026-06-08",
+          "end_date": "2026-06-08",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17687_VNCS_RETAIL_ SMART BPM KHCN_QTVH_BPM KHCN - Các yêu cầu cải tiến quy trình phê duyệt, vận hành",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-06-10",
+          "end_date": "2026-06-10",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17707_VNCS_Không thuộc Nhà máy_PAMS_Pentest chức năng Thanh toán Đề nghị dự chi",
+          "tong_api": 5,
+          "manday": 1,
+          "start_date": "2026-06-11",
+          "end_date": "2026-06-11",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17708_VNCS_Không thuộc Nhà máy_KHDL&BIGDATA_Pentest API chi tiêu, dành dụm cho App BeeRich",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-06-10",
+          "end_date": "2026-06-10",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17714_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Cải tiến chặn ngày hết hạn và KH HKD nghiệp vụ tiết kiệm",
+          "tong_api": 11,
+          "manday": 1.5,
+          "start_date": "2026-06-09",
+          "end_date": "2026-06-10",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17769_VNCS_Cải tiến module đồng phục bổ sung chốt phê duyệt tại chi nhánh",
+          "tong_api": 8,
+          "manday": 1,
+          "start_date": "2026-06-10",
+          "end_date": "2026-06-10",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17773_VNCS_Không thuộc Nhà máy_Xét duyệt_Econtract- Chia bài ký số",
+          "tong_api": 2,
+          "manday": 0.5,
+          "start_date": "2026-06-10",
+          "end_date": "2026-06-10",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17780_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Truy vấn ma trận phân quyền",
+          "tong_api": 9,
+          "manday": 0.5,
+          "start_date": "2026-06-10",
+          "end_date": "2026-06-11",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17961_VNCS_PENTEST hệ thống M-Office tháng 6",
+          "tong_api": 11,
+          "manday": 1.5,
+          "start_date": "2026-06-11",
+          "end_date": "2026-06-12",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17783_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Pentest các chức năng hệ thống Core KTNB",
+          "tong_api": 143,
+          "manday": 2,
+          "start_date": "2026-06-11",
+          "end_date": "2026-06-15",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17754_VNCS_Không thuộc Nhà máy_CMV TEAM B_Điều chỉnh các trường thông tin trên màn hình định giá",
+          "tong_api": 13,
+          "manday": 2,
+          "start_date": "2026-06-11",
+          "end_date": "2026-06-12",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17757_VNCS_Không thuộc Nhà máy_Triển khai tín dụng_BPM KHDN-Màn hình First Check Cam kết chuyển doanh thu",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-06-15",
+          "end_date": "2026-06-15",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17861_VNCS_PENTEST hệ thống M-Office tích hợp AI enterprise",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-06-11",
+          "end_date": "2026-06-11",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        }
+      ]
+    },
+    {
+      "week_id": "2026-06-15_to_2026-06-19",
+      "start_date": "2026-06-15",
+      "end_date": "2026-06-19",
+      "total_manday": 14.5,
+      "items": [
+        {
+          "ten_pyc": "PENTEST_17838_VNCS_Pentest tính năng Giới thiệu KHDN trên App Cộng tác viên",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-06-15",
+          "end_date": "2026-06-15",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17870_VNCS_PENTEST hệ thống M-Office cải tiến module con dấu",
+          "tong_api": 11,
+          "manday": 1,
+          "start_date": "2026-06-11",
+          "end_date": "2026-06-12",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17914_VNCS_Không thuộc Nhà máy_KHDL&BIGDATA_Pentest API tiết kiệm cho App BeeRich",
+          "tong_api": 2,
+          "manday": 0.5,
+          "start_date": "2026-06-16",
+          "end_date": "2026-06-16",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17960_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Chặn/cảnh báo phí tối thiểu khi mua Combo/Block trên SC",
+          "tong_api": 9,
+          "manday": 1,
+          "start_date": "2026-06-15",
+          "end_date": "2026-06-15",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_17766_VNCS_Sài Gòn_Pentest chức năng cải tiến thuế",
+          "tong_api": 5,
+          "manday": 1,
+          "start_date": "2026-06-16",
+          "end_date": "2026-06-16",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18026_VNCS_Uy quyền tài khoản thanh toán KHCN",
+          "tong_api": 4,
+          "manday": 0.5,
+          "start_date": "2026-06-15",
+          "end_date": "2026-06-16",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18029_VNCS_Không thuộc Nhà máy_Xét duyệt_[XUẤT_TSĐB] Điều chỉnh Luồng Xuất TSĐB bổ sung Cấp kiểm soát tại CN",
+          "tong_api": 6,
+          "manday": 1,
+          "start_date": "2026-06-16",
+          "end_date": "2026-06-16",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18044_VNCS_Không thuộc Nhà máy_Xét duyệt_Tích hợp mô hình phát hiện chữ ký giả mạo tại luồng xét duyệt Smart BPM",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-06-16",
+          "end_date": "2026-06-16",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18058_VNCS_Không thuộc Nhà máy_CMV TEAM A_Pentest Nhận gửi giữ BCT xe - Luồng nhập mới/Bổ sung",
+          "tong_api": 5,
+          "manday": 0.5,
+          "start_date": "2026-06-17",
+          "end_date": "2026-06-17",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18028_VNCS_Không thuộc Nhà máy_CMV TEAM B_Chỉnh sửa các trường thông tin trên màn hình định giá để tăng tỷ lệ tự động với các tài sản còn lại",
+          "tong_api": 14,
+          "manday": 2,
+          "start_date": "2026-06-16",
+          "end_date": "2026-06-17",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18054_VNCS_Không thuộc Nhà máy_Smart Channel A_Cải tiến định danh, hậu kiểm KH HKD",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-06-16",
+          "end_date": "2026-06-16",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18057_VNCS_SME_SME-TF-BPMCTQT_STP KHDN: Mục đích giao dịch TTR Trả sau",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-06-17",
+          "end_date": "2026-06-17",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18061_VNCS_thuộc Nhà máy_Không thuộc team Agile_CRM KHDN - Web - Điều chỉnh báo cáo Tín dụng, báo cáo Huy động vốn",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-06-17",
+          "end_date": "2026-06-17",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18069_VNCS_RETAIL_SMART BPM KHCN_QTPD_Gộp màn hình First check và khởi tạo",
+          "tong_api": 2,
+          "manday": 0.5,
+          "start_date": "2026-06-17",
+          "end_date": "2026-06-17",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18052_VNCS_Website Mbbank new – phase public internet",
+          "tong_api": 48,
+          "manday": 3,
+          "start_date": "2026-06-18",
+          "end_date": "2026-06-24",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18077_VNCS_Không thuộc Nhà máy_ITCMDB_Pentest tính năng Module dashboard và cải tiến",
+          "tong_api": 7,
+          "manday": 1,
+          "start_date": "2026-06-16",
+          "end_date": "2026-06-18",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        }
+      ]
+    },
+    {
+      "week_id": "2026-06-22_to_2026-06-26",
+      "start_date": "2026-06-22",
+      "end_date": "2026-06-26",
+      "total_manday": 25,
+      "items": [
+        {
+          "ten_pyc": "PENTEST_18052_VNCS_Website Mbbank new – phase public internet",
+          "tong_api": 48,
+          "manday": 5,
+          "start_date": "2026-06-18",
+          "end_date": "2026-06-22",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18118_VNCS_Mở khóa authen face",
+          "tong_api": 4,
+          "manday": 0.5,
+          "start_date": "2026-06-19",
+          "end_date": "2026-06-19",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18078_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Không thuộc Nhà máy_Không thuộc team Agile_Không thuộc Nhà máy_Không thuộc team Agile_Pentest API, Web cho Agent Tuân thủ",
+          "tong_api": 6,
+          "manday": 1.5,
+          "start_date": "2026-06-18",
+          "end_date": "2026-06-23",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18174_VNCS_Không thuộc Nhà máy_Pentest hệ thống M-Office Tích hợp PYC trên MO với Epic trên Jira",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-06-22",
+          "end_date": "2026-06-22",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18183_VNCS_PAMS2_Xây dựng chức năng nhập hóa đơn cho phần bàn giao",
+          "tong_api": 9,
+          "manday": 1.5,
+          "start_date": "2026-06-22",
+          "end_date": "2026-06-23",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18179_VNCS_Pentest API của QTRR",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-06-19",
+          "end_date": "2026-06-19",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18173_VNCS_Sài Gòn_Pentest chức năng Learning map - module quản lý đào tạo",
+          "tong_api": 6,
+          "manday": 1,
+          "start_date": "2026-06-22",
+          "end_date": "2026-06-22",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18206_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_CRM KHDN - Web - Cải tiến cảnh báo tín dụng",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-06-22",
+          "end_date": "2026-06-22",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18171_VNCS_RETAIL_ SMART BPM KHCN_QTVH_BPM KHCN - Các yêu cầu cải tiến quy trình vận hành",
+          "tong_api": 2,
+          "manday": 0.5,
+          "start_date": "2026-06-24",
+          "end_date": "2026-06-24",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18194_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Xây dựng module Tracker",
+          "tong_api": 10,
+          "manday": 1.5,
+          "start_date": "2026-06-24",
+          "end_date": "2026-06-25",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18205_VNCS_Không thuộc Nhà máy_Xét duyệt_BPMDN - Chỉnh sửa API lấy thông tin hồ sơ /get-bpm-loan-approval-dngv",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-06-23",
+          "end_date": "2026-06-23",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18184_VNCS_PAMS2_Cải tiến nhập kho: đồng bộ hóa đơn từ BBBG, Bổ sung phiếu nhập kho + Hạch toán hóa đơn nhập kho tài",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-06-24",
+          "end_date": "2026-06-24",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18123_VNCS_Không thuộc Nhà máy_PAMS2_PAMS_Pentest chức năng Trang thiết bị",
+          "tong_api": 21,
+          "manday": 2.5,
+          "start_date": "2026-06-23",
+          "end_date": "2026-06-24",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18226_VNCS_Không thuộc Nhà máy_CMV TEAM B_Cảnh báo SLA: tính toán SLA còn lại với luồng đồng bộ từ QR và app Khảo sát",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-06-24",
+          "end_date": "2026-06-25",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18088_VNCS_Pentest chức năng nộp thuế tại quầy trên TCS",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-06-25",
+          "end_date": "2026-06-26",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18265_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Pentest hệ thống DCMS _ Tích hợp Tracker",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-06-25",
+          "end_date": "2026-06-26",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18293_VNCS_Pentest tính năng Import Công việc trên M-Office",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-06-25",
+          "end_date": "2026-06-26",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18295_VNCS_PAMS2_API Tích hợp khởi tạo hợp đồng từ APP Cộng tác viên",
+          "tong_api": 4,
+          "manday": 1,
+          "start_date": "2026-06-25",
+          "end_date": "2026-06-26",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18269_VNCS_Không thuộc Nhà máy_Xét duyệt_[KHOL] Đồng bộ thông tin đối tác từ Kho đối tác KDL + mẫu biểu",
+          "tong_api": 3,
+          "manday": 0.5,
+          "start_date": "2026-06-24",
+          "end_date": "2026-06-25",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18256_VNCS_Không thuộc Nhà máy_CMV TEAM A_Nhận gửi giữ BCT xe - Luồng xuất/ Mượn / Gia hạn",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-06-26",
+          "end_date": "2026-06-26",
+          "supporter": "QA",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18258_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_[WEB] Import thông tin Keyselling point",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-06-24",
+          "end_date": "2026-06-25",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18264_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Pentest Python job POST API đẩy dữ liệu leads MB CMS sang MBro",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-06-26",
+          "end_date": "2026-06-30",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18283_VNCS_RETAIL_SMART BPM KHCN_QTPD_Cải tiến nguồn thu theo quy trình tín dụng",
+          "tong_api": 5,
+          "manday": 1,
+          "start_date": "2026-06-24",
+          "end_date": "2026-06-25",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18284_VNCS_Không thuộc Nhà máy_CMV TEAM B_Điều chỉnh logic Giấy đề nghị tư vấn qua Vacom",
+          "tong_api": 2,
+          "manday": 0.5,
+          "start_date": "2026-06-26",
+          "end_date": "2026-06-26",
+          "supporter": "Ngọc",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18335_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Chặn GTTT không hợp lệ trong luồng chuyển tiền trên SC",
+          "tong_api": 7,
+          "manday": 1,
+          "start_date": "2026-06-26",
+          "end_date": "2026-06-26",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18417_VNCS_[Moffice] Phiếu yêu cầu pentest chức năng con dấu điện tử",
+          "tong_api": 2,
+          "manday": 0.5,
+          "start_date": "2026-06-26",
+          "end_date": "2026-06-26",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        },
+        {
+          "ten_pyc": "PENTEST_18371_VNCS_Không thuộc Nhà máy_Không thuộc team Agile_Pentest chức năng chỉnh sửa API cảnh báo tín dụng",
+          "tong_api": 1,
+          "manday": 0.5,
+          "start_date": "2026-06-26",
+          "end_date": "2026-06-26",
+          "supporter": "Linh",
+          "status": "Chưa tạo nhóm"
+        }
+      ]
+    }
+  ]
+}
